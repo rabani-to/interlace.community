@@ -1,3 +1,40 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  background-color: black;
+  color: #fdfdfe;
+  letter-spacing: -0.03em;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+a,
+h1,
+h2,
+h3,
+button {
+  font-weight: 400;
+}
+
+strong {
+  font-weight: 500;
+}
+
+[data-type="texture"] {
+  background-image: url("/texture.png");
+  background-position: left;
+  background-size: 10rem;
+}
+
+[data-type="texture-wrapper"] {
+  background-image: url("/gradient.svg");
+  background-size: cover;
+  background-position: left center;
+}
+
+h1,
+h2 {
+  letter-spacing: -0.05em;
+}
