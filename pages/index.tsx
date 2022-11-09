@@ -8,15 +8,46 @@ import { FiArrowUpRight } from "react-icons/fi"
 import asset_profilerow from "@/assets/profilerow.png"
 import asset_ctaimage from "@/assets/ctaimage.png"
 import Contributors from "@/components/Contributors"
+import { useConnectModal } from "@rainbow-me/rainbowkit"
 
-function Button({ className, children, ...props }: ButtonHTMLAttributes<{}>) {
+function Button({
+  className,
+  children,
+  isLink,
+  ...props
+}: PropsWithChildren<
+  {
+    isLink?: boolean
+    target?: string
+    href?: string
+  } & ButtonHTMLAttributes<{}>
+>) {
+  const Wrapper = (isLink ? Link : "button") as any
   return (
-    <button
+    <Wrapper
       {...props}
       className={`${className} flex items-center space-x-1 text-xl px-4 py-3 rounded-lg`}
     >
       {children}
-    </button>
+    </Wrapper>
+  )
+}
+
+function noOp() {}
+function MagikConnect() {
+  const { openConnectModal = noOp } = useConnectModal()
+  function handleConnect() {
+    // Request to connect from wagmi client using magic.link rpc
+    openConnectModal()
+  }
+
+  return (
+    <Button
+      onClick={handleConnect}
+      className="bg-white font-bold text-black text-base"
+    >
+      Connect Wallet
+    </Button>
   )
 }
 
@@ -34,12 +65,15 @@ export default function Home() {
           <nav className="mt-16 z-10 py-3 flex bg-gradient-to-r from-transparent via-white/5 backdrop-blur-sm rounded-xl items-center space-x-2">
             <InterlaceLogo />
             <div className="flex flex-grow space-x-8 items-center justify-center">
-              <button>Explore Contributors</button>
+              <Link
+                target="_blank"
+                href="https://kryl7dqx6wo.typeform.com/to/P8EeBCob"
+              >
+                Explore Contributors
+              </Link>
               <button>Become a contributor</button>
             </div>
-            <Button className="bg-white font-bold text-black text-base">
-              Connect Wallet
-            </Button>
+            <MagikConnect />
           </nav>
           <div className="flex min-h-[calc(50vh+12rem)] mt-12 flex-grow items-center">
             <section className="w-full">
@@ -53,7 +87,12 @@ export default function Home() {
                   <span>Create Contributor Profile</span>
                   <FiArrowUpRight />
                 </Button>
-                <Button className="bg-white">
+                <Button
+                  isLink
+                  target="_blank"
+                  href="https://kryl7dqx6wo.typeform.com/to/P8EeBCob"
+                  className="bg-white"
+                >
                   <span>Explore Contributors</span>
                   <FiArrowUpRight />
                 </Button>
@@ -91,7 +130,12 @@ export default function Home() {
               objectives.
             </p>
             <Contributors />
-            <Button className="bg-black/60 mt-8 text-base text-white">
+            <Button
+              isLink
+              target="_blank"
+              href="https://kryl7dqx6wo.typeform.com/to/P8EeBCob"
+              className="bg-black/60 mt-8 text-base text-white"
+            >
               <span>Explore Contributors</span>
               <FiArrowUpRight />
             </Button>
@@ -167,13 +211,13 @@ function LayoutItem({
   className,
   as: ElementType,
 }: PropsWithChildren<{ as?: string; className?: string }>) {
-  const Container = (ElementType || "div") as any
+  const Wrapper = (ElementType || "div") as any
   return (
-    <Container
+    <Wrapper
       className={`flex flex-col w-full px-8 max-w-7xl mx-auto ${className}`}
     >
       {children}
-    </Container>
+    </Wrapper>
   )
 }
 
