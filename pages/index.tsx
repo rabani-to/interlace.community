@@ -1,55 +1,16 @@
-import type { ButtonHTMLAttributes, PropsWithChildren } from "react"
+import type { PropsWithChildren } from "react"
 import { Fragment } from "react"
 import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
 
 import { FiArrowUpRight } from "react-icons/fi"
+
 import asset_profilerow from "@/assets/profilerow.png"
 import asset_ctaimage from "@/assets/ctaimage.png"
 import Contributors from "@/components/Contributors"
-import { useConnectModal } from "@rainbow-me/rainbowkit"
-
-function Button({
-  className,
-  children,
-  isLink,
-  ...props
-}: PropsWithChildren<
-  {
-    isLink?: boolean
-    target?: string
-    href?: string
-  } & ButtonHTMLAttributes<{}>
->) {
-  const Wrapper = (isLink ? Link : "button") as any
-  return (
-    <Wrapper
-      {...props}
-      className={`${className} flex items-center space-x-1 text-xl px-4 py-3 rounded-lg`}
-    >
-      {children}
-    </Wrapper>
-  )
-}
-
-function noOp() {}
-function MagikConnect() {
-  const { openConnectModal = noOp } = useConnectModal()
-  function handleConnect() {
-    // Request to connect from wagmi client using magic.link rpc
-    openConnectModal()
-  }
-
-  return (
-    <Button
-      onClick={handleConnect}
-      className="bg-white font-bold text-black text-base"
-    >
-      Connect Wallet
-    </Button>
-  )
-}
+import ConnectButton from "@/components/ConnectButton"
+import Button from "@/components/Button"
 
 export default function Home() {
   return (
@@ -73,7 +34,7 @@ export default function Home() {
               </Link>
               <button>Become a contributor</button>
             </div>
-            <MagikConnect />
+            <ConnectButton />
           </nav>
           <div className="flex min-h-[calc(50vh+12rem)] mt-12 flex-grow items-center">
             <section className="w-full">
@@ -133,8 +94,9 @@ export default function Home() {
             <Button
               isLink
               target="_blank"
+              fontSize="text-base"
               href="https://kryl7dqx6wo.typeform.com/to/P8EeBCob"
-              className="bg-black/60 mt-8 text-base text-white"
+              className="bg-black/60 mt-8 text-white"
             >
               <span>Explore Contributors</span>
               <FiArrowUpRight />
@@ -197,6 +159,7 @@ function FooterLink({
     </Link>
   )
 }
+
 function InterlaceLogo() {
   return (
     <div className="flex items-center space-x-2">
