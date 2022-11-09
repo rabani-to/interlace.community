@@ -62,6 +62,7 @@ export default function Home() {
                 <Image
                   height={42}
                   placeholder="blur"
+                  className="overflow-hidden rounded-2xl"
                   alt=""
                   src={asset_profilerow}
                 />
@@ -73,7 +74,7 @@ export default function Home() {
             <section className="relative w-full h-[50vh]">
               <div className="absolute left-0 top-0">
                 <Image
-                  className="max-w-[50vw]"
+                  className="max-w-[50vw] rounded-3xl"
                   placeholder="blur"
                   alt=""
                   src={asset_ctaimage}

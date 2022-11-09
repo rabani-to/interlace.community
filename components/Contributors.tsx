@@ -21,7 +21,12 @@ function Contribution({
 }>) {
   return (
     <div className="flex items-center space-x-3 bg-black/60 py-4 pl-4 pr-6 font-bold text-xl rounded-full">
-      <Image className="w-10 h-10 rounded-full" alt="" src={imageSrc} />
+      <Image
+        placeholder="blur"
+        className="w-10 h-10 overflow-hidden rounded-full"
+        alt=""
+        src={imageSrc}
+      />
       <span>{children}</span>
     </div>
   )
