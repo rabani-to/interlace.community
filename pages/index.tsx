@@ -26,9 +26,9 @@ export default function Home() {
                 target="_blank"
                 href="https://kryl7dqx6wo.typeform.com/to/Srgs9NCE"
               >
-                Explore Contributors
+                Explore Talent
               </Link>
-              <button>Become a Contributor</button>
+              <button>Contribute to Web3</button>
             </div>
             <ConnectButton />
           </nav>
@@ -41,7 +41,7 @@ export default function Home() {
               </p>
               <div className="flex items-center space-x-4 text-black">
                 <Button className="bg-blue-300">
-                  <span>Create Contributor Profile</span>
+                  <span>Create Web3 Profile</span>
                   <FiArrowUpRight />
                 </Button>
                 <Button
@@ -50,7 +50,7 @@ export default function Home() {
                   href="https://kryl7dqx6wo.typeform.com/to/Srgs9NCE"
                   className="bg-white"
                 >
-                  <span>Explore Contributors</span>
+                  <span>Explore Talent</span>
                   <FiArrowUpRight />
                 </Button>
               </div>
