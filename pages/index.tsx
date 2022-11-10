@@ -113,20 +113,29 @@ export default function Home() {
             <div className="flex flex-col">
               <h3 className="text-lg mb-4">Community</h3>
               <FooterLink withIcon>Discord</FooterLink>
-              <FooterLink withIcon>Telegram</FooterLink>
-              <FooterLink withIcon>Twitter</FooterLink>
+              <FooterLink href="https://t.me/InterlaceHQ" withIcon>
+                Telegram
+              </FooterLink>
+              <FooterLink href="https://twitter.com/Interlacehq" withIcon>
+                Twitter
+              </FooterLink>
             </div>
             <div className="flex flex-col">
               <h3 className="text-lg mb-4">Support</h3>
-              <FooterLink>Community</FooterLink>
-              <FooterLink>Guidelines</FooterLink>
+              <FooterLink href="https://t.me/InterlaceHQ">Community</FooterLink>
               <FooterLink>Terms of Service</FooterLink>
             </div>
             <div className="flex flex-col">
               <h3 className="text-lg mb-4">Company</h3>
-              <FooterLink>About</FooterLink>
-              <FooterLink>Roadmap</FooterLink>
-              <FooterLink>Carreers</FooterLink>
+              <FooterLink href="https://interlace.notion.site/Executive-Summary-5c6ab5f141ac4c8a9bd71f136e720ff4">
+                About
+              </FooterLink>
+              <FooterLink href="https://interlace.notion.site/Milestones-a90d99c6e02045a8b16971b0c16212e9">
+                Roadmap
+              </FooterLink>
+              <FooterLink href="https://kryl7dqx6wo.typeform.com/to/BYD8iLX6">
+                Carreers
+              </FooterLink>
             </div>
           </div>
         </div>
@@ -142,13 +151,16 @@ export default function Home() {
 function FooterLink({
   withIcon,
   children,
+  href = "/#",
 }: PropsWithChildren<{
   withIcon?: boolean
+  href?: string
 }>) {
   return (
     <Link
+      target="_blank"
       className="flex items-center space-x-2 text-white/60 py-2 font-light"
-      href="/#"
+      href={href}
     >
       <span>{children}</span>
       {withIcon && <FiArrowUpRight />}
