@@ -21,7 +21,8 @@ export default function Home() {
         <GradientSection className="relative pb-[50vh]">
           <nav className="mt-16 z-10 py-3 flex bg-gradient-to-r from-transparent via-[#ffffff07] rounded-xl items-center space-x-2">
             <InterLaceLogo />
-            <div className="flex flex-grow space-x-8 items-center justify-center">
+            <div className="flex-grow lg:hidden"></div>
+            <div className="hidden flex-grow lg:flex space-x-8 items-center justify-center">
               <Link
                 target="_blank"
                 href="https://kryl7dqx6wo.typeform.com/to/Srgs9NCE"
@@ -33,13 +34,13 @@ export default function Home() {
             <ConnectButton />
           </nav>
           <div className="flex min-h-[calc(50vh+12rem)] mt-12 flex-grow items-center">
-            <section className="w-full">
-              <h2 className="text-5xl">Connect.Contribute.Build</h2>
+            <section className="z-[1] w-full text-center md:text-left">
+              <h2>Connect.Contribute.Build</h2>
               <p className="text-zinc-400 leading-relaxed text-xl mt-4 mb-8 max-w-xl">
                 Welcome to InterLace, where decentralized organizations can
                 connect with individual problem solvers by task.
               </p>
-              <div className="flex items-center space-x-4 text-black">
+              <div className="flex flex-col md:flex-row items-center gap-4 text-black">
                 <Button className="bg-blue-300">
                   <span>Create Web3 Profile</span>
                   <FiArrowUpRight />
@@ -54,7 +55,7 @@ export default function Home() {
                   <FiArrowUpRight />
                 </Button>
               </div>
-              <div className="flex mt-8 items-center space-x-4">
+              <div className="hidden md:flex mt-8 items-center space-x-4">
                 <Image
                   height={42}
                   placeholder="blur"
@@ -67,10 +68,10 @@ export default function Home() {
                 </p>
               </div>
             </section>
-            <section className="relative w-full h-[50vh]">
-              <div className="absolute left-0 top-0">
+            <section className="absolute md:relative w-full h-[50vh]">
+              <div className="absolute left-0 top-0 ml-[clamp(20vw,25%,90vw)] md:ml-0 mt-40 md:mt-0">
                 <Image
-                  className="max-w-[50vw] rounded-3xl"
+                  className="max-w-[40rem] min-w-[30rem] md:max-w-[50vw] rounded-3xl"
                   placeholder="blur"
                   alt=""
                   src={asset_ctaimage}
@@ -81,7 +82,7 @@ export default function Home() {
         </GradientSection>
         <GradientSection className="bg-darker pb-24">
           <div className="flex gap-4 flex-col items-center mt-16 text-center">
-            <h2 className="text-5xl">Contributor Community Skillsets</h2>
+            <h2>Contributor Community Skillsets</h2>
             <p className="text-zinc-400 leading-relaxed text-lg mt-2 mb-8 max-w-xl">
               With a team of experts around the globe, we take care of the small
               day-to-day tasks so you can focus on your main business
@@ -102,15 +103,15 @@ export default function Home() {
         </GradientSection>
       </main>
       <LayoutItem as="footer" className="pt-24 min-h-[10rem]">
-        <div className="flex space-x-4">
-          <div className=" flex-grow">
+        <div className="flex flex-col lg:flex-row gap-4">
+          <div className="flex-grow">
             <InterLaceLogo />
             <p className="mt-4 max-w-sm text-zinc-400 text-sm leading-relaxed">
               Our platform is built for decentralized organizations to connect
               with individual problem solvers.
             </p>
           </div>
-          <div className="flex space-x-4 justify-evenly flex-grow">
+          <div className="flex flex-wrap gap-12 justify-between lg:justify-evenly flex-grow">
             <div className="flex flex-col">
               <h3 className="text-lg mb-4">Community</h3>
               <FooterLink href="https://t.me/InterlaceHQ" withIcon>
