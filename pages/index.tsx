@@ -124,7 +124,7 @@ export default function Home() {
           </div>
           <div className="flex flex-wrap gap-12 justify-between lg:justify-evenly flex-grow">
             <div className="flex flex-col">
-              <h3 className="text-lg mb-4">Community</h3>
+              <h4 className="mb-4">Community</h4>
               <FooterLink href="https://t.me/InterlaceHQ" withIcon>
                 Telegram
               </FooterLink>
@@ -133,12 +133,12 @@ export default function Home() {
               </FooterLink>
             </div>
             <div className="flex flex-col">
-              <h3 className="text-lg mb-4">Support</h3>
+              <h4 className="mb-4">Support</h4>
               <FooterLink href="https://t.me/InterlaceHQ">Community</FooterLink>
               <FooterLink>Terms of Service</FooterLink>
             </div>
             <div className="flex flex-col">
-              <h3 className="text-lg mb-4">Company</h3>
+              <h4 className="mb-4">Company</h4>
               <FooterLink href="https://interlace.notion.site/Executive-Summary-5c6ab5f141ac4c8a9bd71f136e720ff4">
                 About
               </FooterLink>

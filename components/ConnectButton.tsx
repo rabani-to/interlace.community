@@ -23,7 +23,7 @@ function ConnectButton() {
       </Button>
       <PrimitiveDialog onClose={connectModal.turnOff} show={connectModal.isOn}>
         <section className="flex flex-col space-y-4 pb-8 text-center">
-          <h3 className="text-3xl mb-5 mt-8">How would you like to connect?</h3>
+          <h3 className="mb-5 mt-8">How would you like to connect?</h3>
           <Button
             onClick={handleWalletConnect}
             borderRadius="rounded-xl"
