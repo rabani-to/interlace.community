@@ -11,6 +11,7 @@ import Contributors from "@/components/Contributors"
 import ConnectButton from "@/components/ConnectButton"
 import Button from "@/components/Button"
 import SeoTags from "@/components/SeoTags"
+import InterLaceLogo from "@/components/InterLaceLogo"
 
 export default function Home() {
   return (
@@ -19,15 +20,15 @@ export default function Home() {
       <main>
         <GradientSection className="relative pb-[50vh]">
           <nav className="mt-16 z-10 py-3 flex bg-gradient-to-r from-transparent via-[#ffffff07] rounded-xl items-center space-x-2">
-            <InterlaceLogo />
+            <InterLaceLogo />
             <div className="flex flex-grow space-x-8 items-center justify-center">
               <Link
                 target="_blank"
-                href="https://kryl7dqx6wo.typeform.com/to/P8EeBCob"
+                href="https://kryl7dqx6wo.typeform.com/to/Srgs9NCE"
               >
                 Explore Contributors
               </Link>
-              <button>Become a contributor</button>
+              <button>Become a Contributor</button>
             </div>
             <ConnectButton />
           </nav>
@@ -46,7 +47,7 @@ export default function Home() {
                 <Button
                   isLink
                   target="_blank"
-                  href="https://kryl7dqx6wo.typeform.com/to/P8EeBCob"
+                  href="https://kryl7dqx6wo.typeform.com/to/Srgs9NCE"
                   className="bg-white"
                 >
                   <span>Explore Contributors</span>
@@ -91,7 +92,7 @@ export default function Home() {
               isLink
               target="_blank"
               fontSize="text-base"
-              href="https://kryl7dqx6wo.typeform.com/to/P8EeBCob"
+              href="https://kryl7dqx6wo.typeform.com/to/Srgs9NCE"
               className="bg-black/60 mt-8 text-white"
             >
               <span>Explore Contributors</span>
@@ -103,7 +104,7 @@ export default function Home() {
       <LayoutItem as="footer" className="pt-24 min-h-[10rem]">
         <div className="flex space-x-4">
           <div className=" flex-grow">
-            <InterlaceLogo />
+            <InterLaceLogo />
             <p className="mt-4 max-w-sm text-zinc-400 text-sm leading-relaxed">
               Our platform is built for decentralized organizations to connect
               with individual problem solvers.
@@ -112,7 +113,6 @@ export default function Home() {
           <div className="flex space-x-4 justify-evenly flex-grow">
             <div className="flex flex-col">
               <h3 className="text-lg mb-4">Community</h3>
-              <FooterLink withIcon>Discord</FooterLink>
               <FooterLink href="https://t.me/InterlaceHQ" withIcon>
                 Telegram
               </FooterLink>
@@ -134,7 +134,7 @@ export default function Home() {
                 Roadmap
               </FooterLink>
               <FooterLink href="https://kryl7dqx6wo.typeform.com/to/BYD8iLX6">
-                Carreers
+                Careers
               </FooterLink>
             </div>
           </div>
@@ -165,15 +165,6 @@ function FooterLink({
       <span>{children}</span>
       {withIcon && <FiArrowUpRight />}
     </Link>
-  )
-}
-
-function InterlaceLogo() {
-  return (
-    <div className="flex items-center space-x-2">
-      <figure className="bg-white w-10 h-10 rounded-full"></figure>
-      <h3 className="text-2xl">InterLace</h3>
-    </div>
   )
 }
 
