@@ -1,6 +1,4 @@
 import { Fragment } from "react"
-import Link from "next/link"
-import { FiArrowUpRight } from "react-icons/fi"
 
 import useOnOffMachine from "@/lib/hooks/useOnOffMachine"
 import PrimitiveDialog from "./PrimitiveModal"
@@ -32,7 +30,7 @@ function ConnectButton() {
           <Button
             isLink
             target="_blank"
-            href="/onboarding"
+            href="https://kryl7dqx6wo.typeform.com/to/Srgs9NCE"
             borderRadius="rounded-xl"
             className="bg-white py-5 justify-center font-bold text-black"
           >
