@@ -1,3 +1,7 @@
 # Interlace Community Platform
 
-Read more on https://www.interlace.community
+Find more on https://interlace.community
+
+## Links
+
+- Twitter: https://twitter.com/Interlacehq
