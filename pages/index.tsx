@@ -29,7 +29,13 @@ export default function Home() {
               >
                 Explore Talent
               </Link>
-              <button className="hover:text-white">Contribute to Web3</button>
+              <Link
+                className="hover:text-white"
+                target="_blank"
+                href="/onboarding"
+              >
+                Contribute to Web3
+              </Link>
             </div>
             <ConnectButton />
           </nav>
@@ -41,7 +47,12 @@ export default function Home() {
                 connect with individual problem solvers by task.
               </p>
               <div className="flex flex-col md:flex-row items-center gap-4 text-black">
-                <Button className="bg-blue-300">
+                <Button
+                  isLink
+                  target="_blank"
+                  href="/onboarding"
+                  className="bg-blue-300"
+                >
                   <span>Create Web3 Profile</span>
                   <AnimatedLinkArrow />
                 </Button>
