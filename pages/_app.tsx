@@ -2,6 +2,7 @@ import "@/styles/globals.css"
 import "@/styles/components.css"
 import "@rainbow-me/rainbowkit/styles.css"
 import type { AppProps } from "next/app"
+import Link from "next/link"
 
 import { Work_Sans } from "@next/font/google"
 import { WagmiConfig, createClient, chain, configureChains } from "wagmi"
@@ -59,5 +60,9 @@ export default function App({ Component, pageProps }: AppProps) {
 
 // Used to replace RainbowKit footer content
 function Disclaimer() {
-  return <p className="text-sm text-zinc-400">Connect to continue</p>
+  return (
+    <Link href="/" target="_blank" className="text-sm text-zinc-400">
+      interlace.community
+    </Link>
+  )
 }
