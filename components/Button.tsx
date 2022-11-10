@@ -27,7 +27,7 @@ function Button({
       className={classnames(
         className,
         fontSize || "text-xl",
-        borderRadius || " rounded-lg",
+        borderRadius || "rounded-lg",
         "flex items-center space-x-1 px-4 py-3"
       )}
     >
