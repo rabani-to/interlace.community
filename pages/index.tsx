@@ -3,8 +3,6 @@ import { Fragment } from "react"
 import Image from "next/image"
 import Link from "next/link"
 
-import { FiArrowUpRight } from "react-icons/fi"
-
 import asset_profilerow from "@/assets/profilerow.png"
 import asset_ctaimage from "@/assets/ctaimage.png"
 import Contributors from "@/components/Contributors"
@@ -12,6 +10,7 @@ import ConnectButton from "@/components/ConnectButton"
 import Button from "@/components/Button"
 import SeoTags from "@/components/SeoTags"
 import InterLaceLogo from "@/components/InterLaceLogo"
+import AnimatedLinkArrow from "@/components/AnimatedLinkArrow"
 
 export default function Home() {
   return (
@@ -22,14 +21,15 @@ export default function Home() {
           <nav className="mt-16 z-10 py-3 flex bg-gradient-to-r from-transparent via-[#ffffff07] rounded-xl items-center space-x-2">
             <InterLaceLogo />
             <div className="flex-grow lg:hidden"></div>
-            <div className="hidden flex-grow lg:flex space-x-8 items-center justify-center">
+            <div className="hidden text-white/80 flex-grow lg:flex space-x-8 items-center justify-center">
               <Link
+                className="hover:text-white"
                 target="_blank"
                 href="https://kryl7dqx6wo.typeform.com/to/Srgs9NCE"
               >
                 Explore Talent
               </Link>
-              <button>Contribute to Web3</button>
+              <button className="hover:text-white">Contribute to Web3</button>
             </div>
             <ConnectButton />
           </nav>
@@ -43,7 +43,7 @@ export default function Home() {
               <div className="flex flex-col md:flex-row items-center gap-4 text-black">
                 <Button className="bg-blue-300">
                   <span>Create Web3 Profile</span>
-                  <FiArrowUpRight />
+                  <AnimatedLinkArrow />
                 </Button>
                 <Button
                   isLink
@@ -52,7 +52,7 @@ export default function Home() {
                   className="bg-white"
                 >
                   <span>Explore Talent</span>
-                  <FiArrowUpRight />
+                  <AnimatedLinkArrow />
                 </Button>
               </div>
               <div className="hidden md:flex mt-8 items-center space-x-4">
@@ -97,7 +97,7 @@ export default function Home() {
               className="bg-black/60 mt-8 text-white"
             >
               <span>Explore Contributors</span>
-              <FiArrowUpRight />
+              <AnimatedLinkArrow />
             </Button>
           </div>
         </GradientSection>
@@ -164,7 +164,7 @@ function FooterLink({
       href={href}
     >
       <span>{children}</span>
-      {withIcon && <FiArrowUpRight className="group-hover:-translate-x-px" />}
+      {withIcon && <AnimatedLinkArrow />}
     </Link>
   )
 }

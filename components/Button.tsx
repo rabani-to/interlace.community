@@ -28,7 +28,8 @@ function Button({
         className,
         fontSize || "text-xl",
         borderRadius || "rounded-lg",
-        "flex items-center space-x-1 px-4 py-3"
+        "group flex items-center space-x-1 px-4 py-3 transition-all",
+        "hover:ring-2 hover:opacity-90 focus:ring-4 ring-white/5 active:scale-95"
       )}
     >
       {children}

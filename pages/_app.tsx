@@ -59,5 +59,5 @@ export default function App({ Component, pageProps }: AppProps) {
 
 // Used to replace RainbowKit footer content
 function Disclaimer() {
-  return <p className="text-black text-sm">Choose wallet to connect.</p>
+  return <p className="text-sm text-zinc-400">Connect to continue</p>
 }
