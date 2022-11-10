@@ -12,6 +12,7 @@ import asset_h from "@/assets/profiles/h.png"
 import asset_i from "@/assets/profiles/i.png"
 import asset_j from "@/assets/profiles/j.png"
 import asset_k from "@/assets/profiles/k.png"
+import { classnames } from "@/lib/helpers"
 
 function Contribution({
   children,
@@ -20,14 +21,19 @@ function Contribution({
   imageSrc: StaticImageData
 }>) {
   return (
-    <div className="flex items-center space-x-3 bg-black/60 py-4 pl-4 pr-6 font-bold text-xl rounded-full">
+    <div
+      className={classnames(
+        "py-2 pl-2 pr-5 md:py-4 md:pl-4 md:pr-6",
+        "flex items-center gap-3 bg-black/60 font-bold rounded-full"
+      )}
+    >
       <Image
         placeholder="blur"
         className="w-10 h-10 overflow-hidden rounded-full"
         alt=""
         src={imageSrc}
       />
-      <span>{children}</span>
+      <span className="lg:text-xl">{children}</span>
     </div>
   )
 }
