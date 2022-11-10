@@ -160,11 +160,11 @@ function FooterLink({
   return (
     <Link
       target="_blank"
-      className="flex items-center space-x-2 text-white/60 py-2 font-light"
+      className="group flex items-center space-x-2 text-white/60 hover:text-white/80 py-2 font-light"
       href={href}
     >
       <span>{children}</span>
-      {withIcon && <FiArrowUpRight />}
+      {withIcon && <FiArrowUpRight className="group-hover:-translate-x-px" />}
     </Link>
   )
 }
