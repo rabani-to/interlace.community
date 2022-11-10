@@ -11,6 +11,9 @@ module.exports = {
       fontWeight: {
         bold: 500,
       },
+      colors: {
+        darker: "#1E1E1E",
+      },
     },
   },
   plugins: [],

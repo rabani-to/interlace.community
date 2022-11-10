@@ -44,7 +44,7 @@ function PrimitiveDialog({
             <CloseButton onClose={onClose} />
             <Dialog.Panel
               data-type="texture"
-              className="w-screen max-w-xl transform rounded-t-[24px] md:rounded-b-[24px] bg-[#1E1E1E] py-6 px-8 text-left align-middle shadow-xl transition-all max-h-screen"
+              className="w-screen max-w-lg transform rounded-2xl bg-darker py-6 px-8 text-left align-middle shadow-xl transition-all max-h-screen"
             >
               {children}
             </Dialog.Panel>

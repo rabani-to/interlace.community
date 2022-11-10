@@ -18,7 +18,7 @@ export default function Home() {
       <SeoTags />
       <main>
         <GradientSection className="relative pb-[50vh]">
-          <nav className="mt-16 z-10 py-3 flex bg-gradient-to-r from-transparent via-white/5 backdrop-blur-sm rounded-xl items-center space-x-2">
+          <nav className="mt-16 z-10 py-3 flex bg-gradient-to-r from-transparent via-[#ffffff07] rounded-xl items-center space-x-2">
             <InterlaceLogo />
             <div className="flex flex-grow space-x-8 items-center justify-center">
               <Link
@@ -78,7 +78,7 @@ export default function Home() {
             </section>
           </div>
         </GradientSection>
-        <GradientSection className="bg-[#1E1E1E] pb-24">
+        <GradientSection className="bg-darker pb-24">
           <div className="flex gap-4 flex-col items-center mt-16 text-center">
             <h2 className="text-5xl">Contributor Community Skillsets</h2>
             <p className="text-zinc-400 leading-relaxed text-lg mt-2 mb-8 max-w-xl">
@@ -100,7 +100,7 @@ export default function Home() {
           </div>
         </GradientSection>
       </main>
-      <LayoutItem as="footer" className="bg-black pt-24 min-h-[10rem]">
+      <LayoutItem as="footer" className="pt-24 min-h-[10rem]">
         <div className="flex space-x-4">
           <div className=" flex-grow">
             <InterlaceLogo />

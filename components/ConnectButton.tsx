@@ -10,9 +10,16 @@ function ConnectButton() {
   const connectModal = useOnOffMachine()
   return (
     <Fragment>
+      <Button
+        onClick={connectModal.turnOn}
+        fontSize="text-base"
+        className="bg-white font-bold text-black"
+      >
+        Launch App
+      </Button>
       <PrimitiveDialog onClose={connectModal.turnOff} show={connectModal.isOn}>
-        <section className="flex flex-col space-y-4 text-center">
-          <h3 className="text-4xl mb-5 mt-8">How would you like to connect?</h3>
+        <section className="flex flex-col space-y-4 pb-8 text-center">
+          <h3 className="text-3xl mb-5 mt-8">How would you like to connect?</h3>
           <Button
             isLink
             target="_blank"
@@ -31,26 +38,8 @@ function ConnectButton() {
           >
             Connect as a DAO
           </Button>
-          <p className="pt-2 pb-6">
-            Need a wallet? We can{" "}
-            <Link
-              className="text-blue-300 inline-flex items-center space-x-px"
-              target="_blank"
-              href="https://rainbow.me/"
-            >
-              <span>help</span>
-              <FiArrowUpRight />
-            </Link>
-          </p>
         </section>
       </PrimitiveDialog>
-      <Button
-        onClick={connectModal.turnOn}
-        fontSize="text-base"
-        className="bg-white font-bold text-black"
-      >
-        Connect Wallet
-      </Button>
     </Fragment>
   )
 }

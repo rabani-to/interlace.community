@@ -11,10 +11,7 @@ export const DEFAULT_CONFIG = {
     "⛓️ Build your on-chain reputation as a contributor. 🤝 Work with pre-vetted contributors as a DAO.",
 }
 
-/**
- * @param { Partial<DEFAULT_CONFIG> } props
- */
-function SeoTags(props = {}) {
+function SeoTags(props: Partial<typeof DEFAULT_CONFIG>) {
   const SEO = { ...DEFAULT_CONFIG, ...props }
   return (
     <NextSeo
