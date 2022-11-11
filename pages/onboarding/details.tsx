@@ -4,9 +4,6 @@ import { useRouter } from "next/router"
 
 import Button from "@/components/Button"
 import FormLayout from "@/components/layouts/FormLayout"
-import ItemWithDescrition from "@/components/forms/ItemWithDescription"
-import TextArea from "@/components/forms/TextArea"
-import ReactSelect from "@/components/forms/ReactSelect"
 import Input from "@/components/forms/Input"
 
 export default function Details() {
@@ -21,6 +18,7 @@ export default function Details() {
 
   return (
     <FormLayout
+      stepIndex={3}
       pageTitle="InterLace | Contact Details"
       title="Contact Details"
       description="You're almost to your Web3 profile!"

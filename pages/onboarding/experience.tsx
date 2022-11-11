@@ -21,6 +21,7 @@ export default function Experience() {
 
   return (
     <FormLayout
+      stepIndex={1}
       pageTitle="InterLace | Skillset and Experience"
       title="Skillset and Experience"
       description="We're excited to learn more about you"

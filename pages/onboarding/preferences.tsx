@@ -4,8 +4,6 @@ import { useRouter } from "next/router"
 
 import Button from "@/components/Button"
 import FormLayout from "@/components/layouts/FormLayout"
-import ItemWithDescrition from "@/components/forms/ItemWithDescription"
-import TextArea from "@/components/forms/TextArea"
 import ReactSelect from "@/components/forms/ReactSelect"
 import Input from "@/components/forms/Input"
 
@@ -21,6 +19,7 @@ export default function Preferences() {
 
   return (
     <FormLayout
+      stepIndex={2}
       pageTitle="InterLace | Connection Preferences"
       title="Connection Preferences"
       description="We're excited to learn more about you"
