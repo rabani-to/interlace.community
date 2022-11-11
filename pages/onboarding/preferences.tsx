@@ -9,7 +9,7 @@ import TextArea from "@/components/forms/TextArea"
 import ReactSelect from "@/components/forms/ReactSelect"
 import Input from "@/components/forms/Input"
 
-export default function Experience() {
+export default function Preferences() {
   const router = useRouter()
   const { isConnected } = useAccount()
 
@@ -21,31 +21,20 @@ export default function Experience() {
 
   return (
     <FormLayout
-      pageTitle="InterLace | Skillset and Experience"
-      title="Skillset and Experience"
+      pageTitle="InterLace | Connection Preferences"
+      title="Connection Preferences"
       description="We're excited to learn more about you"
     >
       <fieldset className="w-full text-left flex flex-col space-y-4 mt-8 mb-12">
         <ReactSelect
-          label="What role are you looking for?"
-          placeholder="Select role"
+          label="What is your preferred type of commitment?"
+          placeholder="Select time"
         />
-        <ItemWithDescrition description="Pick up to 4.">
-          <ReactSelect
-            label="Areas of expertise"
-            placeholder="Select one or more"
-            isMulti
-          />
-        </ItemWithDescrition>
-        <TextArea
-          label="Description"
-          placeholder="Please describe how you can best contribute to a web3 project in 1 sentence."
+        <ReactSelect
+          label="What payment options are you open to?"
+          placeholder="Select payment type"
         />
-        <Input
-          label="Website supporting your work history and skills"
-          placeholder="portfolio.xyz"
-          startEnhancer="https://"
-        />
+        <Input label="Hourly rate" placeholder="Enter number" />
       </fieldset>
       <Button isFormItem isFull flavor="violet">
         Continue

@@ -21,34 +21,17 @@ export default function Experience() {
 
   return (
     <FormLayout
-      pageTitle="InterLace | Skillset and Experience"
-      title="Skillset and Experience"
-      description="We're excited to learn more about you"
+      pageTitle="InterLace | Contact Details"
+      title="Contact Details"
+      description="You're almost to your Web3 profile!"
     >
       <fieldset className="w-full text-left flex flex-col space-y-4 mt-8 mb-12">
-        <ReactSelect
-          label="What role are you looking for?"
-          placeholder="Select role"
-        />
-        <ItemWithDescrition description="Pick up to 4.">
-          <ReactSelect
-            label="Areas of expertise"
-            placeholder="Select one or more"
-            isMulti
-          />
-        </ItemWithDescrition>
-        <TextArea
-          label="Description"
-          placeholder="Please describe how you can best contribute to a web3 project in 1 sentence."
-        />
-        <Input
-          label="Website supporting your work history and skills"
-          placeholder="portfolio.xyz"
-          startEnhancer="https://"
-        />
+        <Input label="Telegram handle" placeholder="@Olivia22" />
+        <Input label="Twitter handle" placeholder="@Olivia22" />
+        <Input label="DAO Referral Code " placeholder="VioletVerse231" />
       </fieldset>
       <Button isFormItem isFull flavor="violet">
-        Continue
+        Create Web3 Profile
       </Button>
     </FormLayout>
   )
