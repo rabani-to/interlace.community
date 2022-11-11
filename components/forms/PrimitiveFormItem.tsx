@@ -21,7 +21,7 @@ function PrimitiveFormItem({
   return (
     <label className="py-2 text-left">
       <span className="text-zinc-700">{label}</span>
-      <div className="flex w-full overflow-hidden items-center border hover:border-violet-400 rounded-lg mt-2 focus-within:ring-2 ring-violet-300 transition-all">
+      <div className="flex w-full overflow-hidden items-center border hover:border-violet-400 rounded-lg mt-2 focus-within:ring-2 ring-violet-300 transition-all duration-75">
         {startEnhancer && <div className="p-2 border-r">{startEnhancer}</div>}
         <Element
           {...(inputProps as any)}
