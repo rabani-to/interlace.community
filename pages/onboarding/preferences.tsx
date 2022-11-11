@@ -36,7 +36,13 @@ export default function Preferences() {
         />
         <Input label="Hourly rate" placeholder="Enter number" />
       </fieldset>
-      <Button isFormItem isFull flavor="violet">
+      <Button
+        isLink
+        isFormItem
+        href="/onboarding/details"
+        isFull
+        flavor="violet"
+      >
         Continue
       </Button>
     </FormLayout>

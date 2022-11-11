@@ -47,7 +47,13 @@ export default function Experience() {
           startEnhancer="https://"
         />
       </fieldset>
-      <Button isFormItem isFull flavor="violet">
+      <Button
+        isLink
+        isFormItem
+        href="/onboarding/preferences"
+        isFull
+        flavor="violet"
+      >
         Continue
       </Button>
     </FormLayout>

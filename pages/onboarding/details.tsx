@@ -9,7 +9,7 @@ import TextArea from "@/components/forms/TextArea"
 import ReactSelect from "@/components/forms/ReactSelect"
 import Input from "@/components/forms/Input"
 
-export default function Experience() {
+export default function Details() {
   const router = useRouter()
   const { isConnected } = useAccount()
 
