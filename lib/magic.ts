@@ -5,7 +5,7 @@ const PUB_KEY = "pk_live_0B842C66A3876C25"
 export const rainbowMagicConnector = ({ chains }: any) =>
   ({
     id: "magic",
-    name: "Connect with email",
+    name: "Magic Link",
     iconUrl: "/magic.png",
     iconBackground: "#fff",
     createConnector: () => {

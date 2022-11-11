@@ -50,7 +50,7 @@ export default function Onboarding() {
                 onClick={handleConnectEmail}
                 className="bg-zinc-100 text-black/70"
               >
-                Use email instead
+                Magic Link
               </Button>
             </div>
             <p className="text-zinc-500 text-sm pt-6">
