@@ -51,7 +51,7 @@ export default function Home() {
                   isLink
                   target="_blank"
                   href="/onboarding"
-                  data-type="texture"
+                  data-type="cta"
                   className="bg-blue-300"
                 >
                   <span>Create Web3 Profile</span>

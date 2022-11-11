@@ -34,6 +34,12 @@ strong {
   background-position: left center;
 }
 
+[data-type="cta"] {
+  background-image: url("/texture.png");
+  background-position: left;
+  background-size: 5rem;
+}
+
 h1,
 h2 {
   letter-spacing: -0.05em;
