@@ -2,9 +2,10 @@ import { Fragment, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { useConnectModal } from "@rainbow-me/rainbowkit"
-import { useAccount } from "wagmi"
+import { useAccount, useConnect, useProvider } from "wagmi"
 import { useRouter } from "next/router"
 
+import { getMagicConnector } from "@/lib/magic"
 import { noOp } from "@/lib/helpers"
 import SeoTags from "@/components/SeoTags"
 import Button from "@/components/Button"
@@ -14,13 +15,17 @@ import asset_profilerow from "@/assets/profilerow-lg.png"
 
 export default function Onboarding() {
   const router = useRouter()
+  const { chains } = useProvider()
+  const { connect } = useConnect({
+    connector: getMagicConnector(chains),
+  })
   const { isConnected } = useAccount()
   const { openConnectModal = noOp } = useConnectModal()
   function handleConnectWallet() {
     openConnectModal()
   }
   function handleConnectEmail() {
-    // TODO
+    connect()
   }
 
   useEffect(() => {
@@ -33,14 +38,16 @@ export default function Onboarding() {
     <Fragment>
       <SeoTags title="InterLace | Create your profile" />
       <main className="flex items-center h-screen text-zinc-800 font-normal">
-        <section className="w-1/2 h-full bg-white flex items-center justify-center">
-          <div className="w-full flex flex-col space-y-4 max-w-sm text-center">
-            <h3 className="font-bold">Connect Wallet</h3>
-            <p className="text-zinc-500">
-              Choose how you want to connect. There are several wallet
-              providers.
-            </p>
-            <div className="flex flex-col space-y-2">
+        <section className="w-full px-6 lg:w-1/2 h-full bg-white flex items-center justify-center">
+          <div className="w-full flex flex-col space-y-4 max-w-xs text-center">
+            <div>
+              <h3 className="font-bold">Connect Wallet</h3>
+              <p className="text-zinc-500 mt-2">
+                Choose how you want to connect. There are several wallet
+                providers.
+              </p>
+            </div>
+            <div className="flex flex-col space-y-2 pt-4">
               <Button flavor="violet" isFormItem onClick={handleConnectWallet}>
                 Connect with wallet
               </Button>
@@ -66,14 +73,14 @@ export default function Onboarding() {
             </p>
           </div>
         </section>
-        <section className="w-1/2 px-32 overflow-auto h-full text-white bg-darker flex flex-col justify-center space-y-4">
+        <section className="hidden lg:flex flex-col justify-center space-y-4 w-1/2 px-32 overflow-auto h-full text-white bg-darker">
           <div className="w-20 h-20 mx-4">
             <Image src={asset_stars} alt="" />
           </div>
           <p className="text-5xl font-bold leading-normal">
             Create your Web3 profile and get connected with opportunities.
           </p>
-          <p className="text-lg">
+          <p className="text-lg text-white/80">
             We{"'"}re so glad to have you in this space. Let{"'"}s build this
             community of creators together.
           </p>
