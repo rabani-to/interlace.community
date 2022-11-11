@@ -1,44 +1,60 @@
-import { Fragment, type PropsWithChildren } from "react"
+import { Fragment, useEffect } from "react"
+import Image from "next/image"
 import Link from "next/link"
+import { useConnectModal } from "@rainbow-me/rainbowkit"
+import { useAccount } from "wagmi"
+import { useRouter } from "next/router"
 
+import { noOp } from "@/lib/helpers"
 import SeoTags from "@/components/SeoTags"
 import Button from "@/components/Button"
-import Image from "next/image"
 
 import asset_stars from "@/assets/stars.svg"
 import asset_profilerow from "@/assets/profilerow-lg.png"
 
-function WalletButton({ children }: PropsWithChildren) {
-  return (
-    <Button
-      fontSize="text-base"
-      className="bg-violet-600 font-bold justify-center"
-    >
-      {children}
-    </Button>
-  )
-}
-
 export default function Onboarding() {
+  const router = useRouter()
+  const { isConnected } = useAccount()
+  const { openConnectModal = noOp } = useConnectModal()
+  function handleConnectWallet() {
+    openConnectModal()
+  }
+  function handleConnectEmail() {
+    // TODO
+  }
+
+  useEffect(() => {
+    if (isConnected) {
+      router.push("/onboarding/experience")
+    }
+  }, [isConnected])
+
   return (
     <Fragment>
-      <SeoTags title="Say welcome to opportunities." />
+      <SeoTags title="InterLace | Create your profile" />
       <main className="flex items-center h-screen text-zinc-800 font-normal">
         <section className="w-1/2 h-full bg-white flex items-center justify-center">
           <div className="w-full flex flex-col space-y-4 max-w-sm text-center">
-            <h3 className="font-bold text-3xl">Connect Wallet</h3>
+            <h3 className="font-bold">Connect Wallet</h3>
             <p className="text-zinc-500">
               Choose how you want to connect. There are several wallet
               providers.
             </p>
-            <div className="flex flex-col space-y-4 text-white">
-              <WalletButton>Metamask</WalletButton>
-              <WalletButton>Magic</WalletButton>
-              <WalletButton>Beacon</WalletButton>
-              <WalletButton>NEAR</WalletButton>
+            <div className="flex flex-col space-y-2">
+              <Button flavor="violet" isFormItem onClick={handleConnectWallet}>
+                Connect with wallet
+              </Button>
+              <span className="text-zinc-500">Or</span>
+              <Button
+                isFormItem
+                onClick={handleConnectEmail}
+                className="bg-zinc-100 text-black/70"
+              >
+                Use email instead
+              </Button>
             </div>
-            <p className="text-zinc-500">
-              <span className="pt-2 pb-6">Don{"'"}t have a wallet?</span>
+            <p className="text-zinc-500 text-sm pt-6">
+              <span>Don{"'"}t have a wallet yet?</span>
               <br />
               <Link
                 className="text-violet-600 font-bold inline-flex items-center space-x-px"
