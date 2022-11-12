@@ -11,6 +11,7 @@ function ReactDropZone() {
     onDrop,
     multiple: false,
     accept: { "image/*": [] },
+    noClick: true,
   })
   const previewImageURL = useMemo(() => {
     if (file.size) {
