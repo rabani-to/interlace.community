@@ -23,7 +23,7 @@ function ReactDropZone() {
   return (
     <label
       {...getRootProps()}
-      className="flex flex-col sm:flex-row gap-4 items-center self-start cursor-pointer group"
+      className="flex flex-col sm:flex-row gap-4 items-center self-center cursor-pointer group"
     >
       <figure
         style={{

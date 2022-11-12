@@ -25,7 +25,7 @@ export default function Details() {
       description="You're almost to your Web3 profile!"
     >
       <fieldset className="w-full text-left flex flex-col space-y-4 mt-8 mb-12">
-        <span className="text-zinc-700 py-2">Profile image</span>
+        <span className="text-zinc-700 pt-2">Profile image</span>
         <ReactDropZone />
         <Input label="Telegram handle" placeholder="@Olivia22" />
         <Input label="Twitter handle" placeholder="@Olivia22" />
