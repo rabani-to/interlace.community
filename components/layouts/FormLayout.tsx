@@ -16,7 +16,7 @@ function FormLayout({
   return (
     <Fragment>
       <SeoTags title={pageTitle} />
-      <main className="flex items-center h-screen text-zinc-800 font-normal">
+      <main className="flex items-center lg:h-screen text-zinc-800 font-normal">
         <section className="hidden lg:flex flex-col justify-center space-y-4 w-full max-w-md px-32 overflow-auto h-full text-white bg-darker">
           {/** */}
         </section>
