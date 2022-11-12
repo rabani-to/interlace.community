@@ -1,5 +1,6 @@
 import { Fragment, type PropsWithChildren } from "react"
 import SeoTags from "@/components/SeoTags"
+import Head from "next/head"
 
 function FormLayout({
   pageTitle,
@@ -15,8 +16,9 @@ function FormLayout({
 }>) {
   return (
     <Fragment>
+      <style>{"body{background:white !important}"}</style>
       <SeoTags title={pageTitle} />
-      <main className="flex bg-white items-center min-h-screen lg:h-screen text-zinc-800 font-normal">
+      <main className="flex lg:h-screen text-zinc-800 font-normal">
         <section className="hidden lg:flex flex-col justify-center space-y-4 w-full max-w-md px-32 overflow-auto h-full text-white bg-darker">
           {/** */}
         </section>
