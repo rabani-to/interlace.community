@@ -45,7 +45,7 @@ function ReactSelect({
               borderColor: "#e5e7eb",
             },
             borderRadius: "0.5rem",
-            height: "2.75rem",
+            minHeight: "2.75rem",
           }),
           placeholder: (currentStyle) => ({
             ...currentStyle,
