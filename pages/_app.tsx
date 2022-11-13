@@ -72,15 +72,17 @@ export default function App({ Component, pageProps }: AppProps) {
 function ModalLayout({ children }: any) {
   const toastRef = useRef<string>()
   const { isConnecting, isConnected } = useAccount()
+
   useEffect(() => {
-    if (isConnected) {
-      toast.dismiss(toastRef.current)
-    } else if (isConnecting) {
+    toast.dismiss(toastRef.current)
+    if (isConnecting) {
       toastRef.current = toast.loading("Connecting...", {
         className: "font-bold",
+        duration: 7_000, // hide after 7sec
       })
     }
   }, [isConnecting, isConnected])
+
   return (
     <Fragment>
       <Toaster />
