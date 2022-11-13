@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@airgap/beacon-sdk": "^3.3.0",
     "@everipedia/wagmi-magic-connector": "^0.7.1",
     "@headlessui/react": "^1.7.4",
     "@magic-ext/connect": "^3.1.0",
