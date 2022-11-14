@@ -31,8 +31,20 @@ export default function Onboarding() {
   }
 
   async function handleConnectWithBeacon() {
-    const permissions = await beaconDAppClient.requestPermissions()
-    console.log("New connection:", permissions.address)
+    const activeAccount = await beaconDAppClient.getActiveAccount()
+    const redirect = () => router.push("/onboarding/experience")
+    if (activeAccount) {
+      redirect()
+    } else {
+      beaconDAppClient
+        .requestPermissions()
+        .then((permissions) => {
+          console.log("New connection:", permissions.address)
+          console.log({ permissions })
+          redirect()
+        })
+        .catch(noOp)
+    }
   }
 
   useEffect(() => {
@@ -55,17 +67,16 @@ export default function Onboarding() {
               </p>
             </div>
             <div className="flex flex-col space-y-2 pt-4">
-              <Button flavor="violet" isFormItem onClick={handleConnectWallet}>
-                Metamask / WalletConnect
-              </Button>
               <Button
                 flavor="violet"
                 isFormItem
                 onClick={handleConnectWithBeacon}
               >
-                Tezos - Beacon
+                Tezos Beacon Wallet
               </Button>
-
+              <Button flavor="violet" isFormItem onClick={handleConnectWallet}>
+                Metamask / WalletConnect
+              </Button>
               <span className="text-zinc-500">Or</span>
               <Button
                 isFormItem
