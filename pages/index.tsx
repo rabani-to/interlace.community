@@ -16,104 +16,101 @@ export default function Home() {
   return (
     <Fragment>
       <SeoTags />
-      <main>
-        <GradientSection className="relative pb-[50vh]">
-          <nav className="mt-16 z-10 py-3 flex bg-gradient-to-r from-transparent via-[#ffffff07] rounded-xl items-center space-x-2">
-            <InterLaceLogo />
-            <div className="flex-grow lg:hidden"></div>
-            <div className="hidden text-white/80 flex-grow lg:flex space-x-8 items-center justify-center">
-              <Link
-                className="hover:text-white"
-                target="_blank"
-                href="https://kryl7dqx6wo.typeform.com/to/Srgs9NCE"
-              >
-                Explore Talent
-              </Link>
-              <Link
-                className="hover:text-white"
+      <GradientSection className="relative pb-[50vh] overflow-hidden">
+        <nav className="mt-16 z-10 py-3 flex bg-gradient-to-r from-transparent via-[#ffffff07] rounded-xl items-center space-x-2">
+          <InterLaceLogo />
+          <div className="flex-grow lg:hidden"></div>
+          <div className="hidden text-white/80 flex-grow lg:flex space-x-8 items-center justify-center">
+            <Link
+              className="hover:text-white"
+              target="_blank"
+              href="https://kryl7dqx6wo.typeform.com/to/Srgs9NCE"
+            >
+              Explore Talent
+            </Link>
+            <Link
+              className="hover:text-white"
+              target="_blank"
+              href="/onboarding"
+            >
+              Contribute to Web3
+            </Link>
+          </div>
+          <ConnectButton />
+        </nav>
+        <div className="flex flex-col md:flex-row min-h-[calc(50vh+12rem)] mt-12 flex-grow items-center">
+          <section className="z-[1] w-full text-center md:text-left">
+            <h2>Connect.Contribute.Build</h2>
+            <p className="text-zinc-400 leading-relaxed text-xl mt-4 mb-8 max-w-xl">
+              Welcome to InterLace, where decentralized organizations can
+              connect with individual problem solvers by task.
+            </p>
+            <div className="flex flex-col md:flex-row items-center gap-4 text-black">
+              <Button
+                isLink
                 target="_blank"
                 href="/onboarding"
+                data-type="cta"
+                className="bg-blue-300"
               >
-                Contribute to Web3
-              </Link>
+                <span>Create Web3 Profile</span>
+                <AnimatedLinkArrow />
+              </Button>
+              <Button
+                isLink
+                target="_blank"
+                href="https://kryl7dqx6wo.typeform.com/to/Srgs9NCE"
+                className="bg-white"
+              >
+                <span>Explore Talent</span>
+                <AnimatedLinkArrow />
+              </Button>
             </div>
-            <ConnectButton />
-          </nav>
-          <div className="flex min-h-[calc(50vh+12rem)] mt-12 flex-grow items-center">
-            <section className="z-[1] w-full text-center md:text-left">
-              <h2>Connect.Contribute.Build</h2>
-              <p className="text-zinc-400 leading-relaxed text-xl mt-4 mb-8 max-w-xl">
-                Welcome to InterLace, where decentralized organizations can
-                connect with individual problem solvers by task.
+            <div className="hidden md:flex mt-8 items-center space-x-4">
+              <Image
+                height={42}
+                placeholder="blur"
+                className="overflow-hidden rounded-2xl"
+                alt=""
+                src={asset_profilerow}
+              />
+              <p className="text-xl">
+                <strong>Join 1000+</strong> Vetted Contributors
               </p>
-              <div className="flex flex-col md:flex-row items-center gap-4 text-black">
-                <Button
-                  isLink
-                  target="_blank"
-                  href="/onboarding"
-                  data-type="cta"
-                  className="bg-blue-300"
-                >
-                  <span>Create Web3 Profile</span>
-                  <AnimatedLinkArrow />
-                </Button>
-                <Button
-                  isLink
-                  target="_blank"
-                  href="https://kryl7dqx6wo.typeform.com/to/Srgs9NCE"
-                  className="bg-white"
-                >
-                  <span>Explore Talent</span>
-                  <AnimatedLinkArrow />
-                </Button>
-              </div>
-              <div className="hidden md:flex mt-8 items-center space-x-4">
-                <Image
-                  height={42}
-                  placeholder="blur"
-                  className="overflow-hidden rounded-2xl"
-                  alt=""
-                  src={asset_profilerow}
-                />
-                <p className="text-xl">
-                  <strong>Join 1000+</strong> Vetted Contributors
-                </p>
-              </div>
-            </section>
-            <section className="absolute md:relative w-full h-[50vh]">
-              <div className="absolute left-0 top-0 ml-[clamp(20vw,25%,90vw)] md:ml-0 mt-40 md:mt-0">
-                <Image
-                  className="max-w-[40rem] min-w-[30rem] md:max-w-[50vw] rounded-3xl"
-                  placeholder="blur"
-                  alt=""
-                  src={asset_ctaimage}
-                />
-              </div>
-            </section>
-          </div>
-        </GradientSection>
-        <GradientSection className="bg-darker pb-24">
-          <div className="flex gap-4 flex-col items-center mt-16 text-center">
-            <h2>Contributor Community Skillsets</h2>
-            <p className="text-zinc-400 leading-relaxed text-lg mt-2 mb-8 max-w-xl">
-              With a team of experts around the globe, we take care of the small
-              day-to-day tasks so you can focus on your main business
-              objectives.
-            </p>
-            <Contributors />
-            <Button
-              isLink
-              target="_blank"
-              fontSize="text-base"
-              href="https://kryl7dqx6wo.typeform.com/to/Srgs9NCE"
-              className="bg-black/60 mt-8 text-white"
-            >
-              <span>Explore Contributors</span>
-              <AnimatedLinkArrow />
-            </Button>
-          </div>
-        </GradientSection>
-      </main>
+            </div>
+          </section>
+          <section className="relative w-full h-[50vh]">
+            <div className="absolute left-0 top-0">
+              <Image
+                className="max-w-[40rem] min-w-[30rem] md:max-w-[50vw] rounded-3xl"
+                placeholder="blur"
+                alt=""
+                src={asset_ctaimage}
+              />
+            </div>
+          </section>
+        </div>
+      </GradientSection>
+      <GradientSection className="bg-darker pb-24">
+        <div className="flex gap-4 flex-col items-center mt-16 text-center">
+          <h2>Contributor Community Skillsets</h2>
+          <p className="text-zinc-400 leading-relaxed text-lg mt-2 mb-8 max-w-xl">
+            With a team of experts around the globe, we take care of the small
+            day-to-day tasks so you can focus on your main business objectives.
+          </p>
+          <Contributors />
+          <Button
+            isLink
+            target="_blank"
+            fontSize="text-base"
+            href="https://kryl7dqx6wo.typeform.com/to/Srgs9NCE"
+            className="bg-black/60 mt-8 text-white"
+          >
+            <span>Explore Contributors</span>
+            <AnimatedLinkArrow />
+          </Button>
+        </div>
+      </GradientSection>
       <LayoutItem as="footer" className="pt-24 min-h-[10rem]">
         <div className="flex flex-col lg:flex-row gap-4">
           <div className="flex-grow">
