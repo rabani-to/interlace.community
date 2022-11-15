@@ -18,7 +18,7 @@ const beaconDAppClient = new DAppClient({ name: "interlace.community" })
 export default function Onboarding() {
   const router = useRouter()
   const { chains } = useProvider()
-  const { connect } = useConnect({
+  const { connect: connectWithMagicLink } = useConnect({
     connector: getMagicConnector(chains),
   })
   const { isConnected } = useAccount()
@@ -26,21 +26,21 @@ export default function Onboarding() {
   function handleConnectWallet() {
     openConnectModal()
   }
+
   function handleConnectEmail() {
-    connect()
+    connectWithMagicLink()
   }
 
   async function handleConnectWithBeacon() {
     const activeAccount = await beaconDAppClient.getActiveAccount()
-    const redirect = () => router.push("/onboarding/experience")
+    const redirect = () => router.push("experience/")
     if (activeAccount) {
       redirect()
     } else {
       beaconDAppClient
         .requestPermissions()
         .then((permissions) => {
-          console.log("New connection:", permissions.address)
-          console.log({ permissions })
+          console.debug({ permissions })
           redirect()
         })
         .catch(noOp)
@@ -83,7 +83,7 @@ export default function Onboarding() {
                 onClick={handleConnectEmail}
                 className="bg-zinc-100 text-black/70"
               >
-                Magic Link
+                Use email instead
               </Button>
             </div>
             <p className="text-zinc-500 text-sm pt-6">

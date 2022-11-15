@@ -21,6 +21,7 @@ import {
 } from "@rainbow-me/rainbowkit"
 import toast, { Toaster } from "react-hot-toast"
 
+import { OnboardingProvider } from "@/lib/context/OnboardingContext"
 import { rainbowMagicConnector } from "@/lib/magic"
 
 const { provider, chains } = configureChains(
@@ -61,7 +62,9 @@ export default function App({ Component, pageProps }: AppProps) {
           chains={chains}
         >
           <ModalLayout>
-            <Component {...pageProps} />
+            <OnboardingProvider>
+              <Component {...pageProps} />
+            </OnboardingProvider>
           </ModalLayout>
         </RainbowKitProvider>
       </WagmiConfig>

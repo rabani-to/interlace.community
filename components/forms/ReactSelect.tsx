@@ -10,15 +10,21 @@ function ReactSelect({
   label,
   placeholder,
   isMulti,
+  required,
+  name,
 }: {
   placeholder?: string
+  name?: string
   isMulti?: boolean
   label: string
+  required?: boolean
 }) {
   return (
     <label className="py-2 text-left">
       <span className="text-zinc-700 inline-block mb-2">{label}</span>
       <Select
+        name={name}
+        required={required}
         isMulti={isMulti}
         placeholder={placeholder}
         theme={(theme) => ({
@@ -33,7 +39,7 @@ function ReactSelect({
             danger: "black",
           },
         })}
-        className="custom-react-selct text-left"
+        className="text-left"
         styles={{
           container: (currentStyle) => ({
             ...currentStyle,

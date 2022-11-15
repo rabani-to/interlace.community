@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useState } from "react"
 import { useDropzone } from "react-dropzone"
 import { FiUploadCloud } from "react-icons/fi"
 
-function ReactDropZone() {
+function ReactDropZone({ name }: { name?: string }) {
   const [file, setFile] = useState({} as File)
   const onDrop = useCallback(([file]: File[]) => {
     setFile(file)
@@ -45,7 +45,7 @@ function ReactDropZone() {
           isDragActive && "border-violet-400 ring-2 ring-violet-300"
         }`}
       >
-        <input {...getInputProps()} />
+        <input name={name} {...getInputProps()} />
         <p className="text-center text-zinc-400 font-ligh">
           <span className="text-violet-700 text-sm font-bold">
             Click to upload

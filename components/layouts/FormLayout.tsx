@@ -1,4 +1,4 @@
-import { Fragment, type PropsWithChildren } from "react"
+import { Fragment, type FormEvent, type PropsWithChildren } from "react"
 import SeoTags from "@/components/SeoTags"
 import { classnames } from "@/lib/helpers"
 import { MdDone } from "react-icons/md"
@@ -9,12 +9,40 @@ function FormLayout({
   stepIndex,
   children,
   description,
+  onSubmit,
 }: PropsWithChildren<{
   title: string
   stepIndex: number
   pageTitle: string
   description: string
+  onSubmit(
+    data: FormData,
+    helpers: {
+      get(key: string): string | null
+      getAll(key: string): string[] | null
+      getFile(key: string): File | null
+    }
+  ): void
 }>) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    const form = new FormData(e.currentTarget)
+    onSubmit(form, {
+      get(key) {
+        const value = form.get(key)
+        return value ? value.toString() : null
+      },
+      getAll(key) {
+        const value = form.getAll(key) as string[]
+        return value || null
+      },
+      getFile(key) {
+        const file = form.get(key) as File
+        return file || null
+      },
+    })
+  }
+
   return (
     <Fragment>
       <style>{"body{background:white !important}"}</style>
@@ -26,7 +54,9 @@ function FormLayout({
             <Stepper index={stepIndex} />
             <h3 className="font-bold mt-12">{title}</h3>
             <p className="text-zinc-500 mt-2">{description}</p>
-            {children}
+            <form className="w-full" onSubmit={handleSubmit}>
+              {children}
+            </form>
           </div>
         </section>
       </main>
