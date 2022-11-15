@@ -20,6 +20,7 @@
       "@/assets/*": ["./assets/*"],
       "@/styles/*": ["./styles/*"],
       "@/pages/*": ["./pages/*"],
+      "@/types/*": ["./@types/*"],
       "@/lib/*": ["./lib/*"]
     }
   },
