@@ -13,8 +13,11 @@ export type Preferences = {
 
 export type Details = {
   telegram: string
+  /** NO_REQ */
   twitter: string
+  /** NO_REQ */
   refCode: string
+  /** NO_REQ */
   profileImage: File
 }
 
