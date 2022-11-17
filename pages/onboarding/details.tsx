@@ -5,31 +5,28 @@ import toast from "react-hot-toast"
 import { formatUndef } from "@/lib/helpers"
 import { filestackClient } from "@/lib/filestack"
 import { useOnboardingContext } from "@/lib/context/OnboardingContext"
+import { PROFILE_DETAILS } from "@/lib/models/profile"
 
 import Button from "@/components/Button"
 import ReactDropZone from "@/components/forms/ReactDropZone"
 import FormLayout from "@/components/layouts/FormLayout"
 import Input from "@/components/forms/Input"
 
-const FORM = {
-  profileImage: "profileImage",
-  refCode: "refCode",
-  telegram: "telegram",
-  twitter: "twitter",
-}
+const FORM = PROFILE_DETAILS
 export default function Details() {
   const router = useRouter()
   const [isWorking, setIsWorking] = useState(false)
-  const { experience, preferences, setStepData } = useOnboardingContext()
+  const { experience, preferences, details, setStepData } =
+    useOnboardingContext()
 
   async function handleSubmit(data: FormData) {
     const toaster = toast.loading("Creating your profile...", {
       className: "font-bold",
     })
     setIsWorking(true)
-    const rawProfileImage = data.get(FORM.profileImage)
+    const rawProfileImage = data.get(FORM.profileImage) as File
     let profileImage = null
-    if (rawProfileImage) {
+    if (rawProfileImage && rawProfileImage.size) {
       profileImage = (await filestackClient.upload(rawProfileImage)).url
     }
     const details = {
@@ -37,26 +34,33 @@ export default function Details() {
       refCode: formatUndef(data.get(FORM.refCode)),
       telegram: formatUndef(data.get(FORM.telegram)),
       twitter: formatUndef(data.get(FORM.twitter)),
+      address: formatUndef(data.get(FORM.address)),
     }
     setStepData("details", details)
-    console.debug({ profileImage })
     fetch("/api/create", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
       body: JSON.stringify({
-        details,
-        experience,
-        preferences,
+        ...details,
+        ...experience,
+        ...preferences,
       }),
     })
-      .then((r) => r.json())
-      .then(console.log)
-      .catch(console.error)
+      .then(({ status }) => {
+        if (status !== 200) throw "Failed"
+      })
+      .then(() => {
+        // User stored in DB. Continue
+        setTimeout(() => router.push("/dashboard"))
+      })
+      .catch(() => {
+        toast.error("Oops. Something wrong happended")
+      })
       .finally(() => {
         toast.dismiss(toaster)
-        setTimeout(() => router.push("/dashboard"))
+        setIsWorking(false)
       })
   }
 
@@ -77,17 +81,25 @@ export default function Details() {
         <ReactDropZone name={FORM.profileImage} />
         <Input
           required
+          name={FORM.address}
+          label="Wallet Adress"
+          placeholder="0x0ad...9f"
+        />
+        <Input
           name={FORM.telegram}
+          defaultValue={details?.telegram}
           label="Telegram handle"
           placeholder="@Olivia22"
         />
         <Input
           name={FORM.twitter}
+          defaultValue={details?.twitter}
           label="Twitter handle"
           placeholder="@Olivia22"
         />
         <Input
           name={FORM.refCode}
+          defaultValue={details?.refCode}
           label="DAO Referral Code "
           placeholder="VioletVerse231"
         />

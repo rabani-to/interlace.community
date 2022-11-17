@@ -30,10 +30,10 @@ export default function Onboarding() {
   function handleConnectEmail() {
     connectWithMagicLink()
   }
+  const redirect = () => router.push("/onboarding/experience")
 
   async function handleConnectWithBeacon() {
     const activeAccount = await beaconDAppClient.getActiveAccount()
-    const redirect = () => router.push("experience/")
     if (activeAccount) {
       redirect()
     } else {
@@ -49,7 +49,7 @@ export default function Onboarding() {
 
   useEffect(() => {
     if (isConnected) {
-      router.push("/onboarding/experience")
+      redirect()
     }
   }, [isConnected])
 

@@ -1,20 +1,17 @@
 import { useRouter } from "next/router"
 import { useOnboardingContext } from "@/lib/context/OnboardingContext"
 import { formatUndef } from "@/lib/helpers"
+import { PROFILE_PREFERENCES } from "@/lib/models/profile"
 
 import Button from "@/components/Button"
 import FormLayout from "@/components/layouts/FormLayout"
 import ReactSelect from "@/components/forms/ReactSelect"
 import Input from "@/components/forms/Input"
 
-const FORM = {
-  commitment: "commitment",
-  hourlyRate: "hourlyRate",
-  paymentOptions: "paymentOptions",
-}
+const FORM = PROFILE_PREFERENCES
 export default function Preferences() {
   const router = useRouter()
-  const { setStepData } = useOnboardingContext()
+  const { setStepData, preferences } = useOnboardingContext()
 
   function handleSubmit(data: FormData) {
     setStepData("preferences", {
@@ -35,19 +32,24 @@ export default function Preferences() {
     >
       <fieldset className="w-full text-left flex flex-col space-y-4 mt-8 mb-12">
         <ReactSelect
+          options={["Salaried", "Freelance", "Doesn't matter"]}
           name={FORM.commitment}
+          defaultValue={preferences?.commitment}
           required
           label="What is your preferred type of commitment?"
           placeholder="Select time"
         />
         <ReactSelect
+          options={["Crypto", "FIAT"]}
           name={FORM.paymentOptions}
+          defaultValue={preferences?.paymentOptions}
           required
           label="What payment options are you open to?"
           placeholder="Select payment type"
         />
         <Input
           name={FORM.hourlyRate}
+          defaultValue={preferences?.hourlyRate}
           required
           label="Hourly rate (in USD)"
           type="number"
