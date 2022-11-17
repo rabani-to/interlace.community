@@ -1,31 +1,41 @@
 import Select from "react-select"
 
-const options = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" },
-]
+const formatOptions = (arr: string[]) =>
+  arr.map((value) => ({
+    value,
+    label: value,
+  }))
 
 function ReactSelect({
   label,
   placeholder,
+  defaultValue,
   isMulti,
   required,
   name,
+  options,
 }: {
   placeholder?: string
   name?: string
   isMulti?: boolean
   label: string
   required?: boolean
+  defaultValue?: string | string[]
+  options: string[]
 }) {
+  const parsedOptions = formatOptions(options)
+  const formattedDefaultValues = formatOptions(
+    Array.isArray(defaultValue) ? defaultValue : [defaultValue as string]
+  )
   return (
     <label className="py-2 text-left">
       <span className="text-zinc-700 inline-block mb-2">{label}</span>
       <Select
         name={name}
+        defaultValue={defaultValue ? formattedDefaultValues : undefined}
         required={required}
         isMulti={isMulti}
+        options={parsedOptions}
         placeholder={placeholder}
         theme={(theme) => ({
           ...theme,
@@ -68,7 +78,6 @@ function ReactSelect({
             borderRadius: "0.5rem",
           }),
         }}
-        options={options}
       />
     </label>
   )
