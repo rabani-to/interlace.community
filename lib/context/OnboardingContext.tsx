@@ -26,7 +26,7 @@ export const useOnboardingContext = () => useContext(OnboardingContext)
 
 export const OnboardingProvider = ({ children }: PropsWithChildren) => {
   const [state, setState] = useState({} as OnboardingContextType)
-  console.log({ state })
+  console.debug({ onboardState: state })
   return (
     <OnboardingContext.Provider
       value={{
