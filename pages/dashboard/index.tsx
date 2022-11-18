@@ -7,12 +7,12 @@ import SeoTags from "@/components/SeoTags"
 import Button from "@/components/Button"
 import TopNavigation from "@/components/TopNavigation"
 import { LayoutItem } from "@/components/layouts/GradientSection"
+import Footer from "@/components/Footer"
 
 import { FaClock, FaLink, FaShareSquare } from "react-icons/fa"
 import { MdPayments } from "react-icons/md"
 import { GiBoatPropeller, GiPieChart } from "react-icons/gi"
 import asset_bg from "@/assets/bg.jpg"
-import Footer from "@/components/Footer"
 
 export default function Dashboard() {
   const welcomeModal = useOnOffMachine(true)
