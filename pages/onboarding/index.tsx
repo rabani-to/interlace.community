@@ -1,7 +1,6 @@
 import { Fragment, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { DAppClient } from "@airgap/beacon-sdk"
 import { useConnectModal } from "@rainbow-me/rainbowkit"
 import { useAccount, useConnect, useProvider } from "wagmi"
 import { useRouter } from "next/router"
@@ -13,8 +12,8 @@ import Button from "@/components/Button"
 
 import asset_stars from "@/assets/stars.svg"
 import asset_profilerow from "@/assets/profilerow-lg.png"
+import { beaconClient } from "@/lib/beacon"
 
-const beaconDAppClient = new DAppClient({ name: "interlace.community" })
 export default function Onboarding() {
   const router = useRouter()
   const { chains } = useProvider()
@@ -33,11 +32,11 @@ export default function Onboarding() {
   const redirect = () => router.push("/onboarding/experience")
 
   async function handleConnectWithBeacon() {
-    const activeAccount = await beaconDAppClient.getActiveAccount()
+    const activeAccount = await beaconClient.getActiveAccount()
     if (activeAccount) {
       redirect()
     } else {
-      beaconDAppClient
+      beaconClient
         .requestPermissions()
         .then((permissions) => {
           console.debug({ permissions })
