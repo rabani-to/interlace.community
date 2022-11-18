@@ -5,9 +5,9 @@ import { LayoutItem } from "@/components/layouts/GradientSection"
 import AnimatedLinkArrow from "./AnimatedLinkArrow"
 import InterlaceLogo from "./InterLaceLogo"
 
-function Footer() {
+function Footer({ className }: { className?: string }) {
   return (
-    <LayoutItem as="footer" className="pt-24">
+    <LayoutItem as="footer" className={`pt-24 ${className}`}>
       <div className="flex flex-col lg:flex-row gap-4">
         <div className="flex-grow">
           <InterlaceLogo />
