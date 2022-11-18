@@ -1,7 +1,9 @@
+import { useState } from "react"
 import { useRouter } from "next/router"
 import { useOnboardingContext } from "@/lib/context/OnboardingContext"
 import { formatUndef } from "@/lib/helpers"
 import { PROFILE_EXPERIENCE } from "@/lib/models/profile"
+import ALL_ROLES from "@/lib/models/roles"
 
 import Button from "@/components/Button"
 import FormLayout from "@/components/layouts/FormLayout"
@@ -11,8 +13,10 @@ import ReactSelect from "@/components/forms/ReactSelect"
 import Input from "@/components/forms/Input"
 
 const FORM = PROFILE_EXPERIENCE
+const ROLE_OPTIONS = Object.keys(ALL_ROLES)
 export default function Experience() {
   const router = useRouter()
+  const [localSelectedRole, setlocalSelectedRole] = useState<string>()
   const { setStepData, experience } = useOnboardingContext()
 
   function handleSubmit(form: FormData) {
@@ -25,6 +29,11 @@ export default function Experience() {
     setTimeout(() => router.push("preferences/"))
   }
 
+  const CURRENT_ROLE = localSelectedRole || experience?.role
+  const EXPERTISE_OPTIONS = CURRENT_ROLE
+    ? ALL_ROLES[CURRENT_ROLE].categories
+    : []
+
   return (
     <FormLayout
       onSubmit={handleSubmit}
@@ -35,39 +44,21 @@ export default function Experience() {
     >
       <fieldset className="w-full text-left flex flex-col space-y-4 mt-8 mb-12">
         <ReactSelect
-          options={[
-            "Frontend Developer",
-            "Solidity Engineer",
-            "Backend Developer",
-            "Community Manager",
-          ]}
+          options={ROLE_OPTIONS}
           name={FORM.role}
-          defaultValue={experience?.role}
+          defaultValue={CURRENT_ROLE}
+          onSelect={([{ value }]) => setlocalSelectedRole(value)}
           required
           label="What role are you looking for?"
           placeholder="Select role"
         />
-        <ItemWithDescrition description="Pick up to 4.">
+        <ItemWithDescrition
+          description={
+            CURRENT_ROLE ? "Pick up to 4." : "You must select a role."
+          }
+        >
           <ReactSelect
-            options={[
-              "Analyst",
-              "Backend",
-              "Executive",
-              "Operations",
-              "Human Resources",
-              "Sales",
-              "Community",
-              "Marketing",
-              "Design",
-              "Frontend",
-              "UX/UI",
-              "Economics",
-              "Product Owner",
-              "Product Manager",
-              "Blockchain Developer",
-              "Legal",
-              "Account or Finance",
-            ]}
+            options={EXPERTISE_OPTIONS}
             name={FORM.expertise}
             defaultValue={experience?.expertise}
             required
