@@ -34,7 +34,7 @@ strong {
   background-position: left center;
 }
 
-[data-type="cta"] {
+[data-type="texturized"] {
   background-image: url("/texture.png");
   background-position: left;
   background-size: 5rem;
