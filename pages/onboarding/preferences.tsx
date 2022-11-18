@@ -32,7 +32,7 @@ export default function Preferences() {
     >
       <fieldset className="w-full text-left flex flex-col space-y-4 mt-8 mb-12">
         <ReactSelect
-          options={["Salaried", "Freelance", "Doesn't matter"]}
+          options={["Salaried", "Freelance", "Open Time Commitment"]}
           name={FORM.commitment}
           defaultValue={preferences?.commitment}
           required
