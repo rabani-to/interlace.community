@@ -1,5 +1,8 @@
+import { useState, useEffect } from "react"
 import Select from "react-select"
+import { noOp } from "@/lib/helpers"
 
+const arrify = (v: any) => (Array.isArray(v) ? v : [v])
 const formatOptions = (arr: string[]) =>
   arr.map((value) => ({
     value,
@@ -14,24 +17,40 @@ function ReactSelect({
   required,
   name,
   options,
+  onSelect = noOp,
 }: {
   placeholder?: string
   name?: string
   isMulti?: boolean
   label: string
   required?: boolean
+  onSelect?(value: { value: string }[]): void
   defaultValue?: string | string[]
   options: string[]
 }) {
+  const [value, setValue] = useState<any>()
   const parsedOptions = formatOptions(options)
-  const formattedDefaultValues = formatOptions(
-    Array.isArray(defaultValue) ? defaultValue : [defaultValue as string]
-  )
+  const formattedDefaultValues = formatOptions(arrify(defaultValue))
+
+  function handleOnChange(value: any) {
+    onSelect(arrify(value))
+    setValue(value)
+  }
+
+  useEffect(() => {
+    const arrifiedDefaultValue = arrify(defaultValue)
+    if (options.includes(arrifiedDefaultValue[0])) return
+    // User options changed after render. Force value reset
+    setValue(null)
+  }, [options])
+
   return (
     <label className="py-2 text-left">
       <span className="text-zinc-700 inline-block mb-2">{label}</span>
       <Select
         name={name}
+        value={value}
+        onChange={handleOnChange}
         defaultValue={defaultValue ? formattedDefaultValues : undefined}
         required={required}
         isMulti={isMulti}
