@@ -1,0 +1,4 @@
+.withSvgBackground [data-type="texture"] {
+  background-image: url("/sharemodal-bg.svg");
+  background-size: cover;
+}
