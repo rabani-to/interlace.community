@@ -8,6 +8,8 @@ export type DialogProps = PropsWithChildren<{
   className?: string
   maxWidth?: string
   closeOnBackdropClick?: boolean
+  background?: string
+  noTexture?: boolean
 }>
 
 function PrimitiveDialog({
@@ -15,6 +17,8 @@ function PrimitiveDialog({
   show = false,
   onClose = noOp,
   maxWidth = "max-w-lg",
+  background = "bg-darker",
+  noTexture,
   closeOnBackdropClick = true,
   className,
 }: DialogProps) {
@@ -45,10 +49,11 @@ function PrimitiveDialog({
           <div hidden={!show} className="relative">
             <CloseButton onClose={onClose} />
             <Dialog.Panel
-              data-type="texture"
+              data-type={noTexture || "texture"}
               className={classnames(
                 maxWidth,
-                "w-screen transform rounded-2xl bg-darker py-6 px-8 text-left align-middle shadow-xl transition-all max-h-screen"
+                background,
+                "w-screen transform rounded-2xl py-6 px-8 text-left align-middle shadow-xl transition-all max-h-screen"
               )}
             >
               {children}
@@ -65,7 +70,7 @@ function CloseButton({ onClose }: { onClose(): void }) {
     <button
       onClick={onClose}
       className={classnames(
-        "outline-none text-white/60 focus:text-white/70 hover:text-white/80",
+        "outline-none text-[currentColor] focus:text-opacity-70 hover:text-opacity-80",
         "absolute p-4 flex items-center justify-center top-0 right-0 mt-2 mr-4 z-10",
         "transition-transform duration-150 hover:scale-105 active:scale-95"
       )}
