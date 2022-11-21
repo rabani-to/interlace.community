@@ -1,3 +1,4 @@
+import { classnames } from "@/lib/helpers"
 import type { ReactNode } from "react"
 
 export type PrimitiveFormItemType = Partial<
@@ -6,6 +7,8 @@ export type PrimitiveFormItemType = Partial<
   startEnhancer?: ReactNode
   endEnhancer?: ReactNode
   label: string
+  labelTextColor?: string
+  className?: string
 }
 
 function PrimitiveFormItem({
@@ -13,6 +16,8 @@ function PrimitiveFormItem({
   startEnhancer,
   endEnhancer,
   primitiveElement,
+  labelTextColor = "text-zinc-700",
+  className,
   ...inputProps
 }: PrimitiveFormItemType & {
   primitiveElement?: string
@@ -20,13 +25,20 @@ function PrimitiveFormItem({
   const Element = primitiveElement as any
   return (
     <label className="py-2 text-left">
-      <span className="text-zinc-700">{label}</span>
-      <div className="flex w-full overflow-hidden items-center border hover:border-violet-400 rounded-lg mt-2 focus-within:ring-2 ring-violet-300 transition-all duration-75">
+      <span className={labelTextColor}>{label}</span>
+      <div
+        className={classnames(
+          className,
+          inputProps.readOnly || "hover:border-violet-400 focus-within:ring-2",
+          "flex w-full overflow-hidden items-center border rounded-lg mt-2 ring-violet-300 transition-all duration-75"
+        )}
+      >
         {startEnhancer && <div className="p-2 border-r">{startEnhancer}</div>}
         <Element
           {...(inputProps as any)}
-          className="placeholder:font-light outline-none flex-grow p-2"
+          className="placeholder:font-light outline-none flex-grow p-2 bg-transparent"
         />
+        {endEnhancer && <div className="p-2 border-l">{endEnhancer}</div>}
       </div>
     </label>
   )
