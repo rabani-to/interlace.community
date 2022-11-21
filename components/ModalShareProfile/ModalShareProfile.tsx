@@ -19,7 +19,7 @@ function ModalShareProfile(props: DialogProps) {
         <h3 className="text-center pt-12">
           Share your Web3 profile with your social community
         </h3>
-        <Image src={asset_bg} alt="" />
+        <Image placeholder="blur" src={asset_bg} alt="" />
       </section>
       <section className="flex -mt-2 text-3xl text-white/70 items-center justify-center gap-4">
         <button className="hover:text-white">
