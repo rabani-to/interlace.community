@@ -1,5 +1,5 @@
-import { classnames } from "@/lib/helpers"
 import type { ReactNode } from "react"
+import { classnames, noOp } from "@/lib/helpers"
 
 export type PrimitiveFormItemType = Partial<
   HTMLInputElement & HTMLTextAreaElement
@@ -9,6 +9,7 @@ export type PrimitiveFormItemType = Partial<
   label: string
   labelTextColor?: string
   className?: string
+  onChange?(text: string): void
 }
 
 function PrimitiveFormItem({
@@ -16,6 +17,7 @@ function PrimitiveFormItem({
   startEnhancer,
   endEnhancer,
   primitiveElement,
+  onChange = noOp,
   labelTextColor = "text-zinc-700",
   className,
   ...inputProps
@@ -36,6 +38,7 @@ function PrimitiveFormItem({
         {startEnhancer && <div className="p-2 border-r">{startEnhancer}</div>}
         <Element
           {...(inputProps as any)}
+          onChange={({ target }: any) => onChange(target.value)}
           className="placeholder:font-light outline-none flex-grow p-2 bg-transparent"
         />
         {endEnhancer && <div className="p-2 border-l">{endEnhancer}</div>}
