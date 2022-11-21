@@ -6,6 +6,7 @@ import PrimitiveDialog from "@/components/PrimitiveModal"
 import SeoTags from "@/components/SeoTags"
 import Button from "@/components/Button"
 import TopNavigation from "@/components/TopNavigation"
+import ModalShareProfile from "@/components/ModalShareProfile"
 import { LayoutItem } from "@/components/layouts/GradientSection"
 import Footer from "@/components/Footer"
 
@@ -16,9 +17,14 @@ import asset_bg from "@/assets/bg.jpg"
 
 export default function Dashboard() {
   const welcomeModal = useOnOffMachine(true)
+  const shareProfileModal = useOnOffMachine(false)
   return (
     <main data-type="texturized" className="bg-darker">
       <SeoTags title="InterLace | Dashboard" />
+      <ModalShareProfile
+        show={shareProfileModal.isOn}
+        onClose={shareProfileModal.turnOff}
+      />
       <PrimitiveDialog onClose={welcomeModal.turnOff} show={welcomeModal.isOn}>
         <section className="flex flex-col space-y-4 pb-8 text-center">
           <h3 className="mt-8">Web3 profile Created!</h3>
@@ -52,7 +58,13 @@ export default function Dashboard() {
               Manage and share your Web3 contrubutions
             </p>
           </div>
-          <FaShareSquare className="text-3xl" />
+          <button
+            title="Share your profile"
+            className="group"
+            onClick={shareProfileModal.turnOn}
+          >
+            <FaShareSquare className="text-3xl group-hover:scale-105 transition-transform duration-75" />
+          </button>
         </section>
         <section className="flex flex-col lg:flex-row text-black gap-12">
           <div className="w-full bg-white max-w-lg rounded-xl p-4 pb-8 font-normal">
@@ -86,8 +98,10 @@ export default function Dashboard() {
                 <GiBoatPropeller className="text-white" />
               </span>
               <div>
-                <h4 className="font-bold text-2xl">How I can contribute</h4>
-                <p className="text-3xl mt-4">
+                <h4 className="font-bold text-2xl lg:pt-2">
+                  How I can contribute
+                </h4>
+                <p className="text-2xl mt-4">
                   “I would like to create content on difficult technical topics
                   in web3.”
                 </p>
@@ -99,7 +113,9 @@ export default function Dashboard() {
                 <GiBoatPropeller className="text-white" />
               </span>
               <div>
-                <h4 className="font-bold text-2xl">Areas of expertise</h4>
+                <h4 className="font-bold text-2xl lg:pt-2">
+                  Areas of expertise
+                </h4>
                 <div className="flex gap-4 flex-wrap mt-6">
                   <div className="px-3 py-1 border-2 border-white rounded-full text-xl font-normal">
                     Community
@@ -125,10 +141,10 @@ export default function Dashboard() {
                 <GiBoatPropeller className="text-white" />
               </span>
               <div>
-                <h4 className="font-bold text-2xl">
+                <h4 className="font-bold text-2xl lg:pt-2">
                   Interesting thing about me
                 </h4>
-                <article className="text-lg">
+                <article className="text-xl">
                   <header className="mt-4">Mission</header>
                   <p className="text-gray-400">
                     I formulate product strategy and validation for software
