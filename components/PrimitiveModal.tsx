@@ -6,6 +6,7 @@ export type DialogProps = PropsWithChildren<{
   show?: boolean
   onClose?(): void
   className?: string
+  maxWidth?: string
   closeOnBackdropClick?: boolean
 }>
 
@@ -13,6 +14,7 @@ function PrimitiveDialog({
   children,
   show = false,
   onClose = noOp,
+  maxWidth = "max-w-lg",
   closeOnBackdropClick = true,
   className,
 }: DialogProps) {
@@ -44,7 +46,10 @@ function PrimitiveDialog({
             <CloseButton onClose={onClose} />
             <Dialog.Panel
               data-type="texture"
-              className="w-screen max-w-lg transform rounded-2xl bg-darker py-6 px-8 text-left align-middle shadow-xl transition-all max-h-screen"
+              className={classnames(
+                maxWidth,
+                "w-screen transform rounded-2xl bg-darker py-6 px-8 text-left align-middle shadow-xl transition-all max-h-screen"
+              )}
             >
               {children}
             </Dialog.Panel>
