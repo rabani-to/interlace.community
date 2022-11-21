@@ -48,7 +48,9 @@ const client = createClient({
   connectors,
 })
 
-const fontWorkSans = Work_Sans()
+const fontWorkSans = Work_Sans({
+  weight: ["300", "400", "500"],
+})
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
