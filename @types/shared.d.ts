@@ -1,3 +1,5 @@
+import { type PropsWithChildren } from "react"
+
 export type Experience = {
   role: string
   expertise: string[]
@@ -26,3 +28,7 @@ export type Profile = Details &
   Experience & {
     address: string
   }
+
+export type PropsWithChildrenCx<Props = any> = PropsWithChildren<Props> & {
+  className?: string
+}
