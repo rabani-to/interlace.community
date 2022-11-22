@@ -1,13 +1,13 @@
 import { Fragment, useEffect, useState } from "react"
-import { MdOutlineSelfImprovement } from "react-icons/md"
 
 import useOnOffMachine from "@/lib/hooks/useOnOffMachine"
+import { BsFillLightningFill } from "react-icons/bs"
+
 import TextArea from "@/components/forms/TextArea"
 import ProfileSection from "./ProfileSection"
-import ButtonActionEmpty from "./ButtonActionEmpty"
 import SectionForm from "./SectionForm"
 
-function SectionHowCanI() {
+function SectionAboutMe() {
   const modalMachine = useOnOffMachine()
   const [formDescription, setFormDescription] = useState<string>()
   const [description, setDescription] = useState<string>("")
@@ -26,34 +26,47 @@ function SectionHowCanI() {
       <SectionForm
         show={modalMachine.isOn}
         onClose={modalMachine.turnOff}
-        title="How I can contribute"
+        title="Interesting thing about me"
         onSubmit={handleSubmit}
       >
         <TextArea
-          label=""
+          label="Mission & Vision"
+          name="description"
+          onChange={setFormDescription}
+          required
+          placeholder="I would like to make something awesome!!"
+        />
+        <TextArea
+          label="DAO's you've contributed to?"
+          name="description"
+          onChange={setFormDescription}
+          required
+          placeholder="I would like to make something awesome!!"
+        />
+        <TextArea
+          label="What are you looking for in a DAO?"
           name="description"
           onChange={setFormDescription}
           required
           placeholder="I would like to make something awesome!!"
         />
       </SectionForm>
+
       <ProfileSection
         onEdit={modalMachine.turnOn}
-        title="How I can contribute"
-        icon={<MdOutlineSelfImprovement className="text-white text-2xl" />}
+        title="Interesting thing about me"
+        icon={<BsFillLightningFill className="text-white text-xl" />}
       >
-        <section className="pt-4">
-          {description.length === 0 ? (
-            <ButtonActionEmpty className="mt-2" onClick={modalMachine.turnOn}>
-              Write something
-            </ButtonActionEmpty>
-          ) : (
-            <p className="text-2xl">“{description}”</p>
-          )}
-        </section>
+        <article className="text-xl">
+          <header className="mt-4">Mission</header>
+          <p className="text-gray-400">
+            I formulate product strategy and validation for software products as
+            well as planning out prototypes, roadmaps and feature development.
+          </p>
+        </article>
       </ProfileSection>
     </Fragment>
   )
 }
 
-export default SectionHowCanI
+export default SectionAboutMe

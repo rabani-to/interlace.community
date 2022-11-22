@@ -1,14 +1,14 @@
-import { type FormEvent, Fragment, useEffect, useState } from "react"
+import { Fragment, useEffect, useState } from "react"
 import { FaDiceD6 } from "react-icons/fa"
 
 import ALL_ROLES from "@/lib/models/roles"
 
 import useOnOffMachine from "@/lib/hooks/useOnOffMachine"
 import ReactSelect from "@/components/forms/ReactSelect"
-import PrimitiveDialog from "@/components/PrimitiveModal"
 import ItemWithDescrition from "@/components/forms/ItemWithDescription"
-import Button from "@/components/Button"
 import ProfileSection from "./ProfileSection"
+import ButtonActionEmpty from "./ButtonActionEmpty"
+import SectionForm from "./SectionForm"
 
 const ROLE_OPTIONS = Object.keys(ALL_ROLES)
 function SectionExpertise() {
@@ -23,8 +23,7 @@ function SectionExpertise() {
     setAreas(undefined)
   }, [modalMachine.isOff])
 
-  function handleSubmit(e: FormEvent) {
-    e.preventDefault()
+  function handleSubmit() {
     console.log({ areas, role })
     setRenderAreas((current) => areas || current)
     modalMachine.turnOff()
@@ -32,41 +31,34 @@ function SectionExpertise() {
 
   return (
     <Fragment>
-      <PrimitiveDialog
-        background="bg-white"
-        noTexture
-        className="text-black"
+      <SectionForm
+        onSubmit={handleSubmit}
+        title="Areas of expertise"
         onClose={modalMachine.turnOff}
         show={modalMachine.isOn}
       >
-        <h3>Areas of expertise</h3>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-2 py-4">
+        <ReactSelect
+          options={ROLE_OPTIONS}
+          onSelect={([{ value }]) => setRole(value)}
+          name="role"
+          required
+          label="What role are you looking for?"
+          placeholder="Select role"
+        />
+        <ItemWithDescrition
+          description={role ? "Pick up to 4." : "You must select a role."}
+        >
           <ReactSelect
-            options={ROLE_OPTIONS}
-            onSelect={([{ value }]) => setRole(value)}
-            name="role"
+            options={EXPERTISE_OPTIONS}
+            onSelect={(areas) => setAreas(areas.map(({ value }) => value))}
+            name="areas"
             required
-            label="What role are you looking for?"
-            placeholder="Select role"
+            label="Areas of expertise"
+            placeholder="Select one or more"
+            isMulti
           />
-          <ItemWithDescrition
-            description={role ? "Pick up to 4." : "You must select a role."}
-          >
-            <ReactSelect
-              options={EXPERTISE_OPTIONS}
-              onSelect={(areas) => setAreas(areas.map(({ value }) => value))}
-              name="areas"
-              required
-              label="Areas of expertise"
-              placeholder="Select one or more"
-              isMulti
-            />
-          </ItemWithDescrition>
-          <Button className="mt-6" flavor="violet" isFormItem isFull>
-            Save changes
-          </Button>
-        </form>
-      </PrimitiveDialog>
+        </ItemWithDescrition>
+      </SectionForm>
       <ProfileSection
         onEdit={modalMachine.turnOn}
         title="Areas of expertise"
@@ -74,12 +66,9 @@ function SectionExpertise() {
       >
         <div className="flex gap-4 flex-wrap mt-6">
           {renderAreas.length === 0 && (
-            <Button
-              onClick={modalMachine.turnOn}
-              className="bg-white/5 !text-base"
-            >
-              Add one
-            </Button>
+            <ButtonActionEmpty onClick={modalMachine.turnOn}>
+              Add expertise
+            </ButtonActionEmpty>
           )}
           {renderAreas.map((area) => {
             return (
