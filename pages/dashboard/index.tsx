@@ -1,4 +1,3 @@
-import { type PropsWithChildren } from "react"
 import Image from "next/image"
 
 import useOnOffMachine from "@/lib/hooks/useOnOffMachine"
@@ -8,11 +7,16 @@ import Button from "@/components/Button"
 import TopNavigation from "@/components/TopNavigation"
 import ModalShareProfile from "@/components/ModalShareProfile"
 import { LayoutItem } from "@/components/layouts/GradientSection"
+import Row, { RowItemIcon } from "@/components/user/Row"
 import Footer from "@/components/Footer"
+
+import SectionExpertise from "@/components/user/SectionExpertise"
+import SectionHowCanI from "@/components/user/SectionHowCanI"
+import SectionAboutMe from "@/components/user/SectionAboutMe"
 
 import { FaClock, FaLink, FaShareSquare } from "react-icons/fa"
 import { MdPayments } from "react-icons/md"
-import { GiBoatPropeller, GiPieChart } from "react-icons/gi"
+import { GiPieChart } from "react-icons/gi"
 import asset_bg from "@/assets/bg.jpg"
 
 export default function Dashboard() {
@@ -93,95 +97,13 @@ export default function Dashboard() {
             </div>
           </div>
           <div className="flex flex-col gap-12 flex-grow text-white">
-            <Row gap="gap-4" items="items-start">
-              <span className="bg-[#2924FF] rounded-full flex items-center justify-center h-8 min-w-[2rem] lg:min-w-[3rem] lg:h-12">
-                <GiBoatPropeller className="text-white" />
-              </span>
-              <div>
-                <h4 className="font-bold text-2xl lg:pt-2">
-                  How I can contribute
-                </h4>
-                <p className="text-2xl mt-4">
-                  “I would like to create content on difficult technical topics
-                  in web3.”
-                </p>
-              </div>
-            </Row>
-
-            <Row gap="gap-4" items="items-start">
-              <span className="bg-[#2924FF] rounded-full flex items-center justify-center h-8 min-w-[2rem] lg:min-w-[3rem] lg:h-12">
-                <GiBoatPropeller className="text-white" />
-              </span>
-              <div>
-                <h4 className="font-bold text-2xl lg:pt-2">
-                  Areas of expertise
-                </h4>
-                <div className="flex gap-4 flex-wrap mt-6">
-                  <div className="px-3 py-1 border-2 border-white rounded-full text-xl font-normal">
-                    Community
-                  </div>
-                  <div className="px-3 py-1 border-2 border-white rounded-full text-xl font-normal">
-                    Content
-                  </div>
-                  <div className="px-3 py-1 border-2 border-white rounded-full text-xl font-normal">
-                    Frontend
-                  </div>
-                  <div className="px-3 py-1 border-2 border-white rounded-full text-xl font-normal">
-                    Operations
-                  </div>
-                  <div className="px-3 py-1 border-2 border-white rounded-full text-xl font-normal">
-                    Development
-                  </div>
-                </div>
-              </div>
-            </Row>
-
-            <Row gap="gap-4" items="items-start">
-              <span className="bg-[#2924FF] rounded-full flex items-center justify-center h-8 min-w-[2rem] lg:min-w-[3rem] lg:h-12">
-                <GiBoatPropeller className="text-white" />
-              </span>
-              <div>
-                <h4 className="font-bold text-2xl lg:pt-2">
-                  Interesting thing about me
-                </h4>
-                <article className="text-xl">
-                  <header className="mt-4">Mission</header>
-                  <p className="text-gray-400">
-                    I formulate product strategy and validation for software
-                    products as well as planning out prototypes, roadmaps and
-                    feature development.
-                  </p>
-                </article>
-              </div>
-            </Row>
+            <SectionHowCanI />
+            <SectionExpertise />
+            <SectionAboutMe />
           </div>
         </section>
       </LayoutItem>
       <Footer className="mt-32 lg:mt-4" />
     </main>
   )
-}
-
-function RowItemIcon({ children, Icon }: PropsWithChildren<{ Icon: any }>) {
-  return (
-    <Row>
-      <span className="bg-[#2924FF] rounded-full flex items-center justify-center w-6 h-6 lg:w-8 lg:h-8">
-        <Icon className="text-white" />
-      </span>
-      <span className="whitespace-nowrap">{children}</span>
-    </Row>
-  )
-}
-
-function Row({
-  children,
-  className,
-  gap = "space-x-2",
-  items = "items-center",
-}: PropsWithChildren<{
-  className?: string
-  items?: string
-  gap?: string
-}>) {
-  return <div className={`${className} ${items} ${gap} flex`}>{children}</div>
 }
