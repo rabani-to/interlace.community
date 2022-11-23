@@ -3,7 +3,7 @@ import { FaShareSquare } from "react-icons/fa"
 import useOnOffMachine from "@/lib/hooks/useOnOffMachine"
 import PrimitiveDialog from "@/components/PrimitiveModal"
 import SectionExpertise from "@/components/user/SectionExpertise"
-import SectionHowCanI from "@/components/user/SectionHowCanI"
+import SectionHowCanIContribute from "@/components/user/SectionHowCanIContribute"
 import SectionAboutMe from "@/components/user/SectionAboutMe"
 import ProfileCard from "@/components/user/ProfileCard"
 
@@ -71,7 +71,7 @@ export default function Dashboard() {
         <section className="flex flex-col lg:flex-row text-black gap-12">
           <ProfileCard />
           <div className="flex flex-col gap-12 flex-grow text-white">
-            <SectionHowCanI />
+            <SectionHowCanIContribute />
             <SectionExpertise />
             <SectionAboutMe />
           </div>

@@ -7,7 +7,7 @@ import ProfileSection from "./ProfileSection"
 import ButtonActionEmpty from "./ButtonActionEmpty"
 import SectionForm from "./SectionForm"
 
-function SectionHowCanI() {
+function SectionHowCanIContribute() {
   const modalMachine = useOnOffMachine()
   const [formDescription, setFormDescription] = useState<string>()
   const [description, setDescription] = useState<string>("")
@@ -34,7 +34,7 @@ function SectionHowCanI() {
           name="description"
           onChange={setFormDescription}
           required
-          placeholder="I would like to make something awesome!!"
+          placeholder="Please describe how you can best contribute to a web3 project in 1 sentence."
         />
       </SectionForm>
       <ProfileSection
@@ -45,7 +45,7 @@ function SectionHowCanI() {
         <section className="pt-4">
           {description.length === 0 ? (
             <ButtonActionEmpty className="mt-2" onClick={modalMachine.turnOn}>
-              Write something
+              Add description
             </ButtonActionEmpty>
           ) : (
             <p className="text-2xl">“{description}”</p>
@@ -56,4 +56,4 @@ function SectionHowCanI() {
   )
 }
 
-export default SectionHowCanI
+export default SectionHowCanIContribute
