@@ -6,7 +6,7 @@ export function RowItemIcon({
 }: PropsWithChildren<{ Icon: any }>) {
   return (
     <Row>
-      <span className="bg-[#2924FF] rounded-full flex items-center justify-center w-6 h-6 lg:w-8 lg:h-8">
+      <span className="bg-[#2924FF] rounded-full flex items-center justify-center w-7 h-7 lg:w-8 lg:h-8">
         <Icon className="text-white" />
       </span>
       <span className="whitespace-nowrap">{children}</span>
