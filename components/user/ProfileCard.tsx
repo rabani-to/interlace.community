@@ -7,8 +7,6 @@ import { MdEdit, MdPayments } from "react-icons/md"
 import { RiBillFill } from "react-icons/ri"
 
 import useOnOffMachine from "@/lib/hooks/useOnOffMachine"
-import useHybridAccount from "@/lib/hooks/useHybridAccount"
-import { beautifyAddress } from "@/lib/helpers"
 
 import asset_bg from "@/assets/bg.jpg"
 import ReactSelect from "@/components/forms/ReactSelect"
@@ -17,14 +15,11 @@ import SectionForm from "./SectionForm"
 import Row, { RowItemIcon } from "./Row"
 
 function ProfileCard() {
-  const { address } = useHybridAccount()
   const modalMachine = useOnOffMachine()
 
   function handleSubmit() {
     modalMachine.turnOff()
   }
-
-  const beautyAddress = beautifyAddress(address)
 
   return (
     <Fragment>
@@ -96,9 +91,7 @@ function ProfileCard() {
           </Row>
           <Image placeholder="blur" src={asset_bg} alt="" />
         </section>
-        <h3 className="font-bold lg:text-4xl mt-6">
-          Anon / {beautyAddress || "Person"}
-        </h3>
+        <h3 className="font-bold lg:text-4xl mt-6">AnonUser</h3>
         <section className="flex flex-col items-start gap-4">
           <h4 className="lg:text-xl font-bold">Backend Content Consultant</h4>
           <Row gap="gap-4" className="flex-wrap-reverse">
@@ -117,7 +110,7 @@ function ProfileCard() {
             </span>
           </Link>
         </section>
-        <section className="flex w-full -mb-2 mt-6 pt-6 border-t justify-center">
+        <section className="flex w-full -mb-2 mt-8 pt-6 border-t justify-center">
           <button
             onClick={modalMachine.turnOn}
             className="flex group gap-1 opacity-70 hover:opacity-100"
