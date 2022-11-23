@@ -39,7 +39,7 @@ function PrimitiveFormItem({
         <Element
           {...(inputProps as any)}
           onChange={({ target }: any) => onChange(target.value)}
-          className="placeholder:font-light outline-none flex-grow p-2 bg-transparent"
+          className="placeholder:font-light overflow-hidden outline-none flex-grow p-2 bg-transparent"
         />
         {endEnhancer && <div className="p-2 border-l">{endEnhancer}</div>}
       </div>
