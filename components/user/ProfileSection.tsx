@@ -13,8 +13,8 @@ function ProfileSection({
   onEdit?: () => void
 }>) {
   return (
-    <Row gap="gap-4" items="items-start">
-      <span className="bg-[#2924FF] rounded-full flex items-center justify-center h-8 min-w-[2rem] lg:min-w-[3rem] lg:h-12">
+    <Row className="flex-col lg:flex-row" gap="gap-4" items="items-start">
+      <span className="bg-[#2924FF] rounded-full flex items-center justify-center h-12 min-w-[3rem]">
         {icon}
       </span>
       <section>
@@ -25,7 +25,7 @@ function ProfileSection({
             className="flex group gap-1 opacity-60 hover:opacity-100"
           >
             <MdEdit className="text-xl" />
-            <span className="hidden group-hover:inline text-sm">Edit</span>
+            <span className="md:hidden group-hover:inline text-sm">Edit</span>
           </button>
         </div>
         {children}
