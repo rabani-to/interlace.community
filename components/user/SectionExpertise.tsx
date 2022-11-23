@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react"
+import { Fragment, useState } from "react"
 import { FaDiceD6 } from "react-icons/fa"
 
 import ALL_ROLES from "@/lib/models/roles"
@@ -14,19 +14,17 @@ const ROLE_OPTIONS = Object.keys(ALL_ROLES)
 function SectionExpertise() {
   const modalMachine = useOnOffMachine()
   const [role, setRole] = useState<string>()
-  const [areas, setAreas] = useState<string[]>()
-  const [renderAreas, setRenderAreas] = useState<string[]>([])
+  const [formAreas, setFormAreas] = useState<string[]>()
+  const [areas, setAreas] = useState<string[]>([])
   const EXPERTISE_OPTIONS = role ? ALL_ROLES[role].categories : []
 
-  useEffect(() => {
-    setRole(undefined)
-    setAreas(undefined)
-  }, [modalMachine.isOff])
-
   function handleSubmit() {
-    console.log({ areas, role })
-    setRenderAreas((current) => areas || current)
+    setAreas((currentAreas) => formAreas || currentAreas)
     modalMachine.turnOff()
+  }
+
+  function handleSelectAreas(areas: any[]) {
+    setFormAreas(areas.map(({ value }) => value))
   }
 
   return (
@@ -39,6 +37,7 @@ function SectionExpertise() {
       >
         <ReactSelect
           options={ROLE_OPTIONS}
+          defaultValue={role}
           onSelect={([{ value }]) => setRole(value)}
           name="role"
           required
@@ -50,7 +49,8 @@ function SectionExpertise() {
         >
           <ReactSelect
             options={EXPERTISE_OPTIONS}
-            onSelect={(areas) => setAreas(areas.map(({ value }) => value))}
+            defaultValue={areas.length ? areas : undefined}
+            onSelect={handleSelectAreas}
             name="areas"
             required
             label="Areas of expertise"
@@ -64,23 +64,23 @@ function SectionExpertise() {
         title="Areas of expertise"
         icon={<FaDiceD6 className="text-white text-lg" />}
       >
-        <div className="flex gap-4 flex-wrap mt-6">
-          {renderAreas.length === 0 && (
+        <ul className="flex gap-4 flex-wrap mt-6">
+          {areas.length === 0 && (
             <ButtonActionEmpty onClick={modalMachine.turnOn}>
               Add expertise
             </ButtonActionEmpty>
           )}
-          {renderAreas.map((area) => {
+          {areas.map((areaName) => {
             return (
-              <div
-                key={`user-area-${area}`}
+              <li
+                key={`user-area-${areaName}`}
                 className="px-3 py-1 border-2 border-white rounded-full text-xl font-normal"
               >
-                {area}
-              </div>
+                {areaName}
+              </li>
             )
           })}
-        </div>
+        </ul>
       </ProfileSection>
     </Fragment>
   )
