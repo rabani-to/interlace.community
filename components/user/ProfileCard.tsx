@@ -2,25 +2,29 @@ import { Fragment } from "react"
 import Image from "next/image"
 import Link from "next/link"
 
-import { FaClock, FaLink } from "react-icons/fa"
+import { FaLink, FaTachometerAlt } from "react-icons/fa"
 import { MdEdit, MdPayments } from "react-icons/md"
-import { GiPieChart } from "react-icons/gi"
+import { RiBillFill } from "react-icons/ri"
 
 import useOnOffMachine from "@/lib/hooks/useOnOffMachine"
+import useHybridAccount from "@/lib/hooks/useHybridAccount"
+import { beautifyAddress } from "@/lib/helpers"
 
 import asset_bg from "@/assets/bg.jpg"
 import ReactSelect from "@/components/forms/ReactSelect"
-import TextArea from "@/components/forms/TextArea"
 import Input from "@/components/forms/Input"
 import SectionForm from "./SectionForm"
 import Row, { RowItemIcon } from "./Row"
 
 function ProfileCard() {
+  const { address } = useHybridAccount()
   const modalMachine = useOnOffMachine()
 
   function handleSubmit() {
     modalMachine.turnOff()
   }
+
+  const beautyAddress = beautifyAddress(address)
 
   return (
     <Fragment>
@@ -39,29 +43,29 @@ function ProfileCard() {
           label="Headline"
           name="name"
           required
-          placeholder="An awesome unicorn 🦄!"
-        />
-        <Input
-          name="portfolio"
-          required
-          label="Website supporting your work history and skills"
-          placeholder="portfolio.xyz"
-          startEnhancer="https://"
+          placeholder="An awesome unicorn 🦄"
         />
         <ReactSelect
           options={[
             "1 - 8 hrs/week",
             "8 - 12 hrs/week",
-            "12 - 20 hrs/week",
-            "20 - 32 hrs/week",
+            "12 - 25 hrs/week",
+            "25 - 32 hrs/week",
             "32+ hrs/week",
           ]}
           required
-          label="Collaboration time"
+          label="Working Time"
           placeholder="Select a range"
         />
-        <div className="flex justify-between gap-4">
-          <div className="max-w-[10rem]">
+        <Input
+          name="portfolio"
+          required
+          label="Website or portfolio"
+          placeholder="portfolio.xyz"
+          startEnhancer="https://"
+        />
+        <div className="flex flex-col md:flex-row justify-between gap-4 pt-1">
+          <div className="md:max-w-[10rem]">
             <Input
               required
               label="Hourly rate (in USD)"
@@ -81,33 +85,26 @@ function ProfileCard() {
           </div>
         </div>
       </SectionForm>
-      <div className="w-full bg-white max-w-lg rounded-xl p-4 pb-8 font-normal">
+      <div className="w-full bg-white max-w-[30rem] rounded-xl p-4 pb-8 font-normal">
         <section className="relative bg-black rounded-xl overflow-hidden">
           <Row
             gap="gap-1"
-            className="absolute mt-4 ml-4 bg-white/20 py-2 pr-6 pl-2 rounded-full backdrop-blur-lg"
+            className="absolute ml-2 mt-2 md:mt-4 md:ml-4 bg-white/20 py-2 pr-6 pl-2 rounded-full backdrop-blur-lg"
           >
             <div className="bg-violet-200 w-10 h-10 rounded-full" />
-            <span className="text-white text-xl">Developer</span>
+            <span className="text-white text-lg md:text-xl">Developer</span>
           </Row>
           <Image placeholder="blur" src={asset_bg} alt="" />
         </section>
-        <section className="flex mt-8 items-center gap-2">
-          <h3 className="font-bold text-4xl">Olivia</h3>
-          <button
-            onClick={modalMachine.turnOn}
-            className="flex group gap-1 opacity-60 hover:opacity-100"
-          >
-            <MdEdit className="text-xl" />
-            <span className="hidden group-hover:inline text-sm">Edit</span>
-          </button>
-        </section>
-        <div className="flex flex-col items-start gap-4">
-          <h4 className="text-xl font-bold">Backend Content Consultant</h4>
-          <Row gap="gap-4 overflow-y-auto">
-            <RowItemIcon Icon={FaClock}>$60 USD/hour</RowItemIcon>
-            <RowItemIcon Icon={GiPieChart}>10-20 hrs/week</RowItemIcon>
-            <RowItemIcon Icon={MdPayments}>Crypto</RowItemIcon>
+        <h3 className="font-bold lg:text-4xl mt-6">
+          Anon / {beautyAddress || "Person"}
+        </h3>
+        <section className="flex flex-col items-start gap-4">
+          <h4 className="lg:text-xl font-bold">Backend Content Consultant</h4>
+          <Row gap="gap-4" className="flex-wrap-reverse">
+            <RowItemIcon Icon={MdPayments}>$60 USD/hour</RowItemIcon>
+            <RowItemIcon Icon={FaTachometerAlt}>10-20 hrs/week</RowItemIcon>
+            <RowItemIcon Icon={RiBillFill}>Crypto</RowItemIcon>
           </Row>
           <Link
             className="flex group items-center gap-2"
@@ -119,7 +116,18 @@ function ProfileCard() {
               https://github.com/gyan0890
             </span>
           </Link>
-        </div>
+        </section>
+        <section className="flex w-full -mb-2 mt-6 pt-6 border-t justify-center">
+          <button
+            onClick={modalMachine.turnOn}
+            className="flex group gap-1 opacity-70 hover:opacity-100"
+          >
+            <MdEdit className="text-xl" />
+            <span className="opacity-80 group-hover:opacity-100 text-sm">
+              Edit Profile
+            </span>
+          </button>
+        </section>
       </div>
     </Fragment>
   )
