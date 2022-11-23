@@ -22,7 +22,6 @@ function SectionForm({
   return (
     <PrimitivePane
       background="bg-white"
-      noTexture
       className="text-black"
       onClose={onClose}
       show={show}
