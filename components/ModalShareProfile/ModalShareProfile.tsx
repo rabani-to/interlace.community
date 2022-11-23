@@ -12,14 +12,19 @@ function ModalShareProfile(props: DialogProps) {
   return (
     <PrimitiveDialog
       maxWidth="max-w-3xl"
-      className={styles.withSvgBackground}
+      className={`${styles.withSvgBackground} overflow-hidden`}
       {...props}
     >
-      <section className="flex">
-        <h3 className="text-center pt-12">
+      <section className="flex flex-col md:flex-row w-full">
+        <h3 className="text-center p-6 mb-12 md:mb-0 md:pt-16 md:pr-0 leading-relaxed">
           Share your Web3 profile with your social community
         </h3>
-        <Image placeholder="blur" src={asset_bg} alt="" />
+        <Image
+          className="hidden md:block"
+          placeholder="blur"
+          src={asset_bg}
+          alt=""
+        />
       </section>
       <section className="flex -mt-2 text-3xl text-white/70 items-center justify-center gap-4">
         <button className="hover:text-white">
