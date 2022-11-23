@@ -39,7 +39,7 @@ function ReactSelect({
 
   useEffect(() => {
     const arrifiedDefaultValue = arrify(defaultValue)
-    if (options.includes(arrifiedDefaultValue[0])) return
+    if (!defaultValue || options.includes(arrifiedDefaultValue[0])) return
     // User options changed after render. Force value reset
     setValue(null)
   }, [options])
