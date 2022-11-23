@@ -12,8 +12,12 @@ import useOnOffMachine, { OnOffMachine } from "@/lib/hooks/useOnOffMachine"
 import asset_bg from "@/assets/bg.jpg"
 import ReactSelect from "@/components/forms/ReactSelect"
 import Input from "@/components/forms/Input"
-import SectionForm from "./SectionForm"
 import Row, { RowItemIcon } from "./Row"
+import SectionForm from "./SectionForm"
+
+// *TODO: format URL for portfolio
+// https://some.url -> { plain: some.url }
+// https://some.url -> { url: https://some.url }
 
 const INIT_STATE: CardProfile = {} as any
 function ProfileCard() {
@@ -41,20 +45,25 @@ function ProfileCard() {
         <section className="flex flex-col items-start gap-4 mt-2">
           <Row gap="gap-4" className="flex-wrap-reverse">
             <RowItemIcon Icon={MdPayments}>
-              ${state.hourlyRate} USD/hour
+              {state.hourlyRate && `$${state.hourlyRate} `}
+              USD/hour
             </RowItemIcon>
             <RowItemIcon Icon={FaTachometerAlt}>
-              {state.workingTime}
+              {state.workingTime || "No preference"}
             </RowItemIcon>
-            <RowItemIcon Icon={RiBillFill}>{state.paymentOptions}</RowItemIcon>
+            <RowItemIcon Icon={RiBillFill}>
+              {state.paymentOptions || "No preference"}
+            </RowItemIcon>
           </Row>
           <Link
             className="flex group items-center gap-2"
-            target="_blank"
+            target={state.portfolio ? "_blank" : "_self"}
             href={state.portfolio || "#"}
           >
             <FaLink className="text-[#2924FF] text-2xl" />
-            <span className="group-hover:underline">{state.portfolio}</span>
+            <span className="group-hover:underline">
+              {state.portfolio || "No portfolio"}
+            </span>
           </Link>
         </section>
         <section className="flex w-full -mb-2 mt-8 pt-6 border-t justify-center">
