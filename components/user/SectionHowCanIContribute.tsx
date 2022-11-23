@@ -32,6 +32,7 @@ function SectionHowCanIContribute() {
         <TextArea
           label=""
           name="description"
+          defaultValue={description}
           onChange={setFormDescription}
           required
           placeholder="Please describe how you can best contribute to a web3 project in 1 sentence."
