@@ -1,6 +1,6 @@
 import Link from "next/link"
 import useHybridAccount from "@/lib/hooks/useHybridAccount"
-import { classnames } from "@/lib/helpers"
+import { beautifyAddress, classnames } from "@/lib/helpers"
 
 import ConnectButton from "./ConnectButton"
 import InterlaceLogo from "./InterLaceLogo"
@@ -40,9 +40,6 @@ function TopNavigation({
   )
 }
 
-const beautifyAddress = (addr: string) =>
-  `${addr.substr(0, 4)}${addr.substr(-5, 5)}`
-
 function HybridWalletButton() {
   const { address } = useHybridAccount()
   const formattedAddrr = beautifyAddress(address)
@@ -52,4 +49,5 @@ function HybridWalletButton() {
     </Button>
   )
 }
+
 export default TopNavigation
