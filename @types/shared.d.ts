@@ -9,7 +9,7 @@ export type Experience = {
 
 export type Preferences = {
   commitment: string
-  paymentOptions: string[]
+  paymentOptions: string
   hourlyRate: string
   workingTime: string
 }
@@ -41,6 +41,10 @@ export type ProfileExtras = {
   name: string
   interestingThings: ProfileInterestingThings
 }
+
+export type CardProfile = Preferences &
+  ProfileExtras &
+  Pick<Experience, "role" | "portfolio">
 
 export type PropsWithChildrenCx<Props = any> = PropsWithChildren<Props> & {
   className?: string
