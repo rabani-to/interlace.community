@@ -53,20 +53,20 @@ export default function Dashboard() {
         </LayoutItem>
       </section>
       <LayoutItem>
-        <section className="flex gap-8 items-center lg:items-end justify-between border-b mb-12 py-12">
-          <div>
-            <h3 className="font-bold">Your Web3 Profile</h3>
+        <section className="border-b mb-12 py-12">
+          <h3 className="font-bold">Your Web3 Profile</h3>
+          <div className="flex justify-between">
             <p className="text-xl text-gray-400">
               Manage and share your Web3 contrubutions
             </p>
+            <button
+              title="Share your profile"
+              className="group pl-5"
+              onClick={shareProfileModal.turnOn}
+            >
+              <FaShareSquare className="text-3xl group-hover:scale-105 transition-transform duration-75" />
+            </button>
           </div>
-          <button
-            title="Share your profile"
-            className="group"
-            onClick={shareProfileModal.turnOn}
-          >
-            <FaShareSquare className="text-3xl group-hover:scale-105 transition-transform duration-75" />
-          </button>
         </section>
         <section className="flex flex-col lg:flex-row text-black gap-12">
           <ProfileCard />
