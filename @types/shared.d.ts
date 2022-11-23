@@ -11,6 +11,7 @@ export type Preferences = {
   commitment: string
   paymentOptions: string[]
   hourlyRate: string
+  workingTime: string
 }
 
 export type Details = {
@@ -28,6 +29,18 @@ export type Profile = Details &
   Experience & {
     address: string
   }
+
+export type ProfileInterestingThings = {
+  missionVision: string
+  contribution: string
+  whatILookFor: string
+}
+
+export type ProfileExtras = {
+  headline: string
+  name: string
+  interestingThings: ProfileInterestingThings
+}
 
 export type PropsWithChildrenCx<Props = any> = PropsWithChildren<Props> & {
   className?: string

@@ -21,6 +21,7 @@ export const PROFILE_PREFERENCES = {
   commitment: "commitment",
   hourlyRate: "hourlyRate",
   paymentOptions: "paymentOptions",
+  workingTime: "workingTime",
 }
 
 export default {

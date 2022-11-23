@@ -18,6 +18,7 @@ export default function Preferences() {
       commitment: formatUndef(data.get(FORM.commitment)),
       hourlyRate: formatUndef(data.get(FORM.hourlyRate)),
       paymentOptions: formatUndef(data.get(FORM.paymentOptions)),
+      workingTime: formatUndef(data.get(FORM.workingTime)),
     })
     setTimeout(() => router.push("details/"))
   }
@@ -38,6 +39,20 @@ export default function Preferences() {
           required
           label="What is your preferred type of commitment?"
           placeholder="Select time"
+        />
+        <ReactSelect
+          options={[
+            "1 - 8 hrs/week",
+            "8 - 12 hrs/week",
+            "12 - 25 hrs/week",
+            "25 - 32 hrs/week",
+            "32+ hrs/week",
+          ]}
+          required
+          label="Expected Working Time"
+          placeholder="Select a range"
+          name={FORM.workingTime}
+          defaultValue={preferences?.workingTime}
         />
         <ReactSelect
           options={["Crypto", "FIAT"]}
