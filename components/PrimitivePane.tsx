@@ -9,16 +9,14 @@ export type DialogProps = PropsWithChildren<{
   maxWidth?: string
   closeOnBackdropClick?: boolean
   background?: string
-  noTexture?: boolean
 }>
 
 function PrimitivePane({
   children,
   show = false,
   onClose = noOp,
-  maxWidth = "max-w-lg",
+  maxWidth = "md:max-w-lg",
   background = "bg-darker",
-  noTexture,
   closeOnBackdropClick = true,
   className,
 }: DialogProps) {
@@ -67,7 +65,7 @@ function PrimitivePane({
               >
                 {children}
               </Dialog.Panel>
-              <div className="w-full absolute bottom-0 h-8 bg-gradient-to-b from-transparent via-[rgba(255,255,255,.25)] to-white"></div>
+              <div className="w-full pointer-events-none absolute bottom-0 h-8 bg-gradient-to-b from-transparent via-[rgba(255,255,255,.25)] to-white"></div>
             </div>
           </div>
         </Transition.Child>
@@ -76,7 +74,7 @@ function PrimitivePane({
   )
 }
 
-function CloseButton({ onClose }: { onClose(): void }) {
+export function CloseButton({ onClose }: { onClose(): void }) {
   return (
     <button
       onClick={onClose}
