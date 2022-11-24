@@ -1,5 +1,5 @@
-import type { CardProfile } from "@/types/shared"
-import { Fragment, useEffect, useMemo, useState } from "react"
+import type { CardProfile, PublicProfileSection } from "@/types/shared"
+import { Fragment, useEffect, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -13,11 +13,11 @@ import useFormattedURL from "./useFormattedURL"
 import asset_bg from "@/assets/bg.jpg"
 import ReactSelect from "@/components/forms/ReactSelect"
 import Input from "@/components/forms/Input"
-import Row, { RowItemIcon } from "../Row"
-import SectionForm from "../SectionForm"
+import Row, { RowItemIcon } from "@/components/user/Row"
+import SectionForm from "@/components/user/SectionForm"
 
 const INIT_STATE: CardProfile = {} as any
-function ProfileCard() {
+function ProfileCard({ isPublicView }: PublicProfileSection) {
   const modalMachine = useOnOffMachine()
   const [state, setState] = useState(INIT_STATE)
   const portfolio = useFormattedURL(state.portfolio)
@@ -25,7 +25,7 @@ function ProfileCard() {
   return (
     <Fragment>
       <ModalPane machine={modalMachine} onSubmit={setState} initState={state} />
-      <div className="w-full bg-white max-w-[30rem] rounded-xl p-4 pb-8 font-normal">
+      <div className="w-full bg-white max-w-[28rem] rounded-xl p-4 pb-8 font-normal">
         <section className="relative bg-black rounded-xl overflow-hidden">
           <Row
             gap="gap-1"
@@ -38,21 +38,24 @@ function ProfileCard() {
           </Row>
           <Image placeholder="blur" src={asset_bg} alt="" />
         </section>
-        <h3 className="font-bold lg:text-4xl mt-6">
-          {state.name || "AnonUser"}
-        </h3>
-        {state.headline && <h4 className="lg:text-xl">{state.headline}</h4>}
-        <section className="flex flex-col items-start gap-4 mt-2">
+        <section className="flex flex-col justify-end mt-6 min-h-[4rem]">
+          <h3 className="font-bold lg:text-4xl">{state.name || "AnonUser"}</h3>
+          {state.headline && <h4 className="lg:text-2xl">{state.headline}</h4>}
+        </section>
+        <section className="flex flex-col items-start gap-4 mt-4">
           <Row gap="gap-4" className="flex-wrap-reverse">
-            <RowItemIcon Icon={MdPayments}>
+            <RowItemIcon title="User Expected Hourly Rate" Icon={MdPayments}>
               {state.hourlyRate && `$${state.hourlyRate} `}
               USD/hour
             </RowItemIcon>
-            <RowItemIcon Icon={FaTachometerAlt}>
-              {state.workingTime || "No preference"}
+            <RowItemIcon
+              title="User Expected Working Time"
+              Icon={FaTachometerAlt}
+            >
+              {state.workingTime || "N/A"}
             </RowItemIcon>
-            <RowItemIcon Icon={RiBillFill}>
-              {state.paymentOptions || "No preference"}
+            <RowItemIcon title="User Expected Payment Type" Icon={RiBillFill}>
+              {state.paymentOptions || "N/A"}
             </RowItemIcon>
           </Row>
           <Link
@@ -66,17 +69,19 @@ function ProfileCard() {
             </span>
           </Link>
         </section>
-        <section className="flex w-full -mb-2 mt-8 pt-6 border-t justify-center">
-          <button
-            onClick={modalMachine.turnOn}
-            className="flex group gap-1 opacity-70 hover:opacity-100"
-          >
-            <MdEdit className="text-xl" />
-            <span className="opacity-80 group-hover:opacity-100 text-sm">
-              Edit Profile
-            </span>
-          </button>
-        </section>
+        {isPublicView || (
+          <section className="flex w-full -mb-2 mt-8 pt-6 border-t justify-center">
+            <button
+              onClick={modalMachine.turnOn}
+              className="flex group gap-1 opacity-70 hover:opacity-100"
+            >
+              <MdEdit className="text-xl" />
+              <span className="opacity-80 group-hover:opacity-100 text-sm">
+                Edit Profile
+              </span>
+            </button>
+          </section>
+        )}
       </div>
     </Fragment>
   )
