@@ -22,8 +22,9 @@ export default function ProfilePage() {
           <TopNavigation isHeadless />
         </LayoutItem>
       </section>
-      {profileData.isLoading && <LoadingState />}
-      {profileData.isOk ? (
+      {profileData.isLoading ? (
+        <LoadingState />
+      ) : profileData.isOk ? (
         <LayoutItem>
           <section className="flex mt-8 lg:mt-20 flex-col lg:flex-row text-black gap-12">
             <div className="flex-grow" />
