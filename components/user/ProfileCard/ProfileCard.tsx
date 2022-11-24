@@ -1,5 +1,5 @@
 import type { CardProfile } from "@/types/shared"
-import { Fragment, useEffect, useState } from "react"
+import { Fragment, useEffect, useMemo, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -8,21 +8,19 @@ import { MdEdit, MdPayments } from "react-icons/md"
 import { RiBillFill } from "react-icons/ri"
 
 import useOnOffMachine, { OnOffMachine } from "@/lib/hooks/useOnOffMachine"
+import useFormattedURL from "./useFormattedURL"
 
 import asset_bg from "@/assets/bg.jpg"
 import ReactSelect from "@/components/forms/ReactSelect"
 import Input from "@/components/forms/Input"
-import Row, { RowItemIcon } from "./Row"
-import SectionForm from "./SectionForm"
-
-// *TODO: format URL for portfolio
-// https://some.url -> { plain: some.url }
-// https://some.url -> { url: https://some.url }
+import Row, { RowItemIcon } from "../Row"
+import SectionForm from "../SectionForm"
 
 const INIT_STATE: CardProfile = {} as any
 function ProfileCard() {
   const modalMachine = useOnOffMachine()
   const [state, setState] = useState(INIT_STATE)
+  const portfolio = useFormattedURL(state.portfolio)
 
   return (
     <Fragment>
@@ -34,7 +32,9 @@ function ProfileCard() {
             className="absolute ml-2 mt-2 md:mt-4 md:ml-4 bg-white/20 py-2 pr-6 pl-2 rounded-full backdrop-blur-lg"
           >
             <div className="bg-violet-200 w-10 h-10 rounded-full" />
-            <span className="text-white text-lg md:text-xl">{state.role}</span>
+            <span className="text-white text-lg md:text-xl">
+              {state.role || "Unicorn 🦄"}
+            </span>
           </Row>
           <Image placeholder="blur" src={asset_bg} alt="" />
         </section>
@@ -57,12 +57,12 @@ function ProfileCard() {
           </Row>
           <Link
             className="flex group items-center gap-2"
-            target={state.portfolio ? "_blank" : "_self"}
-            href={state.portfolio || "#"}
+            target={portfolio.isValid ? "_blank" : "_self"}
+            href={portfolio.url}
           >
             <FaLink className="text-[#2924FF] text-2xl" />
             <span className="group-hover:underline">
-              {state.portfolio || "No portfolio"}
+              {portfolio.plainText || "No portfolio"}
             </span>
           </Link>
         </section>
