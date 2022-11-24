@@ -49,3 +49,7 @@ export type CardProfile = Preferences &
 export type PropsWithChildrenCx<Props = any> = PropsWithChildren<Props> & {
   className?: string
 }
+
+export type PublicProfileSection = {
+  isPublicView?: boolean
+}

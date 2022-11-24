@@ -1,13 +1,14 @@
+import type { PublicProfileSection } from "@/types/shared"
 import { Fragment, useEffect, useState } from "react"
 import { MdOutlineSelfImprovement } from "react-icons/md"
 
 import useOnOffMachine from "@/lib/hooks/useOnOffMachine"
 import TextArea from "@/components/forms/TextArea"
-import ProfileSection from "./ProfileSection"
+import SectionContainer from "./SectionContainer"
 import ButtonActionEmpty from "./ButtonActionEmpty"
 import SectionForm from "./SectionForm"
 
-function SectionHowCanIContribute() {
+function SectionHowCanIContribute({ isPublicView }: PublicProfileSection) {
   const modalMachine = useOnOffMachine()
   const [formDescription, setFormDescription] = useState<string>()
   const [description, setDescription] = useState<string>("")
@@ -21,6 +22,8 @@ function SectionHowCanIContribute() {
     modalMachine.turnOff()
   }
 
+  const showEmptyState = description.length === 0
+  if (showEmptyState && isPublicView) return null
   return (
     <Fragment>
       <SectionForm
@@ -38,13 +41,14 @@ function SectionHowCanIContribute() {
           placeholder="Please describe how you can best contribute to a web3 project in 1 sentence."
         />
       </SectionForm>
-      <ProfileSection
+      <SectionContainer
+        isPublicView={isPublicView}
         onEdit={modalMachine.turnOn}
         title="How I can contribute"
         icon={<MdOutlineSelfImprovement className="text-white text-2xl" />}
       >
         <section className="pt-4">
-          {description.length === 0 ? (
+          {showEmptyState ? (
             <ButtonActionEmpty className="mt-2" onClick={modalMachine.turnOn}>
               Add description
             </ButtonActionEmpty>
@@ -52,7 +56,7 @@ function SectionHowCanIContribute() {
             <p className="text-2xl">“{description}”</p>
           )}
         </section>
-      </ProfileSection>
+      </SectionContainer>
     </Fragment>
   )
 }

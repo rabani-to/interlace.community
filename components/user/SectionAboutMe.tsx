@@ -1,3 +1,4 @@
+import type { PublicProfileSection } from "@/types/shared"
 import { Fragment, useEffect, useState } from "react"
 import { BsFillLightningFill } from "react-icons/bs"
 
@@ -5,7 +6,7 @@ import { arrayIsEmptyOrFalsy } from "@/lib/arrays"
 import useOnOffMachine, { OnOffMachine } from "@/lib/hooks/useOnOffMachine"
 
 import TextArea from "@/components/forms/TextArea"
-import ProfileSection from "./ProfileSection"
+import SectionContainer from "./SectionContainer"
 import SectionForm from "./SectionForm"
 import ButtonActionEmpty from "./ButtonActionEmpty"
 
@@ -15,7 +16,7 @@ const INIT_STATE = {
   whatILookFor: "",
 }
 type InitState = typeof INIT_STATE
-function SectionAboutMe() {
+function SectionAboutMe({ isPublicView }: PublicProfileSection) {
   const modalMachine = useOnOffMachine()
   const [state, setState] = useState(INIT_STATE)
 
@@ -25,10 +26,12 @@ function SectionAboutMe() {
     state.whatILookFor,
   ])
 
+  if (showEmptyState && isPublicView) return null
   return (
     <Fragment>
       <ModalPane initState={state} onSubmit={setState} machine={modalMachine} />
-      <ProfileSection
+      <SectionContainer
+        isPublicView={isPublicView}
         onEdit={modalMachine.turnOn}
         title="Interesting thing about me"
         icon={<BsFillLightningFill className="text-white text-xl" />}
@@ -49,7 +52,7 @@ function SectionAboutMe() {
             {state.whatILookFor}
           </ShowHideContent>
         </article>
-      </ProfileSection>
+      </SectionContainer>
     </Fragment>
   )
 }

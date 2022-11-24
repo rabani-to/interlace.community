@@ -1,3 +1,4 @@
+import type { PublicProfileSection } from "@/types/shared"
 import { Fragment, useState } from "react"
 import { FaDiceD6 } from "react-icons/fa"
 
@@ -6,12 +7,12 @@ import ALL_ROLES from "@/lib/models/roles"
 import useOnOffMachine from "@/lib/hooks/useOnOffMachine"
 import ReactSelect from "@/components/forms/ReactSelect"
 import ItemWithDescrition from "@/components/forms/ItemWithDescription"
-import ProfileSection from "./ProfileSection"
+import SectionContainer from "./SectionContainer"
 import ButtonActionEmpty from "./ButtonActionEmpty"
 import SectionForm from "./SectionForm"
 
 const ROLE_OPTIONS = Object.keys(ALL_ROLES)
-function SectionExpertise() {
+function SectionExpertise({ isPublicView }: PublicProfileSection) {
   const modalMachine = useOnOffMachine()
   const [role, setRole] = useState<string>()
   const [formAreas, setFormAreas] = useState<string[]>()
@@ -27,6 +28,8 @@ function SectionExpertise() {
     setFormAreas(areas.map(({ value }) => value))
   }
 
+  const showEmptyState = areas.length === 0
+  if (showEmptyState && isPublicView) return null
   return (
     <Fragment>
       <SectionForm
@@ -59,13 +62,14 @@ function SectionExpertise() {
           />
         </ItemWithDescrition>
       </SectionForm>
-      <ProfileSection
+      <SectionContainer
+        isPublicView={isPublicView}
         onEdit={modalMachine.turnOn}
         title="Areas of expertise"
         icon={<FaDiceD6 className="text-white text-lg" />}
       >
         <ul className="flex gap-4 flex-wrap mt-6">
-          {areas.length === 0 && (
+          {showEmptyState && (
             <ButtonActionEmpty onClick={modalMachine.turnOn}>
               Add expertise
             </ButtonActionEmpty>
@@ -81,7 +85,7 @@ function SectionExpertise() {
             )
           })}
         </ul>
-      </ProfileSection>
+      </SectionContainer>
     </Fragment>
   )
 }
