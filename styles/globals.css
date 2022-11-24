@@ -40,14 +40,6 @@ strong {
   background-size: 5rem;
 }
 
-html[style*="overflow"] {
-  overflow: unset !important;
-}
-
-html[style*="overflow"] body {
-  overflow: hidden;
-}
-
 h1,
 h2 {
   letter-spacing: -0.05em;

@@ -47,7 +47,7 @@ export default function Dashboard() {
           </Button>
         </section>
       </PrimitiveDialog>
-      <section className="bg-gradient-to-b z-10 from-darker to-white/[0.04] py-6 top-0 backdrop-blur-sm sticky">
+      <section className="bg-white/[0.03] py-6 shadow-sm">
         <LayoutItem>
           <TopNavigation isHeadless withWallet />
         </LayoutItem>
