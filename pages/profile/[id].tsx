@@ -22,6 +22,7 @@ export default function ProfilePage() {
           <TopNavigation isHeadless />
         </LayoutItem>
       </section>
+      {profileData.isLoading && <LoadingState />}
       {profileData.isOk ? (
         <LayoutItem>
           <section className="flex mt-8 lg:mt-20 flex-col lg:flex-row text-black gap-12">
@@ -35,16 +36,22 @@ export default function ProfilePage() {
           </section>
         </LayoutItem>
       ) : (
-        <LoadingState />
+        <ErrorState />
       )}
       <Footer className="mt-24 lg:mt-32" />
     </main>
   )
 }
 
+const StateContainer = ({ children }: { children: any }) => (
+  <section className="min-h-[calc(40vh+6rem)] flex flex-col gap-2 items-center justify-center">
+    {children}
+  </section>
+)
+
 function LoadingState() {
   return (
-    <section className="min-h-[calc(40vh+6rem)] flex flex-col gap-2 items-center justify-center">
+    <StateContainer>
       <svg
         className="animate-spin h-12 w-12 text-white"
         xmlns="http://www.w3.org/2000/svg"
@@ -66,6 +73,15 @@ function LoadingState() {
         />
       </svg>
       <span className="opacity-30">Wait a sec...</span>
-    </section>
+    </StateContainer>
+  )
+}
+
+function ErrorState() {
+  return (
+    <StateContainer>
+      <h2>Oh-No!</h2>
+      <span className="opacity-30">We couldn{"'"}t find that user...</span>
+    </StateContainer>
   )
 }

@@ -5,8 +5,10 @@ import ff from "@/lib/services/ff"
 import { noOp } from "@/lib/helpers"
 
 function useRemoteProfileData(shortIdOrAddress: string) {
+  const [isLoading, setIsLoading] = useState(true)
   const [count, setCount] = useState(0)
   const [state, setState] = useState<RedisResponse<Profile>>({} as any)
+  const revalidate = () => setCount((n) => n + 1)
 
   useLayoutEffect(() => {
     if (shortIdOrAddress) {
@@ -17,15 +19,19 @@ function useRemoteProfileData(shortIdOrAddress: string) {
           }
         })
         .catch(noOp)
+        .finally(() => {
+          setIsLoading(false)
+        })
     }
   }, [shortIdOrAddress, count])
 
-  const revalidate = () => setCount((n) => n + 1)
   return {
     ...state,
     revalidate,
+    isLoading,
   } as typeof state & {
     revalidate(): void
+    isLoading: boolean
   }
 }
 
