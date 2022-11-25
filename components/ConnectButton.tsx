@@ -1,17 +1,11 @@
 import { Fragment } from "react"
-import { useConnectModal } from "@rainbow-me/rainbowkit"
 
-import { noOp } from "@/lib/helpers"
 import useOnOffMachine from "@/lib/hooks/useOnOffMachine"
 import PrimitiveDialog from "./PrimitiveModal"
 import Button from "./Button"
 
 function ConnectButton() {
-  const { openConnectModal = noOp } = useConnectModal()
   const connectModal = useOnOffMachine()
-  function handleWalletConnect() {
-    openConnectModal()
-  }
   return (
     <Fragment>
       <Button
@@ -25,7 +19,9 @@ function ConnectButton() {
         <section className="flex flex-col space-y-4 pb-8 text-center">
           <h3 className="mb-5 mt-8">How would you like to connect?</h3>
           <Button
-            onClick={handleWalletConnect}
+            isLink
+            href="/dashboard"
+            target="_blank"
             borderRadius="rounded-xl"
             className="bg-blue-300 py-5 justify-center font-bold text-black"
           >
