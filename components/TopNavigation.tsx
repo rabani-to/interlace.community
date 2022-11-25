@@ -2,6 +2,7 @@ import Link from "next/link"
 import useHybridAccount from "@/lib/hooks/useHybridAccount"
 import { beautifyAddress, classnames } from "@/lib/helpers"
 
+import { GrFormClose } from "react-icons/gr"
 import ConnectButton from "./ConnectButton"
 import InterlaceLogo from "./InterLaceLogo"
 import Button from "./Button"
@@ -41,11 +42,32 @@ function TopNavigation({
 }
 
 function HybridWalletButton() {
-  const { address } = useHybridAccount()
+  const { address, isConnected, disconnect, openConnectModal } =
+    useHybridAccount()
+
   const formattedAddrr = beautifyAddress(address)
+  if (isConnected) {
+    return (
+      <div className="flex items-center bg-white rounded-lg text-black">
+        <span className="px-4 font-bold">{formattedAddrr}</span>
+        <Button
+          title="Disconnect wallet"
+          onClick={disconnect}
+          borderRadius="rounded-r-lg"
+          className="bg-white border-l font-bold text-black"
+        >
+          <GrFormClose className="text-2xl" />
+        </Button>
+      </div>
+    )
+  }
   return (
-    <Button fontSize="text-base" className="bg-white font-bold text-black">
-      {address ? formattedAddrr : "Not connected"}
+    <Button
+      onClick={openConnectModal}
+      fontSize="text-base"
+      className="bg-white font-bold text-black"
+    >
+      Connect wallet
     </Button>
   )
 }
