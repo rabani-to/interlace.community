@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
 import toast from "react-hot-toast"
 
@@ -53,7 +53,14 @@ export default function Details() {
       })
       .then(() => {
         // User stored in DB. Continue
-        setTimeout(() => router.push("/dashboard"))
+        setTimeout(() =>
+          router.push({
+            pathname: "/dashboard",
+            query: {
+              showWelcome: true,
+            },
+          })
+        )
       })
       .catch(() => {
         toast.error("Oops. Something wrong happended")
@@ -63,6 +70,11 @@ export default function Details() {
         setIsWorking(false)
       })
   }
+
+  useEffect(() => {
+    // Prefer dashboard view
+    router.prefetch("/dashboard")
+  }, [])
 
   return (
     <FormLayout

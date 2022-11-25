@@ -1,3 +1,5 @@
+import { useEffect } from "react"
+import { useRouter } from "next/router"
 import { FaShareSquare } from "react-icons/fa"
 
 import useOnOffMachine from "@/lib/hooks/useOnOffMachine"
@@ -15,8 +17,15 @@ import { LayoutItem } from "@/components/layouts/GradientSection"
 import Footer from "@/components/Footer"
 
 export default function Dashboard() {
-  const welcomeModal = useOnOffMachine(true)
+  const { query } = useRouter()
+  const welcomeModal = useOnOffMachine(false)
   const shareProfileModal = useOnOffMachine(false)
+
+  useEffect(() => {
+    if (query.showWelcome) {
+      welcomeModal.turnOn()
+    }
+  }, [query.showWelcome])
 
   return (
     <main data-type="texturized" className="bg-darker">
