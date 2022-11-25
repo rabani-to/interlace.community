@@ -12,11 +12,12 @@ import ButtonActionEmpty from "./ButtonActionEmpty"
 import SectionForm from "./SectionForm"
 
 const ROLE_OPTIONS = Object.keys(ALL_ROLES)
-function SectionExpertise({ isPublicView }: PublicProfileSection) {
+function SectionExpertise({ isPublicView, profile }: PublicProfileSection) {
+  console.log({ profile })
   const modalMachine = useOnOffMachine()
-  const [role, setRole] = useState<string>()
+  const [role, setRole] = useState<string>(profile?.role!)
+  const [areas, setAreas] = useState<string[]>(profile?.expertise || [])
   const [formAreas, setFormAreas] = useState<string[]>()
-  const [areas, setAreas] = useState<string[]>([])
   const EXPERTISE_OPTIONS = role ? ALL_ROLES[role].categories : []
 
   function handleSubmit() {

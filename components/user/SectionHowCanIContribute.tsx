@@ -8,10 +8,15 @@ import SectionContainer from "./SectionContainer"
 import ButtonActionEmpty from "./ButtonActionEmpty"
 import SectionForm from "./SectionForm"
 
-function SectionHowCanIContribute({ isPublicView }: PublicProfileSection) {
+function SectionHowCanIContribute({
+  isPublicView,
+  profile,
+}: PublicProfileSection) {
   const modalMachine = useOnOffMachine()
   const [formDescription, setFormDescription] = useState<string>()
-  const [description, setDescription] = useState<string>("")
+  const [description, setDescription] = useState<string>(
+    profile?.description || ""
+  )
 
   useEffect(() => {
     setFormDescription(undefined)

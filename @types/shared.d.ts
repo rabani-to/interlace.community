@@ -52,4 +52,5 @@ export type PropsWithChildrenCx<Props = any> = PropsWithChildren<Props> & {
 
 export type PublicProfileSection = {
   isPublicView?: boolean
+  profile?: Profile
 }
