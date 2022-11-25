@@ -43,7 +43,7 @@ const connectors = connectorsForWallets([
 ])
 
 const client = createClient({
-  //autoConnect: true,
+  autoConnect: true,
   provider,
   connectors,
 })
