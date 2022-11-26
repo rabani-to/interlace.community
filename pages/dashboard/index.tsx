@@ -3,6 +3,8 @@ import { useRouter } from "next/router"
 import { FaShareSquare } from "react-icons/fa"
 
 import useOnOffMachine from "@/lib/hooks/useOnOffMachine"
+import useHybridAccount from "@/lib/hooks/useHybridAccount"
+import useRemoteProfileData from "@/lib/hooks/useRemoteProfileData"
 import PrimitiveDialog from "@/components/PrimitiveModal"
 import SectionExpertise from "@/components/user/SectionExpertise"
 import SectionHowCanIContribute from "@/components/user/SectionHowCanIContribute"
@@ -17,9 +19,11 @@ import { LayoutItem } from "@/components/layouts/GradientSection"
 import Footer from "@/components/Footer"
 
 export default function Dashboard() {
+  const { address } = useHybridAccount()
   const { query } = useRouter()
   const welcomeModal = useOnOffMachine(false)
   const shareProfileModal = useOnOffMachine(false)
+  const profileData = useRemoteProfileData(address)
 
   useEffect(() => {
     if (query.showWelcome) {
@@ -78,11 +82,11 @@ export default function Dashboard() {
           </div>
         </section>
         <section className="flex flex-col lg:flex-row text-black gap-12">
-          <ProfileCard />
+          <ProfileCard profile={profileData.data} />
           <div className="flex flex-col gap-12 flex-grow text-white">
-            <SectionHowCanIContribute />
-            <SectionExpertise />
-            <SectionAboutMe />
+            <SectionHowCanIContribute profile={profileData.data} />
+            <SectionExpertise profile={profileData.data} />
+            <SectionAboutMe profile={profileData.data} />
           </div>
         </section>
       </LayoutItem>
