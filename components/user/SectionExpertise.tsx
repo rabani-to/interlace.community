@@ -1,5 +1,5 @@
 import type { PublicProfileSection } from "@/types/shared"
-import { Fragment, useState } from "react"
+import { Fragment, useEffect, useState } from "react"
 import { FaDiceD6 } from "react-icons/fa"
 
 import ALL_ROLES from "@/lib/models/roles"
@@ -13,12 +13,16 @@ import SectionForm from "./SectionForm"
 
 const ROLE_OPTIONS = Object.keys(ALL_ROLES)
 function SectionExpertise({ isPublicView, profile }: PublicProfileSection) {
-  console.log({ profile })
   const modalMachine = useOnOffMachine()
-  const [role, setRole] = useState<string>(profile?.role!)
-  const [areas, setAreas] = useState<string[]>(profile?.expertise || [])
+  const [role, setRole] = useState<string>()
+  const [areas, setAreas] = useState<string[]>([])
   const [formAreas, setFormAreas] = useState<string[]>()
   const EXPERTISE_OPTIONS = role ? ALL_ROLES[role].categories : []
+
+  useEffect(() => {
+    setRole(profile?.role!)
+    setAreas(profile?.expertise || [])
+  }, [profile?.address])
 
   function handleSubmit() {
     setAreas((currentAreas) => formAreas || currentAreas)

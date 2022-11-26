@@ -19,11 +19,12 @@ import SectionForm from "@/components/user/SectionForm"
 const INIT_STATE: CardProfile = {} as any
 function ProfileCard({ isPublicView, profile }: PublicProfileSection) {
   const modalMachine = useOnOffMachine()
-  const [state, setState] = useState({
-    ...profile,
-    ...INIT_STATE,
-  })
+  const [state, setState] = useState(INIT_STATE)
   const portfolio = useFormattedURL(state.portfolio)
+
+  useEffect(() => {
+    setState((state) => ({ ...state, ...profile }))
+  }, [profile?.address])
 
   return (
     <Fragment>

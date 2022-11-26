@@ -14,9 +14,11 @@ function SectionHowCanIContribute({
 }: PublicProfileSection) {
   const modalMachine = useOnOffMachine()
   const [formDescription, setFormDescription] = useState<string>()
-  const [description, setDescription] = useState<string>(
-    profile?.description || ""
-  )
+  const [description, setDescription] = useState<string>("")
+
+  useEffect(() => {
+    setDescription(profile?.description || "")
+  }, [profile?.address])
 
   useEffect(() => {
     setFormDescription(undefined)
