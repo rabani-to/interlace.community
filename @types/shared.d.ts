@@ -29,6 +29,9 @@ export type Profile = Details &
   Experience & {
     address: string
   }
+export type ProfileWithShort = Profile & {
+  shortId: string
+}
 
 export type ProfileInterestingThings = {
   missionVision: string
