@@ -47,3 +47,11 @@ export async function getProfileByShort(short: string) {
   }
   return createResponse(null, false)
 }
+
+export async function getProfileByAddress(address: string) {
+  const profile = await redis.get(address as string)
+  if (profile) {
+    return createResponse(profile as Profile, true)
+  }
+  return createResponse(null, false)
+}
