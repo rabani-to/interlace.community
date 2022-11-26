@@ -35,6 +35,7 @@ export default function Dashboard() {
     <main data-type="texturized" className="bg-darker">
       <SeoTags title="InterLace | Dashboard" />
       <ModalShareProfile
+        shortId={profileData.data?.shortId}
         show={shareProfileModal.isOn}
         onClose={shareProfileModal.turnOff}
       />

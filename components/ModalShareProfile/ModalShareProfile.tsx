@@ -8,7 +8,7 @@ import Input from "@/components/forms/Input"
 import asset_bg from "@/assets/share-image.png"
 import styles from "./ModalShareProfile.module.css"
 
-function ModalShareProfile(props: DialogProps) {
+function ModalShareProfile(props: DialogProps & { shortId?: string }) {
   return (
     <PrimitiveDialog
       maxWidth="max-w-3xl"
@@ -44,7 +44,9 @@ function ModalShareProfile(props: DialogProps) {
         <Input
           className="bg-white"
           readOnly
-          placeholder="https://interlace.community/profile/02ewo"
+          placeholder={`https://interlace.community/profile/${
+            props.shortId || ""
+          }`}
           labelTextColor="text-white"
           endEnhancer={
             <button className="text-zinc-600 group px-2 flex space-x-1 items-center font-bold">
