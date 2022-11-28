@@ -12,7 +12,6 @@ import Button from "@/components/Button"
 
 import asset_stars from "@/assets/stars.svg"
 import asset_profilerow from "@/assets/profilerow-lg.png"
-import { beaconClient } from "@/lib/beacon"
 
 export default function Onboarding() {
   const router = useRouter()
@@ -20,7 +19,7 @@ export default function Onboarding() {
   const { connect: connectWithMagicLink } = useConnect({
     connector: getMagicConnector(chains),
   })
-  const { isConnected } = useAccount()
+  const { isConnected, address } = useAccount()
   const { openConnectModal = noOp } = useConnectModal()
   function handleConnectWallet() {
     openConnectModal()
@@ -31,23 +30,8 @@ export default function Onboarding() {
   }
   const redirect = () => router.push("/onboarding/experience")
 
-  async function handleConnectWithBeacon() {
-    const activeAccount = await beaconClient.getActiveAccount()
-    if (activeAccount) {
-      redirect()
-    } else {
-      beaconClient
-        .requestPermissions()
-        .then((permissions) => {
-          console.debug({ permissions })
-          redirect()
-        })
-        .catch(noOp)
-    }
-  }
-
   useEffect(() => {
-    if (isConnected) {
+    if (isConnected && address) {
       redirect()
     }
   }, [isConnected])
@@ -66,15 +50,8 @@ export default function Onboarding() {
               </p>
             </div>
             <div className="flex flex-col space-y-2 pt-4">
-              <Button
-                flavor="violet"
-                isFormItem
-                onClick={handleConnectWithBeacon}
-              >
-                Tezos Beacon Wallet
-              </Button>
               <Button flavor="violet" isFormItem onClick={handleConnectWallet}>
-                Metamask / WalletConnect
+                Connect wallet
               </Button>
               <span className="text-zinc-500">Or</span>
               <Button

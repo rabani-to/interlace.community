@@ -38,7 +38,7 @@ function useHybridAccount() {
   }
 
   useEffect(() => {
-    beaconClient.subscribeToEvent(BeaconEvent.ACTIVE_ACCOUNT_SET, revalidate)
+    // beaconClient.subscribeToEvent(BeaconEvent.ACTIVE_ACCOUNT_SET, revalidate)
   }, [])
 
   useEffect(() => {
@@ -62,7 +62,7 @@ function useHybridAccount() {
         })
       }
     }
-    handleBeacon()
+    // handleBeacon()
   }, [runValidation])
 
   return {
