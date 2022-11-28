@@ -29,6 +29,7 @@ export type Profile = Details &
   Experience & {
     address: string
   }
+
 export type ProfileWithShort = Profile & {
   shortId: string
 }
@@ -39,15 +40,11 @@ export type ProfileInterestingThings = {
   whatILookFor: string
 }
 
-export type ProfileExtras = {
+export type ProfileWithExtras = ProfileWithShort & {
   headline: string
   name: string
   interestingThings: ProfileInterestingThings
 }
-
-export type CardProfile = Preferences &
-  ProfileExtras &
-  Pick<Experience, "role" | "portfolio">
 
 export type PropsWithChildrenCx<Props = any> = PropsWithChildren<Props> & {
   className?: string

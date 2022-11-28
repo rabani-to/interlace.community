@@ -16,7 +16,7 @@ const INIT_STATE = {
   whatILookFor: "",
 }
 type InitState = typeof INIT_STATE
-function SectionAboutMe({ isPublicView }: PublicProfileSection) {
+function SectionAboutMe({ isPublicView, profile }: PublicProfileSection) {
   const modalMachine = useOnOffMachine()
   const [state, setState] = useState(INIT_STATE)
 
@@ -26,6 +26,7 @@ function SectionAboutMe({ isPublicView }: PublicProfileSection) {
     state.whatILookFor,
   ])
 
+  // useEffect(() => {}, [profile?.address])
   if (showEmptyState && isPublicView) return null
   return (
     <Fragment>

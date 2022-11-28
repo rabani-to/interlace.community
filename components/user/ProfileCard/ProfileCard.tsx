@@ -1,4 +1,4 @@
-import type { CardProfile, PublicProfileSection } from "@/types/shared"
+import type { ProfileWithExtras, PublicProfileSection } from "@/types/shared"
 import { Fragment, useEffect, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
@@ -16,7 +16,7 @@ import Input from "@/components/forms/Input"
 import Row, { RowItemIcon } from "@/components/user/Row"
 import SectionForm from "@/components/user/SectionForm"
 
-const INIT_STATE: CardProfile = {} as any
+const INIT_STATE: ProfileWithExtras = {} as any
 function ProfileCard({ isPublicView, profile }: PublicProfileSection) {
   const modalMachine = useOnOffMachine()
   const [state, setState] = useState(INIT_STATE)
@@ -97,11 +97,11 @@ function ModalPane({
   initState,
 }: {
   machine: OnOffMachine
-  initState: CardProfile
-  onSubmit(state: CardProfile): void
+  initState: ProfileWithExtras
+  onSubmit(state: ProfileWithExtras): void
 }) {
   const [state, setState] = useState(initState)
-  const asyncSetState = (newState: Partial<CardProfile>) =>
+  const asyncSetState = (newState: Partial<ProfileWithExtras>) =>
     setState((prevState) => ({ ...prevState, ...newState }))
 
   function handleSubmit() {
