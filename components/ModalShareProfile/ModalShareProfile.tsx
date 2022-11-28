@@ -1,4 +1,6 @@
 import Image from "next/image"
+import clipboarCopy from "clipboard-copy"
+import toast from "react-hot-toast"
 
 import { FiCopy } from "react-icons/fi"
 import { FaInstagram, FaLinkedin, FaTelegram, FaTwitter } from "react-icons/fa"
@@ -9,6 +11,12 @@ import asset_bg from "@/assets/share-image.png"
 import styles from "./ModalShareProfile.module.css"
 
 function ModalShareProfile(props: DialogProps & { shortId?: string }) {
+  const shareURL = `https://interlace.community/profile/${props.shortId || ""}`
+  function handleCopyClipboard() {
+    clipboarCopy(shareURL)
+    toast.success("Copied to clipboard")
+  }
+
   return (
     <PrimitiveDialog
       maxWidth="max-w-3xl"
@@ -44,12 +52,13 @@ function ModalShareProfile(props: DialogProps & { shortId?: string }) {
         <Input
           className="bg-white"
           readOnly
-          placeholder={`https://interlace.community/profile/${
-            props.shortId || ""
-          }`}
+          placeholder={shareURL}
           labelTextColor="text-white"
           endEnhancer={
-            <button className="text-zinc-600 group px-2 flex space-x-1 items-center font-bold">
+            <button
+              onClick={handleCopyClipboard}
+              className="text-zinc-600 group px-2 flex space-x-1 items-center font-bold"
+            >
               <FiCopy className="text-xl group-hover:scale-105 duration-75" />
               <span>Copy</span>
             </button>
