@@ -11,6 +11,8 @@ export type DialogProps = PropsWithChildren<{
   closeOnBackdropClick?: boolean
   background?: string
   noTexture?: boolean
+  justify?: string
+  items?: string
 }>
 
 function PrimitiveDialog({
@@ -19,6 +21,8 @@ function PrimitiveDialog({
   onClose = noOp,
   maxWidth = "max-w-lg",
   background = "bg-darker",
+  items = "items-center",
+  justify = "justify-center",
   noTexture,
   closeOnBackdropClick = true,
   className,
@@ -43,7 +47,9 @@ function PrimitiveDialog({
         </Transition.Child>
         <div
           className={classnames(
-            "fixed inset-0 flex items-center justify-center",
+            justify,
+            items,
+            "fixed inset-0 flex",
             className
           )}
         >
@@ -54,7 +60,7 @@ function PrimitiveDialog({
               className={classnames(
                 maxWidth,
                 background,
-                "w-screen transform rounded-2xl py-6 px-8 text-left align-middle shadow-xl transition-all max-h-screen"
+                "w-screen transform rounded-2xl py-6 px-8 text-left shadow-xl transition-all max-h-screen"
               )}
             >
               {children}
