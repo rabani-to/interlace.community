@@ -26,7 +26,7 @@ export default function ProfilePage() {
         <LoadingState />
       ) : profileData.isOk ? (
         <LayoutItem>
-          <section className="flex mt-8 lg:mt-20 flex-col lg:flex-row text-black gap-12">
+          <section className="flex items-start mt-8 lg:mt-20 flex-col lg:flex-row text-black gap-12">
             <div className="flex-grow" />
             <ProfileCard profile={profileData.data} isPublicView />
             <div className="flex lg:mt-8 flex-col gap-12 flex-grow text-white">

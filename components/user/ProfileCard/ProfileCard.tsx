@@ -29,7 +29,7 @@ function ProfileCard({ isPublicView, profile }: PublicProfileSection) {
   return (
     <Fragment>
       <ModalPane machine={modalMachine} onSubmit={setState} initState={state} />
-      <div className="w-full bg-white max-w-[28rem] rounded-xl p-4 pb-8 font-normal">
+      <div className="w-full bg-white max-w-[28rem] lg:min-w-[28rem] rounded-xl p-4 pb-8 font-normal">
         <section className="relative bg-black rounded-xl overflow-hidden">
           <Row
             gap="gap-1"
@@ -40,7 +40,7 @@ function ProfileCard({ isPublicView, profile }: PublicProfileSection) {
               {state.role || "Unicorn 🦄"}
             </span>
           </Row>
-          <figure className="min-h-[16rem]">
+          <figure className="min-h-[18rem]">
             <Image
               fill
               className="object-cover"
