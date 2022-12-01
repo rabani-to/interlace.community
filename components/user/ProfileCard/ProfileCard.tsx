@@ -33,14 +33,22 @@ function ProfileCard({ isPublicView, profile }: PublicProfileSection) {
         <section className="relative bg-black rounded-xl overflow-hidden">
           <Row
             gap="gap-1"
-            className="absolute ml-2 mt-2 md:mt-4 md:ml-4 bg-white/20 py-2 pr-6 pl-2 rounded-full backdrop-blur-lg"
+            className="absolute z-[1] ml-2 mt-2 md:mt-4 md:ml-4 bg-white/20 py-2 pr-6 pl-2 rounded-full backdrop-blur-lg"
           >
             <div className="bg-violet-200 w-10 h-10 rounded-full" />
             <span className="text-white text-lg md:text-xl">
               {state.role || "Unicorn 🦄"}
             </span>
           </Row>
-          <Image placeholder="blur" src={asset_bg} alt="" />
+          <figure className="min-h-[16rem]">
+            <Image
+              fill
+              className="object-cover"
+              placeholder={profile?.profileImage ? undefined : "blur"}
+              src={profile?.profileImage || asset_bg}
+              alt=""
+            />
+          </figure>
         </section>
         <section className="flex flex-col justify-end mt-6 min-h-[4rem]">
           <h3 className="font-bold lg:text-4xl">{state.name || "AnonUser"}</h3>

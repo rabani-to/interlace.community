@@ -21,7 +21,7 @@ export type Details = {
   /** NO_REQ */
   refCode: string
   /** NO_REQ */
-  profileImage: File
+  profileImage: string
 }
 
 export type Profile = Details &
