@@ -38,9 +38,17 @@ function SectionAboutMe({ isPublicView, profile }: PublicProfileSection) {
         icon={<BsFillLightningFill className="text-white text-xl" />}
       >
         {showEmptyState && (
-          <ButtonActionEmpty className="mt-6" onClick={modalMachine.turnOn}>
-            Add Mission
-          </ButtonActionEmpty>
+          <div className="flex flex-wrap gap-4 mt-6">
+            <ButtonActionEmpty onClick={modalMachine.turnOn}>
+              Add Mission
+            </ButtonActionEmpty>
+            <ButtonActionEmpty onClick={modalMachine.turnOn}>
+              Web3 projetcs you{"'"}ve contributed to?
+            </ButtonActionEmpty>
+            <ButtonActionEmpty onClick={modalMachine.turnOn}>
+              What are you looking for in a Web3 project?
+            </ButtonActionEmpty>
+          </div>
         )}
         <article className="text-xl">
           <ShowHideContent title="Mission & Vision">
