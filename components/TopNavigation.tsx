@@ -22,7 +22,9 @@ function TopNavigation({
         "flex items-center space-x-2"
       )}
     >
-      <InterlaceLogo />
+      <Link title="Go to homepage" href="/">
+        <InterlaceLogo />
+      </Link>
       <div className="flex-grow lg:hidden" />
       <div className="hidden text-white/80 flex-grow lg:flex space-x-8 items-center justify-center">
         <Link
