@@ -82,7 +82,7 @@ export default function Dashboard() {
             </button>
           </div>
         </section>
-        <section className="flex flex-col lg:flex-row text-black gap-12">
+        <section className="flex items-start flex-col lg:flex-row text-black gap-12">
           <ProfileCard profile={profileData.data} />
           <div className="flex flex-col gap-12 flex-grow text-white">
             <SectionHowCanIContribute profile={profileData.data} />
