@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
 import toast from "react-hot-toast"
+import { useAccount } from "wagmi"
 
 import { formatUndef } from "@/lib/helpers"
 import { filestackClient } from "@/lib/filestack"
@@ -15,6 +16,7 @@ import Input from "@/components/forms/Input"
 const FORM = PROFILE_DETAILS
 export default function Details() {
   const router = useRouter()
+  const { address } = useAccount()
   const [isWorking, setIsWorking] = useState(false)
   const { experience, preferences, details, setStepData } =
     useOnboardingContext()
@@ -91,12 +93,16 @@ export default function Details() {
       <fieldset className="w-full text-left flex flex-col space-y-4 mt-8 mb-12">
         <span className="text-zinc-700 pt-2">Profile image</span>
         <ReactDropZone name={FORM.profileImage} />
-        <Input
-          required
-          name={FORM.address}
-          label="Wallet Adress"
-          placeholder="0x0ad...9f"
-        />
+        <div className="pointer-events-none select-none">
+          <Input
+            required
+            name={FORM.address}
+            value={address}
+            readOnly
+            label="Connected Wallet Address"
+            placeholder="Wallet not connected"
+          />
+        </div>
         <Input
           name={FORM.telegram}
           defaultValue={details?.telegram}
