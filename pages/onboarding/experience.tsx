@@ -77,7 +77,6 @@ export default function Experience() {
         <Input
           name={FORM.portfolio}
           defaultValue={experience?.portfolio}
-          type="url"
           required
           label="Website supporting your work history and skills"
           placeholder="portfolio.xyz"

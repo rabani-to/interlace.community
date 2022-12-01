@@ -1,4 +1,5 @@
 import { NextSeo } from "next-seo"
+import { useMemo } from "react"
 
 const DEV_URL = "https://interlace-community.vercel.app"
 const URL = "https://interlace.community"
@@ -12,7 +13,14 @@ export const DEFAULT_CONFIG = {
 }
 
 function SeoTags(props: Partial<typeof DEFAULT_CONFIG>) {
-  const SEO = { ...DEFAULT_CONFIG, ...props }
+  const SEO = useMemo(() => {
+    return Object.keys(DEFAULT_CONFIG).reduce((obj, key) => {
+      // if prop.value is defined then replace default SEO
+      const value = (props as any)[key] as any
+      return Object.assign(obj, value ? { [key]: value } : {})
+    }, DEFAULT_CONFIG)
+  }, [props])
+
   return (
     <NextSeo
       title={SEO.title}
