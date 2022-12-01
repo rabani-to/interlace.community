@@ -19,7 +19,10 @@ export default function Home() {
         <TopNavigation />
         <div className="flex flex-col md:flex-row min-h-[calc(50vh+12rem)] mt-12 flex-grow items-center">
           <section className="z-[1] w-full text-center md:text-left">
-            <h2>Building the future of work in Web3</h2>
+            <h2>
+              Building the future of <br className="hidden lg:inline"/>
+              work in Web3
+            </h2>
             <p className="text-zinc-400 leading-relaxed text-xl mt-4 mb-8 max-w-xl">
               Welcome to InterLace, where decentralized organizations can
               deliver on projects with top talent.
