@@ -17,6 +17,7 @@ import TopNavigation from "@/components/TopNavigation"
 import ModalShareProfile from "@/components/ModalShareProfile"
 import { LayoutItem } from "@/components/layouts/GradientSection"
 import Footer from "@/components/Footer"
+import WalletEmptyState from "@/components/WalletEmptyState"
 
 export default function Dashboard() {
   const { address } = useHybridAccount()
@@ -66,31 +67,35 @@ export default function Dashboard() {
           <TopNavigation isHeadless withWallet />
         </LayoutItem>
       </section>
-      <LayoutItem>
-        <section className="border-b mb-12 py-12">
-          <h3 className="font-bold">Your Web3 Profile</h3>
-          <div className="flex justify-between">
-            <p className="text-xl text-gray-400">
-              Manage and share your Web3 contrubutions
-            </p>
-            <button
-              title="Share your profile"
-              className="group pl-5"
-              onClick={shareProfileModal.turnOn}
-            >
-              <FaShareSquare className="text-3xl group-hover:scale-105 transition-transform duration-75" />
-            </button>
-          </div>
-        </section>
-        <section className="flex items-start flex-col lg:flex-row text-black gap-12">
-          <ProfileCard profile={profileData.data} />
-          <div className="flex flex-col gap-12 flex-grow text-white">
-            <SectionHowCanIContribute profile={profileData.data} />
-            <SectionExpertise profile={profileData.data} />
-            <SectionAboutMe profile={profileData.data} />
-          </div>
-        </section>
-      </LayoutItem>
+      {address ? (
+        <LayoutItem>
+          <section className="border-b mb-12 py-12">
+            <h3 className="font-bold">Your Web3 Profile</h3>
+            <div className="flex justify-between">
+              <p className="text-xl text-gray-400">
+                Manage and share your Web3 contrubutions
+              </p>
+              <button
+                title="Share your profile"
+                className="group pl-5"
+                onClick={shareProfileModal.turnOn}
+              >
+                <FaShareSquare className="text-3xl group-hover:scale-105 transition-transform duration-75" />
+              </button>
+            </div>
+          </section>
+          <section className="flex items-start flex-col lg:flex-row text-black gap-12">
+            <ProfileCard profile={profileData.data} />
+            <div className="flex flex-col gap-12 flex-grow text-white">
+              <SectionHowCanIContribute profile={profileData.data} />
+              <SectionExpertise profile={profileData.data} />
+              <SectionAboutMe profile={profileData.data} />
+            </div>
+          </section>
+        </LayoutItem>
+      ) : (
+        <WalletEmptyState />
+      )}
       <Footer className="mt-32 lg:mt-4" />
     </main>
   )
