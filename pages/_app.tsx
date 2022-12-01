@@ -23,6 +23,7 @@ import toast, { Toaster } from "react-hot-toast"
 
 import { OnboardingProvider } from "@/lib/context/OnboardingContext"
 import { rainbowMagicConnector } from "@/lib/magic"
+import { useRouter } from "next/router"
 
 const { provider, chains } = configureChains(
   [chain.mainnet, chain.polygon],
@@ -76,17 +77,21 @@ export default function App({ Component, pageProps }: AppProps) {
 
 function ModalLayout({ children }: any) {
   const toastRef = useRef<string>()
+  const router = useRouter()
   const { isConnecting, isConnected } = useAccount()
 
   useEffect(() => {
+    const omitPathnames = ["/"]
+    const omitToaster = omitPathnames.includes(router.pathname)
     toast.dismiss(toastRef.current)
+    if (omitToaster) return
     if (isConnecting) {
       toastRef.current = toast.loading("Connecting...", {
         className: "font-bold",
         duration: 7_000, // hide after 7sec
       })
     }
-  }, [isConnecting, isConnected])
+  }, [isConnecting, isConnected, router.pathname])
 
   return (
     <Fragment>
