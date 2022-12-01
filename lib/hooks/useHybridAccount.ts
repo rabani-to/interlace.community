@@ -18,11 +18,9 @@ const INIT_STATE = {
 }
 function useHybridAccount() {
   const { openConnectModal = noOp } = useConnectModal()
-  const [runValidation, setValidate] = useState(0)
   const [account, setAccount] = useState(INIT_STATE)
   const wagmiAccount = useAccount()
 
-  const revalidate = () => setValidate((n) => n + 1)
   const { disconnect: wagmiDisconnecet } = useDisconnect()
   const asyncSetAccount = (account: Partial<SharedAccount>) => {
     setAccount((current) => ({ ...current, ...account }))
@@ -47,6 +45,8 @@ function useHybridAccount() {
         ...wagmiAccount,
         disconnect: makeDisconnect(wagmiDisconnecet),
       })
+    } else {
+      setAccount(INIT_STATE)
     }
   }, [wagmiAccount.address])
 
@@ -63,7 +63,7 @@ function useHybridAccount() {
       }
     }
     // handleBeacon()
-  }, [runValidation])
+  }, [])
 
   return {
     ...account,
