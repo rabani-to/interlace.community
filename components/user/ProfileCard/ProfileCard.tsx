@@ -44,7 +44,8 @@ function ProfileCard({ isPublicView, profile }: PublicProfileSection) {
             <Image
               fill
               className="object-cover"
-              placeholder={profile?.profileImage ? undefined : "blur"}
+              placeholder={"blur"}
+              blurDataURL={asset_bg.blurDataURL}
               src={profile?.profileImage || asset_bg}
               alt=""
             />
