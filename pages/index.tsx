@@ -19,29 +19,29 @@ export default function Home() {
         <TopNavigation />
         <div className="flex flex-col md:flex-row min-h-[calc(50vh+12rem)] mt-12 flex-grow items-center">
           <section className="z-[1] w-full text-center md:text-left">
-            <h2>Connect.Contribute.Build</h2>
+            <h2>Building the future of work in Web3</h2>
             <p className="text-zinc-400 leading-relaxed text-xl mt-4 mb-8 max-w-xl">
               Welcome to InterLace, where decentralized organizations can
-              connect with individual problem solvers by task.
+              deliver on projects with top talent.
             </p>
             <div className="flex flex-col md:flex-row items-center gap-4 text-black">
               <Button
                 isLink
                 target="_blank"
-                href="/onboarding"
+                href="https://kryl7dqx6wo.typeform.com/to/Srgs9NCE"
                 data-type="texturized"
                 className="bg-blue-300"
               >
-                <span>Create Web3 Profile</span>
+                <span>Build with Web3 Expertise</span>
                 <AnimatedLinkArrow />
               </Button>
               <Button
                 isLink
+                href="/onboarding"
                 target="_blank"
-                href="https://kryl7dqx6wo.typeform.com/to/Srgs9NCE"
                 className="bg-white"
               >
-                <span>Explore Talent</span>
+                <span>Create Web3 Profile</span>
                 <AnimatedLinkArrow />
               </Button>
             </div>
@@ -72,10 +72,10 @@ export default function Home() {
       </GradientSection>
       <GradientSection className="bg-darker pb-24">
         <div className="flex gap-4 flex-col items-center mt-16 text-center">
-          <h2>Contributor Community Skillsets</h2>
+          <h2>Connect.Contribute.Build</h2>
           <p className="text-zinc-400 leading-relaxed text-lg mt-2 mb-8 max-w-xl">
-            With a team of experts around the globe, we take care of the small
-            day-to-day tasks so you can focus on your main business objectives.
+            InterLace connects decentralized organizations with top talent and
+            delivers what matters.
           </p>
           <Contributors />
           <Button

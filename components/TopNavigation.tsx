@@ -30,7 +30,7 @@ function TopNavigation({
           target="_blank"
           href="https://kryl7dqx6wo.typeform.com/to/Srgs9NCE"
         >
-          Explore Talent
+          Build in Web3
         </Link>
         <Link className="hover:text-white" target="_blank" href="/onboarding">
           Contribute to Web3
