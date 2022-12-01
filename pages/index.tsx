@@ -19,7 +19,7 @@ export default function Home() {
         <TopNavigation />
         <div className="flex flex-col md:flex-row min-h-[calc(50vh+12rem)] mt-12 flex-grow items-center">
           <section className="z-[1] w-full text-center md:text-left">
-            <h2>
+            <h2 className="leading-tight">
               Building the future <br className="hidden lg:inline" />
               of work in Web3
             </h2>
