@@ -130,6 +130,7 @@ function ModalPane({
       show={machine.isOn}
     >
       <Input
+        name="name"
         defaultValue={state.name}
         onChange={(name) =>
           asyncSetState({
@@ -140,6 +141,7 @@ function ModalPane({
         placeholder="You can remain `anon` 🙃"
       />
       <Input
+        name="headline"
         defaultValue={state.headline}
         onChange={(headline) =>
           asyncSetState({

@@ -97,6 +97,7 @@ function ModalPane({
       onSubmit={handleSubmit}
     >
       <TextArea
+        name="missionVision"
         label="Mission & Vision"
         defaultValue={state.missionVision}
         placeholder="I would like to make something awesome!!"
@@ -107,6 +108,7 @@ function ModalPane({
         }
       />
       <TextArea
+        name="myContribution"
         label="DAO's you've contributed to?"
         defaultValue={state.myContribution}
         placeholder="I would like to make something awesome!!"
@@ -117,6 +119,7 @@ function ModalPane({
         }
       />
       <TextArea
+        name="whatILookFor"
         label="What are you looking for in a DAO?"
         defaultValue={state.whatILookFor}
         placeholder="I would like to make something awesome!!"

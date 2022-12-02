@@ -7,6 +7,7 @@ export type PrimitiveFormItemType = Partial<
   startEnhancer?: ReactNode
   endEnhancer?: ReactNode
   label: string
+  name: string
   labelTextColor?: string
   className?: string
   onChange?(text: string): void
@@ -46,4 +47,5 @@ function PrimitiveFormItem({
     </label>
   )
 }
+
 export default PrimitiveFormItem
