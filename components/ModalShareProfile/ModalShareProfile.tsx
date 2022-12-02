@@ -50,6 +50,7 @@ function ModalShareProfile(props: DialogProps & { shortId?: string }) {
       </section>
       <section className="max-w-lg mx-auto mt-4 mb-8">
         <Input
+          name="profile-share-url"
           className="bg-white"
           readOnly
           placeholder={shareURL}
