@@ -2,9 +2,10 @@ import { Fragment } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { useAccountModal, useConnectModal } from "@rainbow-me/rainbowkit"
-import { useAccount, useConnect, useProvider } from "wagmi"
+import { useConnect, useProvider } from "wagmi"
 import { useRouter } from "next/router"
 
+import useHybridAccount from "@/lib/hooks/useHybridAccount"
 import { getMagicConnector } from "@/lib/magic"
 import { beautifyAddress, noOp } from "@/lib/helpers"
 import useRemoteProfileData from "@/lib/hooks/useRemoteProfileData"
@@ -21,7 +22,7 @@ export default function Onboarding() {
   const { connect: connectWithMagicLink } = useConnect({
     connector: getMagicConnector(chains),
   })
-  const { address } = useAccount()
+  const { address } = useHybridAccount()
   const remoteProfile = useRemoteProfileData(address!)
   const { openConnectModal = noOp } = useConnectModal()
   const { openAccountModal = noOp } = useAccountModal()
