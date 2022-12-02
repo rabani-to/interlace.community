@@ -21,16 +21,24 @@ import WalletEmptyState from "@/components/WalletEmptyState"
 
 export default function Dashboard() {
   const { address } = useHybridAccount()
-  const { query } = useRouter()
+  const router = useRouter()
   const welcomeModal = useOnOffMachine(false)
   const shareProfileModal = useOnOffMachine(false)
   const profileData = useRemoteProfileData(address)
+  const { query } = router
 
   useEffect(() => {
     if (query.showWelcome) {
       welcomeModal.turnOn()
     }
   }, [query.showWelcome])
+
+  useEffect(() => {
+    const isProfileEmpty = profileData.data === null
+    if (isProfileEmpty) {
+      router.push("/onboarding")
+    }
+  }, [profileData.data])
 
   return (
     <main data-type="texturized" className="bg-darker">
