@@ -1,5 +1,7 @@
 import type { PropsWithChildren, FormEvent } from "react"
-import PrimitiveDialog from "@/components/PrimitiveModal"
+import { jsonifyFormValues } from "@/lib/helpers"
+import useSignProfileUpdate from "@/lib/hooks/useSignProfileUpdate"
+
 import PrimitivePane from "@/components/PrimitivePane"
 import Button from "@/components/Button"
 
@@ -11,14 +13,23 @@ function SectionForm({
   title,
 }: PropsWithChildren<{
   onClose(): void
-  onSubmit(): void
+  onSubmit<jsonifyValues extends { signature: string }>(
+    data: jsonifyValues
+  ): void
   show: boolean
   title: string
 }>) {
-  function handleSubmit(e: FormEvent) {
+  const { requestSigAsync } = useSignProfileUpdate()
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    onSubmit()
+    const profile = jsonifyFormValues(e.currentTarget)
+    const signedProfile = await requestSigAsync(profile)
+    if (signedProfile) {
+      onSubmit(signedProfile)
+    }
   }
+
   return (
     <PrimitivePane
       background="bg-white"
