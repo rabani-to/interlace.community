@@ -10,7 +10,7 @@ function ProfileContainer({
   onEdit,
   isPublicView,
 }: PropsWithChildren<
-  PublicProfileSection & {
+  Pick<PublicProfileSection, "isPublicView"> & {
     title: string
     icon: any
     onEdit?: () => void
