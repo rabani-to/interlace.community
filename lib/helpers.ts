@@ -8,3 +8,39 @@ export const beautifyAddress = (addr: string) =>
 
 export const makeInterLaceSigMessageId = (messageId: string) =>
   `InterLace Signature Request.\nConfirm profile update/creation for messageId: ${messageId}`
+
+export const jsonifyFormValues = (form: HTMLFormElement) => {
+  const data = {} as { [name: string]: string | string[] }
+  const ATTR_IS_MULTI = "data-is-multi"
+  form
+    .querySelectorAll(`[data-flag="${FLAG_SELECT_IS_MULTI}"]`)
+    .forEach((inputWrapper) => {
+      /**
+       * We look for ReactSelect components with multi selection
+       * @see https://github.com/rabani-to/interlace.community/blob/master/components/forms/ReactSelect.tsx
+       */
+      inputWrapper
+        .querySelectorAll("input[name][type='hidden']")
+        .forEach((input) => {
+          // set isMulti to those multi select inputs
+          input.setAttribute(ATTR_IS_MULTI, ATTR_IS_MULTI)
+        })
+    })
+
+  // After isMulti elements get "formatted" we an take on every element within form
+  form
+    .querySelectorAll<HTMLInputElement>("input[name], textarea[name]")
+    .forEach((input) => {
+      const { value, name } = input
+      if (input.getAttribute(ATTR_IS_MULTI) === ATTR_IS_MULTI) {
+        const storedValue = data[name]
+        data[name] = Array.isArray(storedValue)
+          ? [...storedValue, value]
+          : [value]
+      } else {
+        data[name] = value
+      }
+    })
+
+  return data
+}
