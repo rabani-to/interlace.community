@@ -8,19 +8,16 @@ import { noOp } from "@/lib/helpers"
 function useRemoteProfileData(shortIdOrAddress: string) {
   const [isLoading, setIsLoading] = useState(true)
   const [count, setCount] = useState(0)
-  const [profile, setProfile] = useState<RedisResponse<ProfileWithShort>>(
-    {} as any
-  )
+  const [profile, setProfile] = useState<
+    RedisResponse<ProfileWithShort | null>
+  >({} as any)
+
   const revalidate = () => setCount((n) => n + 1)
 
   useLayoutEffect(() => {
     if (shortIdOrAddress) {
       ff.get<RedisResponse<ProfileWithShort>>(["/profile", shortIdOrAddress])
-        .then((response) => {
-          if (response.isOk) {
-            setProfile(response)
-          }
-        })
+        .then(setProfile)
         .catch(noOp)
         .finally(() => {
           setIsLoading(false)
