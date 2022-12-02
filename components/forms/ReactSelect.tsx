@@ -2,6 +2,8 @@ import { useState, useEffect } from "react"
 import Select from "react-select"
 import { noOp } from "@/lib/helpers"
 
+/** NOTE: Used to flag multi select elements */
+export const FLAG_SELECT_IS_MULTI = "flag.element.isMulti"
 const arrify = (v: any) => (Array.isArray(v) ? v : [v])
 const formatOptions = (arr: string[]) =>
   arr.map((value) => ({
@@ -20,7 +22,7 @@ function ReactSelect({
   onSelect = noOp,
 }: {
   placeholder?: string
-  name?: string
+  name: string
   isMulti?: boolean
   label: string
   required?: boolean
@@ -45,7 +47,10 @@ function ReactSelect({
   }, [options])
 
   return (
-    <label className="py-2 text-left">
+    <label
+      data-flag={isMulti && FLAG_SELECT_IS_MULTI}
+      className="py-2 text-left"
+    >
       <span className="text-zinc-700 inline-block mb-2">{label}</span>
       <Select
         name={name}
