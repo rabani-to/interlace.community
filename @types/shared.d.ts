@@ -1,5 +1,6 @@
 import { type PropsWithChildren } from "react"
 
+// * Core profile defintions used for registration
 export type Experience = {
   role: string
   expertise: string[]
@@ -15,6 +16,7 @@ export type Preferences = {
 }
 
 export type Details = {
+  address: string
   telegram: string
   /** NO_REQ */
   twitter: string
@@ -24,33 +26,35 @@ export type Details = {
   profileImage: string
 }
 
-export type Profile = Details &
-  Preferences &
-  Experience & {
-    address: string
-  }
+/**
+ * Exports core profile
+ */
+export type Profile = Details & Preferences & Experience
 
-export type ProfileWithShort = Profile & {
-  shortId: string
-}
-
-export type ProfileInterestingThings = {
-  missionVision: string
+export type AboutExtras = {
+  mission: string
   contribution: string
   whatILookFor: string
 }
-
-export type ProfileWithExtras = ProfileWithShort & {
+export type ProfileExtras = {
   headline: string
   name: string
-  interestingThings: ProfileInterestingThings
+  about: AboutExtras
 }
 
-export type PropsWithChildrenCx<Props = any> = PropsWithChildren<Props> & {
-  className?: string
+export type ProfileWithExtras = Profile & ProfileExtras
+
+export type ProfileWithShort = ProfileWithExtras & {
+  shortId: string
 }
 
 export type PublicProfileSection = {
   isPublicView?: boolean
   profile: Profile | null
+}
+
+// * Utility typedefs
+
+export type PropsWithChildrenCx<Props = any> = PropsWithChildren<Props> & {
+  className?: string
 }
