@@ -1,32 +1,44 @@
-import type { PublicProfileSection } from "@/types/shared"
-import { Fragment, useEffect, useState } from "react"
+import type { PublicProfileSection, Profile } from "@/types/shared"
+import type { DataWithSignature } from "./SectionFormPanel"
+import { Fragment } from "react"
 import { MdOutlineSelfImprovement } from "react-icons/md"
 
+import { PROFILE_EXPERIENCE } from "@/lib/models/profile"
 import useOnOffMachine from "@/lib/hooks/useOnOffMachine"
 import TextArea from "@/components/forms/TextArea"
 import SectionContainer from "./SectionContainer"
 import ButtonActionEmpty from "./ButtonActionEmpty"
 import SectionForm from "./SectionForm"
+import useExquesiteState from "./hook/useExquesiteState"
+
+type InitState = Pick<Profile, "description">
+const INIT_STATE: InitState = {
+  description: "",
+}
 
 function SectionHowCanIContribute({
   isPublicView,
   profile,
 }: PublicProfileSection) {
   const modalMachine = useOnOffMachine()
-  const [formDescription, setFormDescription] = useState<string>()
-  const [description, setDescription] = useState<string>("")
+  const [{ description }, setState] = useExquesiteState(INIT_STATE, {
+    resetOnDeps: [profile?.address],
+    onMutateFormatter({ description }) {
+      return {
+        description: profile?.description || description,
+      }
+    },
+  })
 
-  useEffect(() => {
-    setDescription(profile?.description || "")
-  }, [profile?.address])
-
-  useEffect(() => {
-    setFormDescription(undefined)
-  }, [modalMachine.isOff])
-
-  function handleSubmit() {
-    setDescription((current) => formDescription || current)
+  function handleOnSubmit(signedProfile: DataWithSignature<InitState>) {
+    // TODO: add service to update profile
+    console.debug(
+      JSON.stringify({
+        raw: JSON.stringify(signedProfile.data),
+      })
+    )
     modalMachine.turnOff()
+    setState(signedProfile.data)
   }
 
   const showEmptyState = description.length === 0
@@ -37,15 +49,14 @@ function SectionHowCanIContribute({
         show={modalMachine.isOn}
         onClose={modalMachine.turnOff}
         title="How I can contribute"
-        onSubmit={handleSubmit}
+        onSubmit={handleOnSubmit}
       >
         <TextArea
           label=""
-          name="description"
+          name={PROFILE_EXPERIENCE.description}
           defaultValue={description}
-          onChange={setFormDescription}
-          required
           placeholder="Please describe how you can best contribute to a web3 project in 1 sentence."
+          required
         />
       </SectionForm>
       <SectionContainer
