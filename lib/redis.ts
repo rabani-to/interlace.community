@@ -41,7 +41,6 @@ export async function createProfile(profile: Profile) {
 
 export async function updateProfile(newProfileContent: Profile) {
   const { address } = newProfileContent
-  console.log({ address})
   return redis.set(address, newProfileContent)
 }
 
