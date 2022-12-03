@@ -1,4 +1,5 @@
 import { FLAG_SELECT_IS_MULTI } from "@/components/forms/ReactSelect"
+import { utils } from "ethers"
 
 export function noOp() {}
 export const classnames = (...cx: any[]) => cx.filter(Boolean).join(" ")
@@ -6,10 +7,15 @@ export const formatUndef = (v: any) => (v === undefined || v === "" ? null : v)
 export const beautifyAddress = (addr: string) =>
   `${addr.substr(0, 4)}${addr.substr(-5, 5)}`
 
-export const makeInterLaceSigMessageId = (messageId: string) =>
-  `InterLace Signature Request.\nConfirm profile update/creation for messageId: ${messageId}`
+export const makeInterLaceSigMessageId = (message: string) => {
+  const messageId = utils.id(message)
+  return {
+    message: `InterLace Signature Request.\nConfirm profile update/creation for messageId: ${messageId}`,
+    messageId,
+  }
+}
 
-export const jsonifyFormValues = (form: HTMLFormElement) => {
+export const jsonifyFormValues = <T = any>(form: HTMLFormElement): T => {
   const data = {} as { [name: string]: string | string[] }
   const ATTR_IS_MULTI = "data-is-multi"
   form
@@ -42,5 +48,5 @@ export const jsonifyFormValues = (form: HTMLFormElement) => {
       }
     })
 
-  return data
+  return data as any
 }
