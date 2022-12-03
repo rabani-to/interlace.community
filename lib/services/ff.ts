@@ -9,6 +9,21 @@ const get = <R = any>(
   return fetch(path, config).then((r) => r.json())
 }
 
+const post = <R = any>(
+  endpoint: string | any[],
+  config?: RequestInit
+): Promise<R> => {
+  const path = joinPathForAPI(endpoint)
+  return fetch(path, {
+    ...config,
+    method: "POST",
+    headers: {
+      ...config?.headers,
+      "Content-Type": "application/json",
+    },
+  }).then((r) => r.json())
+}
+
 /**
  * F*ck Fetch
  *
@@ -19,4 +34,5 @@ const get = <R = any>(
  */
 export default {
   get,
+  post,
 } as const
