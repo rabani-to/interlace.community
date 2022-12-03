@@ -1,3 +1,4 @@
+import type { ProfileWithExtras } from "@/types/shared"
 import type { PropsWithChildren, FormEvent } from "react"
 import { jsonifyFormValues } from "@/lib/helpers"
 import useSignProfileUpdate from "@/lib/hooks/useSignProfileUpdate"
@@ -5,17 +6,17 @@ import useSignProfileUpdate from "@/lib/hooks/useSignProfileUpdate"
 import PrimitivePane from "@/components/PrimitivePane"
 import Button from "@/components/Button"
 
-function SectionForm({
+function SectionForm<DataType = ProfileWithExtras>({
   onClose,
   show,
   children,
   onSubmit,
   title,
+  signatureFormatter = (json) => json,
 }: PropsWithChildren<{
   onClose(): void
-  onSubmit<jsonifyValues extends { signature: string }>(
-    data: jsonifyValues
-  ): void
+  onSubmit(signedProfile: { signature: string; data: DataType }): void
+  signatureFormatter?(json: DataType): any
   show: boolean
   title: string
 }>) {
@@ -23,10 +24,14 @@ function SectionForm({
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    const profile = jsonifyFormValues(e.currentTarget)
-    const signedProfile = await requestSigAsync(profile)
-    if (signedProfile) {
-      onSubmit(signedProfile)
+    const data = jsonifyFormValues(e.currentTarget)
+    // Request user to sign for this content update
+    const signature = await requestSigAsync(signatureFormatter(data))
+    if (signature) {
+      onSubmit({
+        data,
+        signature,
+      })
     }
   }
 
