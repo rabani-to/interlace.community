@@ -10,15 +10,16 @@ function useExquesiteState<InitState>(
     resetOnDeps,
     onMutateFormatter = (state) => state,
   }: {
-    resetOnDeps?: any[]
+    resetOnDeps: any[]
     onMutateFormatter?(newState: InitState): InitState
   }
 ) {
   const [state, setState] = useState(initState)
 
   useEffect(() => {
+    console.log("INSIDE EXS")
     setState(onMutateFormatter(initState))
-  }, [initState, resetOnDeps])
+  }, [initState, ...resetOnDeps])
 
   return [state, setState] as const
 }
