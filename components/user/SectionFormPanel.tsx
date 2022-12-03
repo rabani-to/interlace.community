@@ -9,6 +9,7 @@ export type CoreFormPanelProps<InitState> = {
   machine: OnOffMachine
   initState: InitState
   onSubmit(state: DataWithSignature<InitState>): void
+  signatureFormatter?(json: InitState): any
 }
 
 function SectionFormPanel<InitState>({
@@ -20,7 +21,6 @@ function SectionFormPanel<InitState>({
   children,
 }: CoreFormPanelProps<InitState> & {
   title: string
-  signatureFormatter?(json: InitState): any
   children(state: InitState): ReactNode
 }) {
   const [data] = useExquesiteState(initState, {
