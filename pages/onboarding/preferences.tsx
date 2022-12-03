@@ -2,11 +2,13 @@ import { useRouter } from "next/router"
 import { useOnboardingContext } from "@/lib/context/OnboardingContext"
 import { formatUndef } from "@/lib/helpers"
 import { PROFILE_PREFERENCES } from "@/lib/models/profile"
+import { COMMITMENT_TIME, HOURLY_RATES } from "@/lib/models/time"
+import { PAYMENT_TYPES } from "@/lib/models/currency"
 
 import Button from "@/components/Button"
 import FormLayout from "@/components/layouts/FormLayout"
 import ReactSelect from "@/components/forms/ReactSelect"
-import Input from "@/components/forms/Input"
+import InputNumber from "@/components/forms/InputNumber"
 
 const FORM = PROFILE_PREFERENCES
 export default function Preferences() {
@@ -33,44 +35,35 @@ export default function Preferences() {
     >
       <fieldset className="w-full text-left flex flex-col space-y-4 mt-8 mb-12">
         <ReactSelect
-          options={["Salaried", "Freelance", "Open Time Commitment"]}
+          options={COMMITMENT_TIME}
           name={FORM.commitment}
           defaultValue={preferences?.commitment}
-          required
           label="What is your preferred type of commitment?"
           placeholder="Select time"
+          required
         />
         <ReactSelect
-          options={[
-            "1 - 8 hrs/week",
-            "8 - 12 hrs/week",
-            "12 - 25 hrs/week",
-            "25 - 32 hrs/week",
-            "32+ hrs/week",
-          ]}
-          required
+          options={HOURLY_RATES}
           label="Expected Working Time"
           placeholder="Select a range"
           name={FORM.workingTime}
           defaultValue={preferences?.workingTime}
+          required
         />
         <ReactSelect
-          options={["Crypto", "FIAT"]}
+          options={PAYMENT_TYPES}
           name={FORM.paymentOptions}
           defaultValue={preferences?.paymentOptions}
-          required
           label="What payment options are you open to?"
           placeholder="Select payment type"
+          required
         />
-        <Input
+        <InputNumber
           name={FORM.hourlyRate}
           defaultValue={preferences?.hourlyRate}
-          required
           label="Hourly rate (in USD)"
-          type="number"
-          step=".1"
-          min="1"
           placeholder="Enter number"
+          required
         />
       </fieldset>
       <Button isFormItem isFull flavor="violet">
