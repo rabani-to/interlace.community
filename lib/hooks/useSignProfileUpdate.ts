@@ -1,5 +1,4 @@
 import toast from "react-hot-toast"
-import { utils } from "ethers"
 import { useSignMessage } from "wagmi"
 import { makeInterLaceSigMessageId } from "@/lib/helpers"
 
@@ -7,14 +6,15 @@ function useSignProfileUpdate() {
   const { signMessageAsync } = useSignMessage()
 
   async function requestSigAsync<Profile>(
-    profile: Profile
-  ): Promise<(Profile & { signature: string }) | null> {
+    profileData: Profile
+  ): Promise<string | null> {
     try {
+      const { message } = makeInterLaceSigMessageId(JSON.stringify(profileData))
       const signature = await signMessageAsync({
-        message: makeInterLaceSigMessageId(utils.id(JSON.stringify(profile))),
+        message,
       })!
       console.debug({ signature })
-      return { ...profile, signature }
+      return signature
     } catch (_) {
       toast.error("User denied signature request")
     }
