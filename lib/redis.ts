@@ -28,7 +28,7 @@ export async function createProfile(profile: Profile) {
   // get short's store key
   const shortKey = getShortStoreKey(shortId)
   const addressShortKey = getAddressShortStoreKey(profile.address)
-  await Promise.all([
+  return Promise.all([
     // set user object mapped to it's [address]
     redis.set(profile.address, profile),
     // alias [address].short to [short]
@@ -37,6 +37,12 @@ export async function createProfile(profile: Profile) {
     // short->address->Profile
     redis.set(shortKey, profile.address),
   ])
+}
+
+export async function updateProfile(newProfileContent: Profile) {
+  const { address } = newProfileContent
+  console.log({ address})
+  return redis.set(address, newProfileContent)
 }
 
 export async function getProfileShortId(address: string) {
