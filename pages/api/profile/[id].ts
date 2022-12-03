@@ -17,8 +17,8 @@ export default async function handler(
     } else {
       user = await getProfileByShort(userShortOrAddr)
     }
-    // fresh for 5s. Stale till 60s
-    res.setHeader("Cache-Control", "max-age=5, stale-while-revalidate=59")
+    // fresh for 5s. Stale till 15s
+    res.setHeader("Cache-Control", "max-age=5, stale-while-revalidate=15")
     res.status(200).send(user)
   } else {
     exitWithError(404, "Item not found")
