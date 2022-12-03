@@ -48,13 +48,18 @@ export type ProfileWithShort = ProfileWithExtras & {
   shortId: string
 }
 
-export type PublicProfileSection = {
-  isPublicView?: boolean
-  profile: Profile | null
-}
-
 // * Utility typedefs
 
 export type PropsWithChildrenCx<Props = any> = PropsWithChildren<Props> & {
   className?: string
+}
+
+export type PublicProfileSection = {
+  isPublicView?: boolean
+  profile: ProfileWithShort | null
+}
+
+export type SignedProfile = {
+  signature: string
+  profile: Partial<ProfileWithShort>
 }
