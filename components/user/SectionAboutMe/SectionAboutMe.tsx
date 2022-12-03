@@ -5,6 +5,7 @@ import { BsFillLightningFill } from "react-icons/bs"
 import { arrayIsEmptyOrFalsy } from "@/lib/arrays"
 import { PROFILE_EXTRAS } from "@/lib/models/profile"
 import useOnOffMachine from "@/lib/hooks/useOnOffMachine"
+import profileService from "@/lib/services/profile"
 import useExquesiteState from "@/components/user/hook/useExquesiteState"
 
 import SectionFormPanel, {
@@ -45,13 +46,10 @@ function SectionAboutMe({ isPublicView, profile }: PublicProfileSection) {
   ])
 
   function handleOnSubmit(signedProfile: DataWithSignature<InitState>) {
-    // TODO: add service to update profile
-    console.debug(
-      JSON.stringify({
-        raw: JSON.stringify(formatAboutContent(signedProfile.data)),
-      })
-    )
-    setState(signedProfile.data)
+    const { data, signature } = signedProfile
+
+    profileService.updateProfile(signature, formatAboutContent(data))
+    setState(data)
   }
 
   if (showEmptyState && isPublicView) return null
@@ -61,6 +59,7 @@ function SectionAboutMe({ isPublicView, profile }: PublicProfileSection) {
         initState={state}
         machine={modalMachine}
         onSubmit={handleOnSubmit}
+        signatureFormatter={formatAboutContent}
       />
       <SectionContainer
         isPublicView={isPublicView}

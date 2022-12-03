@@ -5,6 +5,7 @@ import { MdOutlineSelfImprovement } from "react-icons/md"
 
 import { PROFILE_EXPERIENCE } from "@/lib/models/profile"
 import useOnOffMachine from "@/lib/hooks/useOnOffMachine"
+import profileService from "@/lib/services/profile"
 import TextArea from "@/components/forms/TextArea"
 import SectionContainer from "./SectionContainer"
 import ButtonActionEmpty from "./ButtonActionEmpty"
@@ -31,14 +32,11 @@ function SectionHowCanIContribute({
   })
 
   function handleOnSubmit(signedProfile: DataWithSignature<InitState>) {
-    // TODO: add service to update profile
-    console.debug(
-      JSON.stringify({
-        raw: JSON.stringify(signedProfile.data),
-      })
-    )
+    const { data, signature } = signedProfile
+
+    profileService.updateProfile(signature, data)
     modalMachine.turnOff()
-    setState(signedProfile.data)
+    setState(data)
   }
 
   const showEmptyState = description.length === 0

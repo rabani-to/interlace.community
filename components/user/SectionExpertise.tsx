@@ -7,6 +7,7 @@ import ALL_ROLES from "@/lib/models/roles"
 import { PROFILE_EXPERIENCE } from "@/lib/models/profile"
 
 import useOnOffMachine from "@/lib/hooks/useOnOffMachine"
+import profileService from "@/lib/services/profile"
 import ReactSelect from "@/components/forms/ReactSelect"
 import ItemWithDescrition from "@/components/forms/ItemWithDescription"
 import SectionContainer from "./SectionContainer"
@@ -36,14 +37,11 @@ function SectionExpertise({ isPublicView, profile }: PublicProfileSection) {
   const showEmptyState = expertise.length === 0
 
   function handleOnSubmit(signedProfile: DataWithSignature<InitState>) {
-    // TODO: add service to update profile
-    console.debug(
-      JSON.stringify({
-        raw: JSON.stringify(signedProfile.data),
-      })
-    )
+    const { data, signature } = signedProfile
+
+    profileService.updateProfile(signature, data)
     modalMachine.turnOff()
-    setState(signedProfile.data)
+    setState(data)
   }
 
   if (showEmptyState && isPublicView) return null
