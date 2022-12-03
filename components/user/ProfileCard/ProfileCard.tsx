@@ -1,5 +1,5 @@
 import type { ProfileWithExtras, PublicProfileSection } from "@/types/shared"
-import { Fragment, useEffect, useState } from "react"
+import { Fragment } from "react"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -7,28 +7,50 @@ import { FaLink, FaTachometerAlt } from "react-icons/fa"
 import { MdEdit, MdPayments } from "react-icons/md"
 import { RiBillFill } from "react-icons/ri"
 
-import useOnOffMachine, { OnOffMachine } from "@/lib/hooks/useOnOffMachine"
+import PROFILE from "@/lib/models/profile"
+import { HOURLY_RATES } from "@/lib/models/time"
+import { PAYMENT_TYPES } from "@/lib/models/currency"
+
+import useExquesiteState from "@/components/user/hook/useExquesiteState"
+import useOnOffMachine from "@/lib/hooks/useOnOffMachine"
+import profileService from "@/lib/services/profile"
 import useFormattedURL from "./useFormattedURL"
 
 import asset_bg from "@/assets/bg.jpg"
 import ReactSelect from "@/components/forms/ReactSelect"
 import Input from "@/components/forms/Input"
+import InputNumber from "@/components/forms/InputNumber"
 import Row, { RowItemIcon } from "@/components/user/Row"
-import SectionForm from "@/components/user/SectionForm"
+import SectionFormPanel, {
+  type CoreFormPanelProps,
+  type DataWithSignature,
+} from "@/components/user/SectionFormPanel"
 
-const INIT_STATE: ProfileWithExtras = {} as any
+type InitState = ProfileWithExtras
+const INIT_STATE: InitState = {} as any
 function ProfileCard({ isPublicView, profile }: PublicProfileSection) {
   const modalMachine = useOnOffMachine()
-  const [state, setState] = useState(INIT_STATE)
+  const [state, setState] = useExquesiteState(INIT_STATE, {
+    resetOnDeps: [profile?.address],
+    onMutateFormatter(currentState) {
+      return { ...currentState, ...profile }
+    },
+  })
   const portfolio = useFormattedURL(state.portfolio)
 
-  useEffect(() => {
-    setState((state) => ({ ...state, ...profile }))
-  }, [profile?.address])
+  function handleOnSubmit(signedProfile: DataWithSignature<InitState>) {
+    const { data, signature } = signedProfile
+    profileService.updateProfile(signature, data)
+    setState(data)
+  }
 
   return (
     <Fragment>
-      <ModalPane machine={modalMachine} onSubmit={setState} initState={state} />
+      <FormPanel
+        initState={state}
+        machine={modalMachine}
+        onSubmit={handleOnSubmit}
+      />
       <div className="w-full bg-white max-w-[28rem] lg:min-w-[28rem] rounded-xl p-4 pb-8 font-normal">
         <section className="relative bg-black rounded-xl overflow-hidden">
           <Row
@@ -100,124 +122,65 @@ function ProfileCard({ isPublicView, profile }: PublicProfileSection) {
   )
 }
 
-function ModalPane({
-  machine,
-  onSubmit,
-  initState,
-}: {
-  machine: OnOffMachine
-  initState: ProfileWithExtras
-  onSubmit(state: ProfileWithExtras): void
-}) {
-  const [state, setState] = useState(initState)
-  const asyncSetState = (newState: Partial<ProfileWithExtras>) =>
-    setState((prevState) => ({ ...prevState, ...newState }))
-
-  function handleSubmit() {
-    machine.turnOff()
-    onSubmit(state)
-  }
-
-  useEffect(() => {
-    setState(initState)
-  }, [machine.isOff, initState])
-
+function FormPanel(props: CoreFormPanelProps<InitState>) {
   return (
-    <SectionForm
-      onSubmit={handleSubmit}
-      title="Profile Overview"
-      onClose={machine.turnOff}
-      show={machine.isOn}
-    >
-      <Input
-        name="name"
-        defaultValue={state.name}
-        onChange={(name) =>
-          asyncSetState({
-            name,
-          })
-        }
-        label="Your name"
-        placeholder="You can remain `anon` 🙃"
-      />
-      <Input
-        name="headline"
-        defaultValue={state.headline}
-        onChange={(headline) =>
-          asyncSetState({
-            headline,
-          })
-        }
-        label="Headline"
-        placeholder="An awesome unicorn 🦄"
-      />
-      <ReactSelect
-        defaultValue={state.workingTime}
-        onSelect={([{ value: workingTime }]) =>
-          asyncSetState({
-            workingTime,
-          })
-        }
-        name="workingTime"
-        options={[
-          "1 - 8 hrs/week",
-          "8 - 12 hrs/week",
-          "12 - 25 hrs/week",
-          "25 - 32 hrs/week",
-          "32+ hrs/week",
-        ]}
-        required
-        label="Working Time"
-        placeholder="Select a range"
-      />
-      <Input
-        defaultValue={state.portfolio}
-        onChange={(portfolio) =>
-          asyncSetState({
-            portfolio,
-          })
-        }
-        name="portfolio"
-        required
-        label="Website or portfolio"
-        placeholder="portfolio.xyz"
-        startEnhancer="https://"
-      />
-      <div className="flex flex-col md:flex-row justify-between gap-4 pt-1">
-        <div className="md:max-w-[10rem]">
-          <Input
-            defaultValue={state.hourlyRate}
-            onChange={(hourlyRate) =>
-              asyncSetState({
-                hourlyRate,
-              })
-            }
-            required
-            name="hourlyRate"
-            label="Hourly rate (in USD)"
-            type="number"
-            step=".1"
-            min="1"
-            placeholder="Enter number"
-          />
-        </div>
-        <div className="flex-grow">
-          <ReactSelect
-            defaultValue={state.paymentOptions}
-            onSelect={([{ value: paymentOptions }]) =>
-              asyncSetState({
-                paymentOptions,
-              })
-            }
-            name="paymentOptions"
-            options={["Crypto", "FIAT"]}
-            required
-            label="Payment type"
-            placeholder="Select payment type"
-          />
-        </div>
-      </div>
-    </SectionForm>
+    <SectionFormPanel {...props} title="Profile Overview">
+      {(data) => {
+        return (
+          <Fragment>
+            <Input
+              name={PROFILE.name}
+              defaultValue={data.name}
+              label="Your name"
+              placeholder="You can remain `anon` 🙃"
+            />
+            <Input
+              name={PROFILE.headline}
+              defaultValue={data.headline}
+              label="Headline"
+              placeholder="An awesome unicorn 🦄"
+            />
+            <ReactSelect
+              name={PROFILE.workingTime}
+              defaultValue={data.workingTime}
+              options={HOURLY_RATES}
+              required
+              label="Working Time"
+              placeholder="Select a range"
+            />
+            <Input
+              required
+              name={PROFILE.portfolio}
+              defaultValue={data.portfolio}
+              label="Website or portfolio"
+              placeholder="portfolio.xyz"
+              startEnhancer="https://"
+            />
+            <div className="flex flex-col md:flex-row justify-between gap-4 pt-1">
+              <div className="md:max-w-[10rem]">
+                <InputNumber
+                  name={PROFILE.hourlyRate}
+                  defaultValue={data.hourlyRate}
+                  label="Hourly rate (in USD)"
+                  placeholder="Enter number"
+                  required
+                />
+              </div>
+              <div className="flex-grow">
+                <ReactSelect
+                  name={PROFILE.paymentOptions}
+                  defaultValue={data.paymentOptions}
+                  options={PAYMENT_TYPES}
+                  label="Payment type"
+                  placeholder="Select payment type"
+                  required
+                />
+              </div>
+            </div>
+          </Fragment>
+        )
+      }}
+    </SectionFormPanel>
   )
 }
 
