@@ -1,4 +1,5 @@
 # Interlace Community Platform
+
 InterLace platform is built for decentralized organizations to connect with individual problem solvers. Our goal is to build a contributor marketplace that fosters a connection between DAOs and contributors that embodies transparency and accountability for mission-driven action and fair payment.
 
 ## Solution
@@ -13,112 +14,64 @@ Codebase -https://github.com/rabani-to/interlace.community
 
 This repository serves to demonstrate how the current workings of the Interlace repo. This repository is in continual development and tracking issues here.
 
-There are a number of subdirectories in the project that represent the moving pieces of the Interlace platform: 
+There are a number of subdirectories in the project that represent the moving pieces of the Interlace platform:
 
-*** high level here ***
+**_ high level here _**
 
-
-# Current Features 
+# Current Features
 
 On the Interlace website, users can do the following:
+
 - Contributors can create profiles to showcase their mission, values, skills, and other personal attributes.
 - Contributors can easily search and filter DAOs by need or mission. Even find potential roles in their own DAOs.
-- Contributors can connect wallet or utilize magic link 
+- Contributors can connect wallet or utilize magic link
 - Decentralized organizations can fill out a form that lists how potential contributors can help.
 - TBD - Decentralized organizations can easily search and filter contributors by task or skillset. Even find potential contributors in their own communities.
 - TBD - Finally, contributors and DAOs can connect via chat.
-
 
 # Current Data Flow
 
 ![dataflow](https://user-images.githubusercontent.com/119949978/206903333-7674e048-9899-4a4b-aa85-a34e24ba5c46.png)
 
-# Current Data Schema
+# Data Schema
 
-```
-export type Experience = {
-
+```ts
+Experience = {
   role: string
-
   expertise: string[]
-
   description: string
-
   portfolio: string
-
 }
 
-
-export type Preferences = {
-
+Preferences = {
   commitment: string
-
-  paymentOptions: string[]
-
+  paymentOptions: string
   hourlyRate: string
-
+  workingTime: string
 }
 
-
-export type Details = {
-
-  /** NO_REQ */
-
-  telegram: string
-
-  /** NO_REQ */
-
-  twitter: string
-
-  /** NO_REQ */
-
-  refCode: string
-
-  /** NO_REQ */
-
-  profileImage: File
-
+Details = {
+  address: string
+  telegram?: string
+  twitter?: string
+  refCode?: string
+  profileImage?: File
 }
 
+// Main profile object required for registration
+Profile = Details & Preferences & Experience
 
-
-export type Profile = Details &
-
-  Preferences &
-
-  Experience & {
-
-    address: string
-
-  }
-
-
-
-/// BELOW DEFS ARE NOT REQUIRED FOR REGISTRATION
-
-
-
-export type ProfileInterestingThings = {
-
-  missionVision: string
-
+AboutExtras = {
+  mission: string
   contribution: string
-
   whatILookFor: string
-
 }
 
-
-export type ProfileExtras = {
-
-  howCanIContribute: string
-
-  headline: string
-
-  name: string
-
-  interestingThings: ProfileInterestingThings
-
+// Optional definitions user can add after profile created
+ProfileExtras = {
+  headline?: string
+  name?: string
+  about?: AboutExtras
 }
 ```
 
@@ -130,12 +83,11 @@ export type ProfileExtras = {
 - **Onboarding.**
 - **Scoping.**
 
-| Problem | DAOs | Contributors |
-| --- | --- | --- |
-| Discovery and Connection | DAOs have large communities but struggle to enable community members to become contributors. DAOs can find talent through job boards or freelancers, but these individuals may not line up with their mission.  | No easy way to put yourself out there as a contributor to find DAOs. Most potential contributors put an enormous amount of time in Discord and Telegram to find the right DAO before contributing. |
-| Onboarding | It takes hours to get a contributor up to speed with the right information and access rights. Even harder connecting the contributor to the right people in DAO. It takes an immense amount of organization to onboard a contributor.  | Discords lacks process for members to gain context and information. Making it difficult to get the right information and resources at the right time. Onboarding is typically the major hurdle to adding valuable contributions. |
-| Contribution | DAOs struggle to scope out work for contributors. Creating issues due to lack of transparency around roles and responsibilities.  | Contributors struggle with DAOs paying for their contributions.  |
-
+| Problem                  | DAOs                                                                                                                                                                                                                                  | Contributors                                                                                                                                                                                                                     |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Discovery and Connection | DAOs have large communities but struggle to enable community members to become contributors. DAOs can find talent through job boards or freelancers, but these individuals may not line up with their mission.                        | No easy way to put yourself out there as a contributor to find DAOs. Most potential contributors put an enormous amount of time in Discord and Telegram to find the right DAO before contributing.                               |
+| Onboarding               | It takes hours to get a contributor up to speed with the right information and access rights. Even harder connecting the contributor to the right people in DAO. It takes an immense amount of organization to onboard a contributor. | Discords lacks process for members to gain context and information. Making it difficult to get the right information and resources at the right time. Onboarding is typically the major hurdle to adding valuable contributions. |
+| Contribution             | DAOs struggle to scope out work for contributors. Creating issues due to lack of transparency around roles and responsibilities.                                                                                                      | Contributors struggle with DAOs paying for their contributions.                                                                                                                                                                  |
 
 ## Phase 1 - DAO and Skills Profile
 
@@ -193,7 +145,7 @@ After connecting their wallet, DAOs can create a profile that lists how potentia
 
 ### V1.3 - **Connect Via Chat**
 
-Contributors and DAOs can contact one another via chat. 
+Contributors and DAOs can contact one another via chat.
 
 ## Phase 2 - Onboarding and Talent Dashboards
 
@@ -202,11 +154,11 @@ Contributors and DAOs can contact one another via chat.
 Our **solution** to Web3 Onboarding
 
 - After finding a contributor that a decentralized organization is eager to work with, they can streamline the onboarding process with Interlace.
-    - DAOs are able to invite contributors to onboard onto their DAO
-    - Provide access links to role specific tools such as Discord, Google Docs, Figma, Github, Vercel, etc.
-    - Additionally, onboarding information such as mission, vision, values are shared to contributor to help ensure fit into the culture of the organization
-    - Key contacts and work streams are shared with the contributor to enable them in their role
-    - Onboarding check list provided for contributor to complete such as sending wallet to HR subDAO, requesting additional access, or completing legal forms
+  - DAOs are able to invite contributors to onboard onto their DAO
+  - Provide access links to role specific tools such as Discord, Google Docs, Figma, Github, Vercel, etc.
+  - Additionally, onboarding information such as mission, vision, values are shared to contributor to help ensure fit into the culture of the organization
+  - Key contacts and work streams are shared with the contributor to enable them in their role
+  - Onboarding check list provided for contributor to complete such as sending wallet to HR subDAO, requesting additional access, or completing legal forms
 - Now the DAO has a database of contributors that are actively working and can label them in work streams.
 
 ### **KPIs**
@@ -216,7 +168,7 @@ Our **solution** to Web3 Onboarding
 
 ### V2.0 - **POAPs for Contributors and Community (Possible Partnership)**
 
-POAPs are to be used by DAOs to “label” contributors and community members with a Soul Bound Token. This POAP will be displayed on the contributor’s skills profile. This is a stepping stone for Talent Dashboard.  
+POAPs are to be used by DAOs to “label” contributors and community members with a Soul Bound Token. This POAP will be displayed on the contributor’s skills profile. This is a stepping stone for Talent Dashboard.
 
 ### V2.1 - **Talent Dashboards for Current Contributors and Community**
 
@@ -225,15 +177,15 @@ Once the POAP is attributed to the contributor or community, DAOs are able to ge
 ### V2.2 - **Onboarding Checklist**
 
 - After finding a contributor that a decentralized organization is eager to work with, they can streamline the onboarding process with Interlace.
-    - DAOs are able to invite contributors to onboard onto their DAO
-    - Provide access links to role specific tools such as Discord, Google Docs, Figma, Github, Vercel, etc.
-    - Additionally, onboarding information such as mission, vision, values are shared to contributor to help ensure fit into the culture of the organization
-    - Key contacts and work streams are shared with the contributor to enable them in their role
-    - Onboarding check list provided for contributor to complete such as sending wallet to HR subDAO, requesting additional access, or completing legal forms
+  - DAOs are able to invite contributors to onboard onto their DAO
+  - Provide access links to role specific tools such as Discord, Google Docs, Figma, Github, Vercel, etc.
+  - Additionally, onboarding information such as mission, vision, values are shared to contributor to help ensure fit into the culture of the organization
+  - Key contacts and work streams are shared with the contributor to enable them in their role
+  - Onboarding check list provided for contributor to complete such as sending wallet to HR subDAO, requesting additional access, or completing legal forms
 
 ### V2.3 - **Referral System**
 
-Referral system will be used to connect DAOs and contributors fulfilling roles. TBD on how the referral system will work. 
+Referral system will be used to connect DAOs and contributors fulfilling roles. TBD on how the referral system will work.
 
 ## Phase 3 - Escrow Contracts
 
@@ -254,12 +206,12 @@ Once a decentralized organization finds a suitable contributor for the task and 
 2. DAO send funds to once contract is agreed upon by both parties to start the contract of “work”
 3. If work is complete and both parties agree that the work is complete, the funds from the contract are sent to the contributor
 4. If there is a discrepancy
-    1. Interlace steps into to determine who receives the funds or partial amount of the funds
-5. If work is not complete, then DAO is returned funds. 
+   1. Interlace steps into to determine who receives the funds or partial amount of the funds
+5. If work is not complete, then DAO is returned funds.
 
 ### V3.1 - **Other DAO-Contributor Partnership Integrations**
 
-Additionally, we want Interlace to become the go to place for DAOs and contributors for all their working needs. [Potential Partnerships and Operation Tools](https://www.notion.so/Potential-Partnerships-and-Operation-Tools-f02d530f750841b9937846e4c15ed3a2) will be integrated to enable this. 
+Additionally, we want Interlace to become the go to place for DAOs and contributors for all their working needs. [Potential Partnerships and Operation Tools](https://www.notion.so/Potential-Partnerships-and-Operation-Tools-f02d530f750841b9937846e4c15ed3a2) will be integrated to enable this.
 
 ## Phase 4 - Tinder for DAOs and Proof of Work Verification
 
@@ -279,9 +231,10 @@ TBD
 
 ### V4.1 - **Tinder for DAOs**
 
+TBD
 
-Find more on https://interlace.community
+---
 
-## Links
+Find more on https://interlace.community.
 
-- Twitter: https://twitter.com/Interlacehq
+Give us a follow on [Twitter](https://twitter.com/Interlacehq)
