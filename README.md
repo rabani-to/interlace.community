@@ -36,21 +36,21 @@ On the Interlace website, users can do the following:
 # Data Schema
 
 ```ts
-Experience = {
+type Experience = {
   role: string
   expertise: string[]
   description: string
   portfolio: string
 }
 
-Preferences = {
+type Preferences = {
   commitment: string
   paymentOptions: string
   hourlyRate: string
   workingTime: string
 }
 
-Details = {
+type Details = {
   address: string
   telegram?: string
   twitter?: string
@@ -59,16 +59,16 @@ Details = {
 }
 
 // Main profile object required for registration
-Profile = Details & Preferences & Experience
+type Profile = Details & Preferences & Experience
 
-AboutExtras = {
+type AboutExtras = {
   mission: string
   contribution: string
   whatILookFor: string
 }
 
-// Optional definitions user can add after profile created
-ProfileExtras = {
+// Optional definitions user can add after profile is created
+type ProfileExtras = {
   headline?: string
   name?: string
   about?: AboutExtras
@@ -79,15 +79,54 @@ ProfileExtras = {
 
 ## The problem that the customers have:
 
-- **Connection.**
-- **Onboarding.**
-- **Scoping.**
+1. **Connection**
+2. **Onboarding**
+3. **Scoping**
 
-| Problem                  | DAOs                                                                                                                                                                                                                                  | Contributors                                                                                                                                                                                                                     |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Discovery and Connection | DAOs have large communities but struggle to enable community members to become contributors. DAOs can find talent through job boards or freelancers, but these individuals may not line up with their mission.                        | No easy way to put yourself out there as a contributor to find DAOs. Most potential contributors put an enormous amount of time in Discord and Telegram to find the right DAO before contributing.                               |
-| Onboarding               | It takes hours to get a contributor up to speed with the right information and access rights. Even harder connecting the contributor to the right people in DAO. It takes an immense amount of organization to onboard a contributor. | Discords lacks process for members to gain context and information. Making it difficult to get the right information and resources at the right time. Onboarding is typically the major hurdle to adding valuable contributions. |
-| Contribution             | DAOs struggle to scope out work for contributors. Creating issues due to lack of transparency around roles and responsibilities.                                                                                                      | Contributors struggle with DAOs paying for their contributions.                                                                                                                                                                  |
+<table>
+  <thead>
+    <tr>
+      <th>Problem</th>
+      <th>DAOs</th>
+      <th>Contributors</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        Discovery and Connection
+      </td>
+      <td>
+        DAOs have large communities but struggle to enable community members to become contributors. DAOs can find talent through job boards or freelancers, but these individuals may not line up with their mission.
+      </td>
+      <td>
+        No easy way to put yourself out there as a contributor to find DAOs. Most potential contributors put an enormous amount of time in Discord and Telegram to find the right DAO before contributing.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Onboarding
+      </td>
+      <td>
+        It takes hours to get a contributor up to speed with the right information and access rights. Even harder connecting the contributor to the right people in DAO. It takes an immense amount of organization to onboard a contributor.
+      </td>
+      <td>
+        Discords lacks process for members to gain context and information. Making it difficult to get the right information and resources at the right time. Onboarding is typically the major hurdle to adding valuable contributions.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Contribution
+      </td>
+      <td>
+        DAOs struggle to scope out work for contributors. Creating issues due to lack of transparency around roles and responsibilities.
+      </td>
+      <td>
+        Contributors struggle with DAOs paying for their contributions.
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ## Phase 1 - DAO and Skills Profile
 
@@ -217,6 +256,8 @@ Additionally, we want Interlace to become the go to place for DAOs and contribut
 
 ### **Overview**
 
+TBD
+
 ### **KPIs**
 
 - **# of Wallets Connected**
@@ -237,4 +278,4 @@ TBD
 
 Find more on https://interlace.community.
 
-Give us a follow on [Twitter](https://twitter.com/Interlacehq)
+Follow us on [Twitter](https://twitter.com/Interlacehq)
