@@ -6,11 +6,9 @@ InterLace platform is built for decentralized organizations to connect with indi
 
 ![solution](https://user-images.githubusercontent.com/119949978/206903286-237952ab-d618-411b-a4ac-a4ff17ad64c9.png)
 
-Website - https://www.interlace.community/
-
-Development URL - https://interlace-community.vercel.app/
-
-Codebase -https://github.com/rabani-to/interlace.community
+- Production - https://interlace.community/
+- Development - https://interlace-community.vercel.app/
+- Codebase - https://github.com/rabani-to/interlace.community
 
 This repository serves to demonstrate how the current workings of the Interlace repo. This repository is in continual development and tracking issues here.
 
@@ -50,7 +48,7 @@ tailwind.config.js
 ## Stack
 
 The project is bootstraped with NextJs.
-Styling is done with TailwindCSS. Connectivity is done with [@rainbowkit](https://rainbowkit.com/), for backend we use Upstash + Vercel Functions.
+Styling is done with [TailwindCSS](https://tailwindcss.com/). Connectivity is done with [@rainbowkit](https://rainbowkit.com/), for backend we use [Upstash](https://upstash.com/) + [Vercel Functions](https://vercel.com/docs/concepts/functions/serverless-functions).
 
 ## Profile Creation and Update
 
@@ -59,6 +57,7 @@ Whenever user wants to create its profile, they must sign the raw definition of 
 ```js
 const profile = { name: "some name" }
 signMessage(JSON.stringify(profile))
+
 // See https://github.com/rabani-to/interlace.community/blob/master/lib/hooks/useSignProfileUpdate.ts for reference
 ```
 
@@ -70,7 +69,7 @@ This provides an easy-yet complete solution against one person impersonates anot
 
 ## Database
 
-The project uses a Redis database from [upstash](https://upstash.com/). As a serverless project this is a perfect and clean option.
+The project uses a Redis database from [Upstash](https://upstash.com/). As a serverless project this is a perfect and clean option.
 
 When a user is created it's json object is key-value stored. At same time a short-id is being generated to the user and it aliases the user address.
 
