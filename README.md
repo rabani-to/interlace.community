@@ -16,7 +16,73 @@ This repository serves to demonstrate how the current workings of the Interlace 
 
 There are a number of subdirectories in the project that represent the moving pieces of the Interlace platform:
 
-**_ high level here _**
+## Project structure
+
+```sh
+@types/
+├─ shared.d.ts     # Shared type definitions for the project
+├─ globals.d.ts    # ENV and NEXT_PUBLIC definitions
+assets/
+components/
+├─ layout/
+├─ forms/
+├─ user/
+lib/
+├─ context/
+├─ hooks/
+├─ models/
+├─ services/       # Set of helpers to consume backend services
+├─ filestack.ts    # File upload configuration and sdk export
+├─ nanoid.ts       # To generate user profile share hash
+├─ redis.ts        # Upstash redis configuration
+pages/
+├─ api/            # CRUD API endpoints for app profiles
+├─ _app.tsx
+├─ index.tsx
+public/
+styles/
+├─ globals.css
+.env.example
+next.config.js
+tailwind.config.js
+```
+
+## Stack
+
+The project is bootstraped with NextJs.
+Styling is done with TailwindCSS. Connectivity is done with [@rainbowkit](https://rainbowkit.com/), for backend we use Upstash + Vercel Functions.
+
+## Profile Creation and Update
+
+Whenever user wants to create its profile, they must sign the raw definition of their profile object.
+
+```js
+const profile = { name: "some name" }
+signMessage(JSON.stringify(profile))
+// See https://github.com/rabani-to/interlace.community/blob/master/lib/hooks/useSignProfileUpdate.ts for reference
+```
+
+Then in backend we recover the address that signed the raw profile object and fetch it's data.
+
+If remoteData data exists and remoteData.address and recovered address match, we continue to update the profile.
+
+This provides an easy-yet complete solution against one person impersonates another. Or one person sniffs-modifies profile data and signs its profile object.
+
+## Database
+
+The project uses a Redis database from [upstash](https://upstash.com/). As a serverless project this is a perfect and clean option.
+
+When a user is created it's json object is key-value stored. At same time a short-id is being generated to the user and it aliases the user address.
+
+**Database Key relations:**
+
+```ts
+[address].short -> [shortId]  // set the user shortId
+[shortId] -> address          // shortId aliases user address
+address -> { profileData }    // user address holds it's Profile data
+```
+
+You can see the implemenation at [/lib/redis.ts#L25](https://github.com/rabani-to/interlace.community/blob/master/lib/redis.ts#L25)
 
 # Current Features
 
