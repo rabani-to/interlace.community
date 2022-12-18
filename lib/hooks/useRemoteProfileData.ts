@@ -1,7 +1,7 @@
 import type { ProfileWithShort } from "@/types/shared"
 import type { RedisResponse } from "@/lib/redis"
 
-import { useLayoutEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import ff from "@/lib/services/ff"
 import { noOp } from "@/lib/helpers"
 
@@ -14,7 +14,7 @@ function useRemoteProfileData(shortIdOrAddress: string) {
 
   const revalidate = () => setCount((n) => n + 1)
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (shortIdOrAddress) {
       ff.get<RedisResponse<ProfileWithShort>>(["/profile", shortIdOrAddress])
         .then(setProfile)
