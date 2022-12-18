@@ -1,18 +1,15 @@
-import { MagicAuthConnector } from "@everipedia/wagmi-magic-connector"
 import { mainnet } from "wagmi"
+import { MagicAuthConnector } from "@everipedia/wagmi-magic-connector"
 
 const PUB_KEY = "pk_live_0B842C66A3876C25"
 
-export const getMagicConnector = (chains: any) => {
+export const getMagicConnector = (chains: any = []) => {
   return new MagicAuthConnector({
     chains,
     options: {
       apiKey: PUB_KEY,
       accentColor: "#1E1E1E",
       customHeaderText: "Continue with email",
-      oauthOptions: {
-        providers: ["google"],
-      },
       magicSdkConfiguration: {
         network: {
           rpcUrl: mainnet.rpcUrls.default.http[0],

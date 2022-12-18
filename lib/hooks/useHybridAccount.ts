@@ -21,7 +21,7 @@ function useHybridAccount() {
   const [account, setAccount] = useState(INIT_STATE)
   const wagmiAccount = useAccount()
 
-  const { disconnect: wagmiDisconnecet } = useDisconnect()
+  const { disconnect: wagmiDisconnect } = useDisconnect()
   const asyncSetAccount = (account: Partial<SharedAccount>) => {
     setAccount((current) => ({ ...current, ...account }))
   }
@@ -43,7 +43,7 @@ function useHybridAccount() {
     if (wagmiAccount.isConnected && wagmiAccount.address) {
       asyncSetAccount({
         ...wagmiAccount,
-        disconnect: makeDisconnect(wagmiDisconnecet),
+        disconnect: makeDisconnect(wagmiDisconnect),
       })
     } else {
       setAccount(INIT_STATE)

@@ -5,6 +5,7 @@ const nextConfig = {
   images: {
     domains: ["cdn.filestackcontent.com"],
   },
+  productionBrowserSourceMaps: process.env.SOURCE_MAPS == "true",
 }
 
 module.exports = nextConfig
