@@ -9,9 +9,9 @@ import { Work_Sans } from "@next/font/google"
 import {
   WagmiConfig,
   createClient,
-  chain,
   configureChains,
   useAccount,
+  mainnet,
 } from "wagmi"
 import { publicProvider } from "wagmi/providers/public"
 import {
@@ -25,10 +25,7 @@ import { OnboardingProvider } from "@/lib/context/OnboardingContext"
 import { rainbowMagicConnector } from "@/lib/magic"
 import { useRouter } from "next/router"
 
-const { provider, chains } = configureChains(
-  [chain.mainnet, chain.polygon],
-  [publicProvider()]
-)
+const { provider, chains } = configureChains([mainnet], [publicProvider()])
 
 const defaultWallets = getDefaultWallets({
   appName: "InterLace",
@@ -51,6 +48,7 @@ const client = createClient({
 
 const fontWorkSans = Work_Sans({
   weight: ["300", "400", "500"],
+  subsets: [],
 })
 
 export default function App({ Component, pageProps }: AppProps) {

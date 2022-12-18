@@ -1,5 +1,5 @@
 import { MagicAuthConnector } from "@everipedia/wagmi-magic-connector"
-import { chain } from "wagmi"
+import { mainnet } from "wagmi"
 
 const PUB_KEY = "pk_live_0B842C66A3876C25"
 
@@ -15,8 +15,8 @@ export const getMagicConnector = (chains: any) => {
       },
       magicSdkConfiguration: {
         network: {
-          rpcUrl: chain.mainnet.rpcUrls.default,
-          chainId: chain.mainnet.id,
+          rpcUrl: mainnet.rpcUrls.default.http[0],
+          chainId: mainnet.id,
         },
       },
     },
