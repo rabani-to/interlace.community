@@ -10,18 +10,6 @@ body {
   overflow-x: hidden;
 }
 
-a,
-h1,
-h2,
-h3,
-button {
-  font-weight: 400;
-}
-
-strong {
-  font-weight: 500;
-}
-
 [data-type="texture"] {
   background-image: url("/texture.png");
   background-position: left;
@@ -40,7 +28,6 @@ strong {
   background-size: 5rem;
 }
 
-h1,
-h2 {
-  letter-spacing: -0.05em;
+#MagicModalBody {
+  @apply rounded-2xl;
 }
