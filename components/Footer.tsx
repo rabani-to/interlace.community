@@ -8,7 +8,7 @@ import InterlaceLogo from "./InterLaceLogo"
 function Footer({ className }: { className?: string }) {
   return (
     <LayoutItem as="footer" className={`pt-24 ${className}`}>
-      <div className="flex flex-col lg:flex-row gap-4">
+      <div className="flex flex-col lg:flex-row gap-12">
         <div className="flex-grow">
           <InterlaceLogo />
           <p className="mt-4 max-w-sm text-zinc-400 text-sm leading-relaxed">
