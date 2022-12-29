@@ -4,6 +4,7 @@ import "@/styles/components.css"
 import "@rainbow-me/rainbowkit/styles.css"
 import type { AppProps } from "next/app"
 import Link from "next/link"
+import { useRouter } from "next/router"
 
 import { Work_Sans } from "@next/font/google"
 import {
@@ -23,7 +24,7 @@ import toast, { Toaster } from "react-hot-toast"
 
 import { OnboardingProvider } from "@/lib/context/OnboardingContext"
 import { rainbowMagicConnector } from "@/lib/magic"
-import { useRouter } from "next/router"
+import { nearWalletConnector } from "@/lib/near"
 
 const { provider, chains } = configureChains([mainnet], [publicProvider()])
 
@@ -33,9 +34,17 @@ const defaultWallets = getDefaultWallets({
 }).wallets
 
 const connectors = connectorsForWallets([
+  {
+    groupName: "Recommended",
+    wallets: [
+      nearWalletConnector({
+        chains,
+      }),
+    ],
+  },
   ...defaultWallets,
   {
-    groupName: "Use email instead",
+    groupName: "Connect with email",
     wallets: [rainbowMagicConnector({ chains })],
   },
 ])
