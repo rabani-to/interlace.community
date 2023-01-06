@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import type { Profile } from "@/types/shared"
 
-import PROFILE, { PROFILE_DETAILS } from "@/lib/models/profile"
+import PROFILE, { PROFILE_DETAILS, PROFILE_EXTRAS } from "@/lib/models/profile"
 import { createProfile } from "@/lib/redis"
 
 const OMIT = [
@@ -9,7 +9,9 @@ const OMIT = [
   PROFILE_DETAILS.refCode,
   PROFILE_DETAILS.telegram,
   PROFILE_DETAILS.twitter,
-  PROFILE.headline,
+  PROFILE_EXTRAS.about,
+  PROFILE_EXTRAS.headline,
+  PROFILE_EXTRAS.name,
 ]
 const ALL_PROFILE_KEYS = Object.keys(PROFILE).filter(
   (key) => !OMIT.includes(key)
