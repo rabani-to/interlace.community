@@ -9,12 +9,13 @@ const OMIT = [
   PROFILE_DETAILS.refCode,
   PROFILE_DETAILS.telegram,
   PROFILE_DETAILS.twitter,
-  PROFILE_EXTRAS.about,
   PROFILE_EXTRAS.headline,
   PROFILE_EXTRAS.name,
-]
+  "about",
+] as Array<keyof typeof PROFILE>
+
 const ALL_PROFILE_KEYS = Object.keys(PROFILE).filter(
-  (key) => !OMIT.includes(key)
+  (key) => !OMIT.includes(key as any)
 )
 
 export default async function handler(
