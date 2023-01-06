@@ -44,14 +44,12 @@ function TopNavigation({
 }
 
 function HybridWalletButton() {
-  const { address, isConnected, disconnect, openConnectModal } =
-    useHybridAccount()
+  const { address, disconnect, openConnectModal } = useHybridAccount()
 
-  const formattedAddrr = beautifyAddress(address)
-  if (isConnected) {
+  if (address) {
     return (
       <div className="flex items-center bg-white rounded-lg text-black">
-        <span className="px-4 font-bold">{formattedAddrr}</span>
+        <span className="px-4 font-bold">{beautifyAddress(address)}</span>
         <Button
           title="Disconnect wallet"
           onClick={disconnect}

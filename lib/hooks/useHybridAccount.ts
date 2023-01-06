@@ -1,30 +1,20 @@
 import { useEffect, useState } from "react"
 import { useConnectModal } from "@rainbow-me/rainbowkit"
 import { useAccount, useDisconnect } from "wagmi"
-import { beaconClient, BeaconEvent } from "@/lib/beacon"
+import { getNearWalletConnection } from "@/lib/near"
 import { noOp } from "@/lib/helpers"
-
-type SharedAccount = {
-  address: string
-  isConnected: boolean
-  disconnect(): void
-  openConnectModal(): void
-}
 
 const INIT_STATE = {
   address: "",
-  isConnected: false,
   disconnect: noOp,
 }
+
 function useHybridAccount() {
   const { openConnectModal = noOp } = useConnectModal()
   const [account, setAccount] = useState(INIT_STATE)
   const wagmiAccount = useAccount()
 
   const { disconnect: wagmiDisconnect } = useDisconnect()
-  const asyncSetAccount = (account: Partial<SharedAccount>) => {
-    setAccount((current) => ({ ...current, ...account }))
-  }
 
   const makeDisconnect = (disconnect: () => void) => {
     return function proxyDisconnect() {
@@ -36,33 +26,26 @@ function useHybridAccount() {
   }
 
   useEffect(() => {
-    // beaconClient.subscribeToEvent(BeaconEvent.ACTIVE_ACCOUNT_SET, revalidate)
-  }, [])
-
-  useEffect(() => {
     if (wagmiAccount.isConnected && wagmiAccount.address) {
-      asyncSetAccount({
-        ...wagmiAccount,
+      setAccount({
+        address: wagmiAccount.address,
         disconnect: makeDisconnect(wagmiDisconnect),
       })
     } else {
+      // handle metamask wallet change - reset state
       setAccount(INIT_STATE)
     }
   }, [wagmiAccount.address])
 
   useEffect(() => {
-    async function handleBeacon() {
-      const activeAccount = await beaconClient.getActiveAccount()
-      if (activeAccount) {
-        asyncSetAccount({
-          ...activeAccount,
-          disconnect: makeDisconnect(
-            beaconClient.clearActiveAccount.bind(beaconClient)
-          ),
+    getNearWalletConnection().then((wallet) => {
+      if (wallet.isSignedIn()) {
+        setAccount({
+          address: wallet.getAccountId(),
+          disconnect: makeDisconnect(wallet.signOut),
         })
       }
-    }
-    // handleBeacon()
+    })
   }, [])
 
   return {
