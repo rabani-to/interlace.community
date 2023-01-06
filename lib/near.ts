@@ -3,12 +3,17 @@ import {
   Wallet,
   getWalletConnectConnector,
 } from "@rainbow-me/rainbowkit"
-import { setupWalletSelector } from "@near-wallet-selector/core"
-import { setupNeth } from "@near-wallet-selector/neth"
+import { connect, keyStores, WalletConnection } from "near-api-js"
 
 export interface WalletOptions {
   chains: Chain[]
 }
+
+export const LOGIN_WALLET_URL_SUFFIX = "/login/"
+const keyStore =
+  typeof window !== "undefined"
+    ? new keyStores.BrowserLocalStorageKeyStore()
+    : undefined
 
 export const nearWalletConnector = ({ chains }: WalletOptions): Wallet => ({
   id: "Near Wallet",
@@ -20,40 +25,57 @@ export const nearWalletConnector = ({ chains }: WalletOptions): Wallet => ({
   },
   createConnector: () => {
     const connector = getWalletConnectConnector({ chains })
+    const customConnector: Partial<typeof connector> = {
+      connect: async () => {
+        const wallet = await getNearWalletConnection()
+
+        if (!wallet.isSignedIn()) {
+          await wallet.requestSignIn({})
+        }
+        const account = wallet.getAccountId()
+        console.debug({ account, isNear: true })
+
+        return {
+          provider: {},
+          account,
+          chain: "",
+        } as any
+      },
+      getAccount: async () => {
+        const wallet = await getNearWalletConnection()
+        if (wallet.isSignedIn()) return wallet.getAccountId() as any
+        return ""
+      },
+      disconnect: async () => {
+        const wallet = await getNearWalletConnection()
+        wallet.signOut()
+      },
+    }
+
+    Object.assign(connector, customConnector)
+
     return {
       connector,
-      mobile: {
-        getUri: async () => {
-          const { uri } = (await connector.getProvider()).connector
-          return uri
-        },
-      },
-      qrCode: {
-        getUri: async () => (await connector.getProvider()).connector.uri,
-        instructions: {
-          learnMoreUrl: "https://wallet.near.org",
-          steps: [
-            {
-              description:
-                "Securely store and stake your NEAR tokens and compatible assets with NEAR Wallet.",
-              step: "install",
-              title: "Get Near Wallet",
-            },
-            {
-              description:
-                "After you scan, a connection prompt will appear for you to connect your wallet.",
-              step: "scan",
-              title: "Scan the QR Code",
-            },
-          ],
-        },
-      },
     }
   },
 })
 
-export const getNearWalletSelector = async () =>
-  await setupWalletSelector({
-    network: "testnet",
-    modules: [setupNeth()],
-  })
+export const generateNearWalletConnectURI = async () => {
+  const { href } = new URL(window.location.href)
+  const connection = await getNearWalletConnection()
+  const newUrl = new URL(connection._walletBaseUrl + LOGIN_WALLET_URL_SUFFIX)
+  newUrl.searchParams.set("success_url", href)
+  newUrl.searchParams.set("failure_url", href)
+  return newUrl.toString()
+}
+
+export const getNearWalletConnection = async () =>
+  new WalletConnection(
+    await connect({
+      networkId: "mainnet",
+      keyStore,
+      nodeUrl: "https://rpc.mainnet.near.org",
+      walletUrl: "https://wallet.mainnet.near.org",
+    }),
+    "InterLace"
+  )
