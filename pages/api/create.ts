@@ -9,6 +9,7 @@ const OMIT = [
   PROFILE_DETAILS.refCode,
   PROFILE_DETAILS.telegram,
   PROFILE_DETAILS.twitter,
+  PROFILE.headline,
 ]
 const ALL_PROFILE_KEYS = Object.keys(PROFILE).filter(
   (key) => !OMIT.includes(key)
