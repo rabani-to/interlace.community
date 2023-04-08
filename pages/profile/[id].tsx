@@ -1,3 +1,5 @@
+import type { GetServerSideProps } from "next"
+import type { ProfileWithShort } from "@/types/shared"
 import { useRouter } from "next/router"
 import SectionExpertise from "@/components/user/SectionExpertise"
 import SectionHowCanIContribute from "@/components/user/SectionHowCanIContribute"
@@ -9,11 +11,19 @@ import SeoTags from "@/components/SeoTags"
 import TopNavigation from "@/components/TopNavigation"
 import { LayoutItem } from "@/components/layouts/GradientSection"
 import Footer from "@/components/Footer"
+import { getProfileByShortOrAddress } from "@/lib/redis"
 
-export default function ProfilePage() {
+export default function ProfilePage({
+  data = {} as any,
+}: {
+  data?: ProfileWithShort
+}) {
   const router = useRouter()
   const shortIdOrAddress = router.query.id as string
   const profileData = useRemoteProfileData(shortIdOrAddress)
+  const mergedData = { ...data, ...profileData }
+
+  console.debug({ cachedData: data })
   return (
     <main data-type="texturized" className="bg-darker">
       <SeoTags title="InterLace | Dashboard" />
@@ -22,20 +32,20 @@ export default function ProfilePage() {
           <TopNavigation isHeadless />
         </LayoutItem>
       </section>
-      {profileData.isLoading ? (
+      {mergedData.isLoading ? (
         <LoadingState />
-      ) : profileData.isOk ? (
+      ) : mergedData.isOk ? (
         <LayoutItem>
           <section className="flex items-start mt-8 lg:mt-20 flex-col lg:flex-row text-black gap-12">
             <div className="flex-grow" />
-            <ProfileCard profile={profileData.data} isPublicView />
+            <ProfileCard profile={mergedData.data} isPublicView />
             <div className="flex lg:mt-8 flex-col gap-12 flex-grow text-white">
               <SectionHowCanIContribute
-                profile={profileData.data}
+                profile={mergedData.data}
                 isPublicView
               />
-              <SectionExpertise profile={profileData.data} isPublicView />
-              <SectionAboutMe profile={profileData.data} isPublicView />
+              <SectionExpertise profile={mergedData.data} isPublicView />
+              <SectionAboutMe profile={mergedData.data} isPublicView />
             </div>
           </section>
         </LayoutItem>
@@ -88,4 +98,17 @@ function ErrorState() {
       <span className="opacity-30">We couldn{"'"}t find that user...</span>
     </StateContainer>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { id } = context.query as { id: string }
+  const data = await getProfileByShortOrAddress(id)
+
+  context.res.setHeader("Cache-Control", "max-age=5, stale-while-revalidate=15")
+
+  return {
+    props: {
+      data,
+    },
+  }
 }

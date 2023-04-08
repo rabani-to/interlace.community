@@ -73,3 +73,9 @@ export async function getProfileByAddress(address: string) {
   }
   return createResponse(null, false)
 }
+
+export async function getProfileByShortOrAddress(userShortOrAddr: string) {
+  const callback =
+    userShortOrAddr.length > 9 ? getProfileByAddress : getProfileByShort
+  return await callback(userShortOrAddr)
+}
