@@ -21,7 +21,7 @@ export default function ProfilePage({
   const router = useRouter()
   const shortIdOrAddress = router.query.id as string
   const profileData = useRemoteProfileData(shortIdOrAddress)
-  const mergedData = { ...data, ...profileData }
+  const mergedData = { ...profileData, ...data }
 
   console.debug({ cachedData: data })
   return (
