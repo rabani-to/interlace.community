@@ -21,9 +21,13 @@ export default function ProfilePage({
   const router = useRouter()
   const shortIdOrAddress = router.query.id as string
   const profileData = useRemoteProfileData(shortIdOrAddress)
-  const mergedData = { ...profileData, ...data }
+  const mergedData = {
+    ...profileData,
+    ...data,
+    isLoading: data ? false : profileData.isLoading,
+    // `isLoading = false` when data cached
+  }
 
-  console.debug({ cachedData: data })
   return (
     <main data-type="texturized" className="bg-darker">
       <SeoTags title="InterLace | Dashboard" />
