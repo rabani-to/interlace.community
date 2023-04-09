@@ -11,22 +11,18 @@ import SeoTags from "@/components/SeoTags"
 import TopNavigation from "@/components/TopNavigation"
 import { LayoutItem } from "@/components/layouts/GradientSection"
 import Footer from "@/components/Footer"
-import { getProfileByShortOrAddress } from "@/lib/redis"
+import { getProfileByShortOrAddress, RedisResponse } from "@/lib/redis"
 
 export default function ProfilePage({
-  data = {} as any,
+  profile = {} as any,
 }: {
-  data?: ProfileWithShort
+  profile?: RedisResponse<ProfileWithShort>
 }) {
   const router = useRouter()
   const shortIdOrAddress = router.query.id as string
-  const profileData = useRemoteProfileData(shortIdOrAddress)
-  const mergedData = {
-    ...profileData,
-    ...data,
-    isLoading: data ? false : profileData.isLoading,
-    // `isLoading = false` when data cached
-  }
+  const remoteProfileData = useRemoteProfileData(shortIdOrAddress)
+  const profileData = { ...remoteProfileData, ...profile }
+  const isDataFetched = profile || remoteProfileData.isOk
 
   return (
     <main data-type="texturized" className="bg-darker">
@@ -36,23 +32,22 @@ export default function ProfilePage({
           <TopNavigation isHeadless />
         </LayoutItem>
       </section>
-      {mergedData.isLoading ? (
-        <LoadingState />
-      ) : mergedData.isOk ? (
+      {isDataFetched ? (
         <LayoutItem>
-          <section className="flex items-start mt-8 lg:mt-20 flex-col lg:flex-row text-black gap-12">
-            <div className="flex-grow" />
-            <ProfileCard profile={mergedData.data} isPublicView />
+          <section className="w-full flex max-w-[70rem] mx-auto items-start mt-8 lg:mt-20 flex-col lg:flex-row text-black gap-12">
+            <ProfileCard profile={profileData.data} isPublicView />
             <div className="flex lg:mt-8 flex-col gap-12 flex-grow text-white">
               <SectionHowCanIContribute
-                profile={mergedData.data}
+                profile={profileData.data}
                 isPublicView
               />
-              <SectionExpertise profile={mergedData.data} isPublicView />
-              <SectionAboutMe profile={mergedData.data} isPublicView />
+              <SectionExpertise profile={profileData.data} isPublicView />
+              <SectionAboutMe profile={profileData.data} isPublicView />
             </div>
           </section>
         </LayoutItem>
+      ) : profileData.isLoading ? (
+        <LoadingState />
       ) : (
         <ErrorState />
       )}
@@ -104,15 +99,21 @@ function ErrorState() {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { id } = context.query as { id: string }
-  const data = await getProfileByShortOrAddress(id)
+export const getServerSideProps: GetServerSideProps = async ({
+  query,
+  res,
+}) => {
+  const { id } = query as { id: string }
+  const profile = await getProfileByShortOrAddress(id)
 
-  context.res.setHeader("Cache-Control", "max-age=5, stale-while-revalidate=15")
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=10, stale-while-revalidate=59"
+  )
 
   return {
     props: {
-      data,
+      profile,
     },
   }
 }
