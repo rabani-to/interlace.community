@@ -13,6 +13,7 @@ export type DialogProps = PropsWithChildren<{
   noTexture?: boolean
   justify?: string
   items?: string
+  padding?: string
 }>
 
 function PrimitiveDialog({
@@ -22,6 +23,7 @@ function PrimitiveDialog({
   maxWidth = "max-w-lg",
   background = "bg-darker",
   items = "items-center",
+  padding,
   justify = "justify-center",
   noTexture,
   closeOnBackdropClick = true,
@@ -60,7 +62,8 @@ function PrimitiveDialog({
               className={classnames(
                 maxWidth,
                 background,
-                "w-screen transform rounded-2xl py-6 px-8 text-left shadow-xl transition-all max-h-screen"
+                padding || "py-6 px-8",
+                "w-screen transform rounded-2xl text-left shadow-xl transition-all max-h-screen"
               )}
             >
               {children}

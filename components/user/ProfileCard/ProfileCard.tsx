@@ -5,6 +5,7 @@ import Link from "next/link"
 
 import { FaLink, FaTachometerAlt } from "react-icons/fa"
 import { MdEdit, MdPayments } from "react-icons/md"
+import { GiMagicPalm } from "react-icons/gi"
 import { RiBillFill } from "react-icons/ri"
 
 import PROFILE from "@/lib/models/profile"
@@ -25,6 +26,7 @@ import SectionFormPanel, {
   type CoreFormPanelProps,
   type DataWithSignature,
 } from "@/components/user/SectionFormPanel"
+import ProfileNFTImage from "./ProfileNFTImage"
 
 type InitState = ProfileWithExtras
 const INIT_STATE: InitState = {} as any
@@ -53,15 +55,20 @@ function ProfileCard({ isPublicView, profile }: PublicProfileSection) {
       />
       <div className="w-full bg-white max-w-[28rem] lg:min-w-[28rem] rounded-xl p-4 pb-8 font-normal">
         <section className="relative bg-black rounded-xl overflow-hidden">
-          <Row
-            gap="gap-1"
-            className="absolute z-[1] ml-2 mt-2 md:mt-4 md:ml-4 bg-white/20 py-2 pr-6 pl-2 rounded-full backdrop-blur-lg"
-          >
-            <div className="bg-violet-200 w-10 h-10 rounded-full" />
-            <span className="text-white text-lg md:text-xl">
-              {state.role || "Unicorn 🦄"}
-            </span>
-          </Row>
+          <div className="absolute flex gap-4 justify-between z-[1] left-2 right-2 top-2 md:mt-2 md:mx-2">
+            <Row
+              gap="gap-2"
+              className="bg-white/20 py-2 pr-6 pl-2 rounded-full backdrop-blur-lg"
+            >
+              <figure className="flex items-center justify-center bg-white w-10 h-10 rounded-full">
+                <GiMagicPalm className="text-black text-2xl" />
+              </figure>
+              <span className="text-white text-lg md:text-xl">
+                {state.role || "Unicorn 🦄"}
+              </span>
+            </Row>
+            <ProfileNFTImage />
+          </div>
           <figure className="min-h-[18rem]">
             <Image
               fill
