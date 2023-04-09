@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import ff from "@/lib/services/ff"
 import { noOp } from "@/lib/helpers"
 
-function useRemoteProfileData(shortIdOrAddress: string) {
+function useRemoteProfileData(shortIdOrAddress?: string) {
   const [isLoading, setIsLoading] = useState(true)
   const [count, setCount] = useState(0)
   const [profile, setProfile] = useState<

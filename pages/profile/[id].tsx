@@ -20,7 +20,10 @@ export default function ProfilePage({
 }) {
   const router = useRouter()
   const shortIdOrAddress = router.query.id as string
-  const remoteProfileData = useRemoteProfileData(shortIdOrAddress)
+  const remoteProfileData = useRemoteProfileData(
+    profile ? undefined : shortIdOrAddress
+    // no client side fetch if data cache exists
+  )
   const profileData = { ...remoteProfileData, ...profile }
   const isDataFetched = profile || remoteProfileData.isOk
 
