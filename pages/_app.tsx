@@ -25,6 +25,7 @@ import toast, { Toaster } from "react-hot-toast"
 import { OnboardingProvider } from "@/lib/context/OnboardingContext"
 import { rainbowMagicConnector } from "@/lib/magic"
 import { nearWalletConnector } from "@/lib/near"
+import { tezosWalletConnector } from "@/lib/beacon"
 
 const { provider, chains } = configureChains([mainnet], [publicProvider()])
 
@@ -37,7 +38,7 @@ const connectors = connectorsForWallets([
   {
     groupName: "Recommended",
     wallets: [
-      nearWalletConnector({
+      tezosWalletConnector({
         chains,
       }),
     ],
@@ -50,7 +51,7 @@ const connectors = connectorsForWallets([
 ])
 
 const client = createClient({
-  autoConnect: true,
+  autoConnect: false,
   provider,
   connectors,
 })

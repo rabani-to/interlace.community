@@ -31,3 +31,7 @@ body {
 #MagicModalBody {
   @apply rounded-2xl;
 }
+
+[id*="beacon-alert-wrapper"] {
+  @apply fixed z-[9999999991];
+}
