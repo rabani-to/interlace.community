@@ -1,7 +1,10 @@
 import type { WalletOptions } from "./near"
 import { DAppClient } from "@airgap/beacon-sdk"
 import { getWalletConnectConnector, type Wallet } from "@rainbow-me/rainbowkit"
-export const beaconClient = new DAppClient({ name: "interlace.community" })
+export const beaconClient: DAppClient =
+  typeof window !== "undefined"
+    ? new DAppClient({ name: "interlace.community" })
+    : ({} as any)
 
 export async function connect() {
   const permissions = await beaconClient.requestPermissions()
